@@ -1,17 +1,23 @@
 import SwiftUI
+import RevenueCat
 
 struct PaywallView: View {
     let userName: String
     let onContinue: () -> Void
     let onRestore: () -> Void
 
-    @State private var selectedPlan = 1 // 0=weekly, 1=annual (highlighted), 2=monthly
+    @State private var selectedIndex = 1 // 0=weekly, 1=monthly (BEST VALUE), 2=yearly, 3=lifetime
+    @State private var packages: [Package] = []
+    @State private var isPurchasing = false
+    @State private var errorMessage: String?
     @Environment(\.dismiss) private var dismiss
 
-    private let plans: [(title: String, price: String, perWeek: String, badge: String?, savings: String?)] = [
-        ("Weekly", "$4.99/wk", "$4.99", nil, nil),
-        ("Annual", "$39.99/yr", "$0.77", "BEST VALUE", "Save 85%"),
-        ("Monthly", "$9.99/mo", "$2.50", nil, "Save 50%")
+    // Display order: Weekly, Monthly (BEST VALUE), Yearly, Lifetime
+    private let planMeta: [(key: String, badge: String?, savings: String?)] = [
+        ("$rc_weekly",   nil,          nil),
+        ("$rc_monthly",  "BEST VALUE", nil),
+        ("$rc_annual",   nil,          "Save 58%"),
+        ("$rc_lifetime", nil,          "Pay Once")
     ]
 
     var body: some View {
@@ -46,7 +52,6 @@ struct PaywallView: View {
                             .font(SLTheme.Typography.title)
                             .foregroundStyle(.white)
 
-                        // Before/After comparison
                         HStack(spacing: SLTheme.Spacing.md) {
                             EnergyComparisonCard(
                                 title: "Before",
@@ -93,30 +98,68 @@ struct PaywallView: View {
                             .stroke(SLTheme.Colors.accent.opacity(0.3), lineWidth: 1)
                     )
 
-                    // Plan selection
+                    // Plan selection — live from RevenueCat
                     VStack(spacing: SLTheme.Spacing.sm) {
-                        ForEach(0..<plans.count, id: \.self) { index in
-                            PlanRow(
-                                plan: plans[index],
-                                isSelected: selectedPlan == index,
-                                onTap: { selectedPlan = index }
-                            )
+                        if packages.isEmpty {
+                            // Fallback while loading
+                            ProgressView()
+                                .tint(SLTheme.Colors.primary)
+                                .frame(height: 60)
+                        } else {
+                            ForEach(Array(packages.enumerated()), id: \.element.id) { index, pkg in
+                                let meta = index < planMeta.count ? planMeta[index] : (key: "", badge: nil as String?, savings: nil as String?)
+                                LivePlanRow(
+                                    package: pkg,
+                                    badge: meta.badge,
+                                    savings: meta.savings,
+                                    isSelected: selectedIndex == index,
+                                    onTap: { selectedIndex = index }
+                                )
+                            }
                         }
+                    }
+
+                    // Error message
+                    if let errorMessage {
+                        Text(errorMessage)
+                            .font(SLTheme.Typography.caption)
+                            .foregroundStyle(SLTheme.Colors.warning)
                     }
 
                     // CTA
                     VStack(spacing: SLTheme.Spacing.sm) {
-                        SLPrimaryButton("Start Free Trial") {
-                            // RevenueCat purchase will go here
-                            onContinue()
+                        Button {
+                            Task { await purchaseSelected() }
+                        } label: {
+                            HStack(spacing: SLTheme.Spacing.sm) {
+                                if isPurchasing {
+                                    ProgressView()
+                                        .tint(.white)
+                                } else {
+                                    Image(systemName: "sparkles")
+                                        .font(.system(size: 18, weight: .semibold))
+                                }
+                                Text(isPurchasing ? "Processing..." : "Start Free Trial")
+                                    .font(SLTheme.Typography.headline)
+                            }
+                            .foregroundStyle(.white)
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 56)
+                            .background(SLTheme.Colors.gradientPrimary)
+                            .clipShape(RoundedRectangle(cornerRadius: SLTheme.Radius.lg))
+                            .shadow(color: SLTheme.Colors.primary.opacity(0.4), radius: 12, y: 4)
                         }
+                        .disabled(isPurchasing || packages.isEmpty)
+                        .opacity(isPurchasing ? 0.7 : 1)
 
                         Text("Cancel anytime. No charge for 3 days.")
                             .font(SLTheme.Typography.caption)
                             .foregroundStyle(SLTheme.Colors.textTertiary)
 
                         HStack(spacing: SLTheme.Spacing.xl) {
-                            Button("Restore Purchases") { onRestore() }
+                            Button("Restore Purchases") {
+                                Task { await restorePurchases() }
+                            }
                             Button("Terms") {}
                             Button("Privacy") {}
                         }
@@ -127,6 +170,130 @@ struct PaywallView: View {
                 }
                 .padding(.horizontal, SLTheme.Spacing.xl)
             }
+        }
+        .task {
+            await loadOfferings()
+        }
+    }
+
+    // MARK: - Load Offerings
+    private func loadOfferings() async {
+        await PurchaseService.shared.fetchOfferings()
+        guard let offering = PurchaseService.shared.offerings?.current else { return }
+
+        // Order: weekly, monthly, annual, lifetime
+        let orderedKeys = ["$rc_weekly", "$rc_monthly", "$rc_annual", "$rc_lifetime"]
+        var ordered: [Package] = []
+        for key in orderedKeys {
+            if let pkg = offering.package(identifier: key) {
+                ordered.append(pkg)
+            }
+        }
+        packages = ordered
+    }
+
+    // MARK: - Purchase
+    private func purchaseSelected() async {
+        guard selectedIndex < packages.count else { return }
+        isPurchasing = true
+        errorMessage = nil
+
+        let success = await PurchaseService.shared.purchase(package: packages[selectedIndex])
+
+        isPurchasing = false
+        if success {
+            onContinue()
+        }
+    }
+
+    // MARK: - Restore
+    private func restorePurchases() async {
+        isPurchasing = true
+        errorMessage = nil
+
+        let restored = await PurchaseService.shared.restore()
+
+        isPurchasing = false
+        if restored {
+            onContinue()
+        } else {
+            errorMessage = "No active subscription found."
+        }
+    }
+}
+
+// MARK: - Live Plan Row (RevenueCat Package)
+private struct LivePlanRow: View {
+    let package: Package
+    let badge: String?
+    let savings: String?
+    let isSelected: Bool
+    let onTap: () -> Void
+
+    var body: some View {
+        Button(action: onTap) {
+            HStack {
+                VStack(alignment: .leading, spacing: SLTheme.Spacing.xxxs) {
+                    HStack(spacing: SLTheme.Spacing.xs) {
+                        Text(package.storeProduct.localizedTitle)
+                            .font(SLTheme.Typography.headline)
+                            .foregroundStyle(.white)
+
+                        if let badge {
+                            Text(badge)
+                                .font(.system(size: 9, weight: .bold))
+                                .foregroundStyle(.white)
+                                .padding(.horizontal, 6)
+                                .padding(.vertical, 2)
+                                .background(SLTheme.Colors.accent)
+                                .clipShape(Capsule())
+                        }
+                    }
+
+                    Text(package.localizedPriceString + periodLabel)
+                        .font(SLTheme.Typography.subheadline)
+                        .foregroundStyle(SLTheme.Colors.textSecondary)
+                }
+
+                Spacer()
+
+                VStack(alignment: .trailing, spacing: SLTheme.Spacing.xxxs) {
+                    if let savings {
+                        Text(savings)
+                            .font(SLTheme.Typography.caption)
+                            .foregroundStyle(SLTheme.Colors.energyGreen)
+                    }
+
+                    if let intro = package.storeProduct.introductoryDiscount,
+                       intro.price == 0 {
+                        Text("\(intro.subscriptionPeriod.value)-day free trial")
+                            .font(.system(size: 10))
+                            .foregroundStyle(SLTheme.Colors.accent)
+                    }
+                }
+
+                Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
+                    .font(.system(size: 24))
+                    .foregroundStyle(isSelected ? SLTheme.Colors.primary : SLTheme.Colors.textTertiary)
+                    .padding(.leading, SLTheme.Spacing.xs)
+            }
+            .padding(SLTheme.Spacing.md)
+            .background(isSelected ? SLTheme.Colors.primary.opacity(0.12) : SLTheme.Colors.backgroundTertiary)
+            .clipShape(RoundedRectangle(cornerRadius: SLTheme.Radius.lg))
+            .overlay(
+                RoundedRectangle(cornerRadius: SLTheme.Radius.lg)
+                    .stroke(isSelected ? SLTheme.Colors.primary : Color.clear, lineWidth: 1.5)
+            )
+        }
+    }
+
+    private var periodLabel: String {
+        switch package.packageType {
+        case .weekly:   return "/wk"
+        case .monthly:  return "/mo"
+        case .annual:   return "/yr"
+        case .lifetime: return ""
+        default:        return ""
         }
     }
 }
@@ -185,67 +352,6 @@ private struct FeatureRow: View {
                 .foregroundStyle(.white)
 
             Spacer()
-        }
-    }
-}
-
-// MARK: - Plan Row
-private struct PlanRow: View {
-    let plan: (title: String, price: String, perWeek: String, badge: String?, savings: String?)
-    let isSelected: Bool
-    let onTap: () -> Void
-
-    var body: some View {
-        Button(action: onTap) {
-            HStack {
-                VStack(alignment: .leading, spacing: SLTheme.Spacing.xxxs) {
-                    HStack(spacing: SLTheme.Spacing.xs) {
-                        Text(plan.title)
-                            .font(SLTheme.Typography.headline)
-                            .foregroundStyle(.white)
-
-                        if let badge = plan.badge {
-                            Text(badge)
-                                .font(.system(size: 9, weight: .bold))
-                                .foregroundStyle(.white)
-                                .padding(.horizontal, 6)
-                                .padding(.vertical, 2)
-                                .background(SLTheme.Colors.accent)
-                                .clipShape(Capsule())
-                        }
-                    }
-
-                    Text(plan.price)
-                        .font(SLTheme.Typography.subheadline)
-                        .foregroundStyle(SLTheme.Colors.textSecondary)
-                }
-
-                Spacer()
-
-                VStack(alignment: .trailing, spacing: SLTheme.Spacing.xxxs) {
-                    Text("\(plan.perWeek)/wk")
-                        .font(SLTheme.Typography.callout)
-                        .foregroundStyle(.white)
-
-                    if let savings = plan.savings {
-                        Text(savings)
-                            .font(SLTheme.Typography.caption)
-                            .foregroundStyle(SLTheme.Colors.energyGreen)
-                    }
-                }
-
-                Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
-                    .font(.system(size: 24))
-                    .foregroundStyle(isSelected ? SLTheme.Colors.primary : SLTheme.Colors.textTertiary)
-                    .padding(.leading, SLTheme.Spacing.xs)
-            }
-            .padding(SLTheme.Spacing.md)
-            .background(isSelected ? SLTheme.Colors.primary.opacity(0.12) : SLTheme.Colors.backgroundTertiary)
-            .clipShape(RoundedRectangle(cornerRadius: SLTheme.Radius.lg))
-            .overlay(
-                RoundedRectangle(cornerRadius: SLTheme.Radius.lg)
-                    .stroke(isSelected ? SLTheme.Colors.primary : Color.clear, lineWidth: 1.5)
-            )
         }
     }
 }

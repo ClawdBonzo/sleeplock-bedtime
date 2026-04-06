@@ -1,9 +1,14 @@
 import SwiftUI
 import SwiftData
+import RevenueCat
 
 @main
 struct SleepLockApp: App {
     @State private var showSplash = true
+
+    init() {
+        PurchaseService.shared.configure()
+    }
 
     var body: some Scene {
         WindowGroup {
