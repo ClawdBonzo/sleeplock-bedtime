@@ -8,35 +8,35 @@ struct MainTabView: View {
         TabView(selection: $selectedTab) {
             DashboardView(streakService: streakService)
                 .tabItem {
-                    Image(systemName: "moon.stars.fill")
+                    Image("Tab-Dashboard").renderingMode(.template)
                     Text("Home")
                 }
                 .tag(0)
 
             StreakCalendarView()
                 .tabItem {
-                    Image(systemName: "calendar")
-                    Text("Calendar")
+                    Image("Tab-Streaks").renderingMode(.template)
+                    Text("Streaks")
                 }
                 .tag(1)
 
             ProgressChartsView()
                 .tabItem {
-                    Image(systemName: "chart.line.uptrend.xyaxis")
+                    Image("Tab-Logger").renderingMode(.template)
                     Text("Progress")
                 }
                 .tag(2)
 
             RoutineBuilderView()
                 .tabItem {
-                    Image(systemName: "list.bullet.clipboard.fill")
+                    Image("Tab-Routines").renderingMode(.template)
                     Text("Routine")
                 }
                 .tag(3)
 
             SettingsView()
                 .tabItem {
-                    Image(systemName: "gearshape.fill")
+                    Image("Tab-Settings").renderingMode(.template)
                     Text("Settings")
                 }
                 .tag(4)

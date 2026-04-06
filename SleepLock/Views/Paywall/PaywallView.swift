@@ -32,6 +32,14 @@ struct PaywallView: View {
                     }
                     .padding(.top, SLTheme.Spacing.sm)
 
+                    // Paywall hero illustration
+                    Image("Onboarding-5")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(maxHeight: 180)
+                        .clipShape(RoundedRectangle(cornerRadius: SLTheme.Radius.xl))
+                        .shadow(color: SLTheme.Colors.primary.opacity(0.3), radius: 16, y: 6)
+
                     // Before/After Energy Teaser
                     VStack(spacing: SLTheme.Spacing.md) {
                         Text("Unlock Your Best Energy")

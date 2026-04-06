@@ -25,9 +25,12 @@ struct CraftingRoutineScreen: View {
                     // Crafting animation
                     VStack(spacing: SLTheme.Spacing.xxl) {
                         ZStack {
-                            Circle()
-                                .fill(SLTheme.Colors.primary.opacity(0.1))
-                                .frame(width: 160, height: 160)
+                            Image("Onboarding-4")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(maxHeight: 160)
+                                .clipShape(RoundedRectangle(cornerRadius: SLTheme.Radius.lg))
+                                .opacity(0.6)
 
                             SLProgressRing(
                                 progress: progress,

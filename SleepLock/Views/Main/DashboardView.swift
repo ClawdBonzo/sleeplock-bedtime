@@ -62,9 +62,12 @@ struct DashboardView: View {
                     .foregroundStyle(SLTheme.Colors.primaryLight)
             }
             Spacer()
-            Image(systemName: greetingIcon)
-                .font(.system(size: 32))
-                .foregroundStyle(SLTheme.Colors.moonGlow)
+            Image("BrandIcon")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 44, height: 44)
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .shadow(color: SLTheme.Colors.primary.opacity(0.3), radius: 8)
         }
         .padding(.top, SLTheme.Spacing.md)
     }

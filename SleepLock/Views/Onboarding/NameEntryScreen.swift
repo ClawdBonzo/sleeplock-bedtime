@@ -11,9 +11,11 @@ struct NameEntryScreen: View {
                 Spacer()
 
                 VStack(spacing: SLTheme.Spacing.md) {
-                    Image(systemName: "person.crop.circle.badge.moon.fill")
-                        .font(.system(size: 64))
-                        .foregroundStyle(SLTheme.Colors.primaryLight)
+                    Image("BrandIcon")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 80, height: 80)
+                        .clipShape(RoundedRectangle(cornerRadius: 20))
                         .shadow(color: SLTheme.Colors.primary.opacity(0.4), radius: 16)
 
                     Text("What should we call\nyour energized self?")

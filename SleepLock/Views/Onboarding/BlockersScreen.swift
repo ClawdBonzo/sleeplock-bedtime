@@ -10,9 +10,11 @@ struct BlockersScreen: View {
                 Spacer().frame(height: SLTheme.Spacing.xxl)
 
                 VStack(spacing: SLTheme.Spacing.md) {
-                    Image(systemName: "exclamationmark.triangle.fill")
-                        .font(.system(size: 48))
-                        .foregroundStyle(SLTheme.Colors.accent)
+                    Image("Onboarding-2")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(maxHeight: 140)
+                        .clipShape(RoundedRectangle(cornerRadius: SLTheme.Radius.lg))
 
                     Text("What keeps you\nup at night?")
                         .font(SLTheme.Typography.title)

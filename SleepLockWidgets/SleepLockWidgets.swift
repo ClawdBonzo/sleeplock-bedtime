@@ -1,6 +1,5 @@
 import WidgetKit
 import SwiftUI
-import SwiftData
 
 // MARK: - Widget Timeline Entry
 struct SleepLockEntry: TimelineEntry {
@@ -47,42 +46,47 @@ struct SleepLockSmallView: View {
     let entry: SleepLockEntry
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            HStack {
-                Image(systemName: "flame.fill")
-                    .foregroundStyle(.orange)
-                    .font(.system(size: 14))
+        ZStack {
+            Image("Widget-Small")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+
+            // Overlay content
+            VStack(alignment: .leading, spacing: 6) {
+                HStack {
+                    Image("BrandIcon")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 20, height: 20)
+                        .clipShape(RoundedRectangle(cornerRadius: 5))
+                    Spacer()
+                    Image(systemName: "flame.fill")
+                        .foregroundStyle(.orange)
+                        .font(.system(size: 12))
+                }
+
+                Spacer()
+
                 Text("\(entry.streakCount)")
-                    .font(.system(size: 28, weight: .bold, design: .rounded))
+                    .font(.system(size: 32, weight: .bold, design: .rounded))
                     .foregroundStyle(.white)
-                Text("nights")
-                    .font(.system(size: 12, design: .rounded))
-                    .foregroundStyle(.white.opacity(0.6))
-            }
+                Text("night streak")
+                    .font(.system(size: 11, design: .rounded))
+                    .foregroundStyle(.white.opacity(0.7))
 
-            Spacer()
-
-            HStack {
-                Image(systemName: "moon.fill")
-                    .foregroundStyle(Color(hex: "A29BFE"))
-                    .font(.system(size: 12))
-                Text(entry.bedtime)
-                    .font(.system(size: 13, weight: .medium, design: .rounded))
-                    .foregroundStyle(.white.opacity(0.8))
+                HStack(spacing: 4) {
+                    Image(systemName: "moon.fill")
+                        .foregroundStyle(Color(hex: "A29BFE"))
+                        .font(.system(size: 10))
+                    Text(entry.bedtime)
+                        .font(.system(size: 11, weight: .medium, design: .rounded))
+                        .foregroundStyle(.white.opacity(0.8))
+                }
             }
-
-            HStack {
-                Image(systemName: "bolt.fill")
-                    .foregroundStyle(Color(hex: "00E676"))
-                    .font(.system(size: 12))
-                Text("\(entry.energyScore)/100")
-                    .font(.system(size: 13, weight: .medium, design: .rounded))
-                    .foregroundStyle(.white.opacity(0.8))
-            }
+            .padding(14)
         }
-        .padding()
         .containerBackground(for: .widget) {
-            Color(hex: "0A0A1A")
+            Color(hex: "0A1428")
         }
     }
 }
@@ -92,56 +96,64 @@ struct SleepLockMediumView: View {
     let entry: SleepLockEntry
 
     var body: some View {
-        HStack(spacing: 16) {
-            // Left: Streak
-            VStack(spacing: 4) {
-                Image(systemName: "flame.fill")
-                    .foregroundStyle(.orange)
-                    .font(.system(size: 24))
+        ZStack {
+            Image("Widget-Medium")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
 
-                Text("\(entry.streakCount)")
-                    .font(.system(size: 36, weight: .bold, design: .rounded))
-                    .foregroundStyle(.white)
+            HStack(spacing: 16) {
+                // Left: Brand + Streak
+                VStack(spacing: 6) {
+                    Image("BrandIcon")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 32, height: 32)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
 
-                Text("night streak")
-                    .font(.system(size: 11, design: .rounded))
-                    .foregroundStyle(.white.opacity(0.6))
-            }
-            .frame(maxWidth: .infinity)
+                    Text("\(entry.streakCount)")
+                        .font(.system(size: 36, weight: .bold, design: .rounded))
+                        .foregroundStyle(.white)
 
-            // Divider
-            Rectangle()
-                .fill(.white.opacity(0.1))
-                .frame(width: 1)
-                .padding(.vertical, 8)
-
-            // Right: Tonight
-            VStack(alignment: .leading, spacing: 8) {
-                HStack {
-                    Image(systemName: "moon.fill")
-                        .foregroundStyle(Color(hex: "A29BFE"))
-                    Text("Tonight")
+                    Text("night streak")
+                        .font(.system(size: 11, design: .rounded))
                         .foregroundStyle(.white.opacity(0.6))
                 }
-                .font(.system(size: 12, design: .rounded))
+                .frame(maxWidth: .infinity)
 
-                Text(entry.bedtime)
-                    .font(.system(size: 22, weight: .semibold, design: .rounded))
-                    .foregroundStyle(.white)
+                // Divider
+                Rectangle()
+                    .fill(.white.opacity(0.15))
+                    .frame(width: 1)
+                    .padding(.vertical, 8)
 
-                HStack {
-                    Image(systemName: "bolt.fill")
-                        .foregroundStyle(Color(hex: "00E676"))
-                    Text("Energy: \(entry.energyScore)/100")
-                        .foregroundStyle(.white.opacity(0.7))
+                // Right: Tonight
+                VStack(alignment: .leading, spacing: 8) {
+                    HStack {
+                        Image(systemName: "moon.fill")
+                            .foregroundStyle(Color(hex: "A29BFE"))
+                        Text("Tonight")
+                            .foregroundStyle(.white.opacity(0.6))
+                    }
+                    .font(.system(size: 12, design: .rounded))
+
+                    Text(entry.bedtime)
+                        .font(.system(size: 22, weight: .semibold, design: .rounded))
+                        .foregroundStyle(.white)
+
+                    HStack {
+                        Image(systemName: "bolt.fill")
+                            .foregroundStyle(Color(hex: "00E676"))
+                        Text("Energy: \(entry.energyScore)/100")
+                            .foregroundStyle(.white.opacity(0.7))
+                    }
+                    .font(.system(size: 12, design: .rounded))
                 }
-                .font(.system(size: 12, design: .rounded))
+                .frame(maxWidth: .infinity, alignment: .leading)
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding()
         }
-        .padding()
         .containerBackground(for: .widget) {
-            Color(hex: "0A0A1A")
+            Color(hex: "0A1428")
         }
     }
 }
@@ -175,7 +187,7 @@ struct SleepLockWidgetBundle: WidgetBundle {
     }
 }
 
-// Color extension for widget
+// Color extension for widget (standalone since widget is separate target)
 extension Color {
     init(hex: String) {
         let hex = hex.trimmingCharacters(in: .alphanumerics.inverted)

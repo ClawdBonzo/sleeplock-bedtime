@@ -10,9 +10,11 @@ struct SleepHabitsScreen: View {
                 Spacer().frame(height: SLTheme.Spacing.xxl)
 
                 VStack(spacing: SLTheme.Spacing.md) {
-                    Image(systemName: "chart.bar.fill")
-                        .font(.system(size: 48))
-                        .foregroundStyle(SLTheme.Colors.secondary)
+                    Image("Onboarding-2")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(maxHeight: 180)
+                        .clipShape(RoundedRectangle(cornerRadius: SLTheme.Radius.lg))
 
                     Text("How are your current\nsleep habits?")
                         .font(SLTheme.Typography.title)

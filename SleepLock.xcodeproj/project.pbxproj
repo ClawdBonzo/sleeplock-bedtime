@@ -34,6 +34,7 @@
 		A10000000000000000000019 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000019 /* Assets.xcassets */; };
 		A10000000000000000000020 /* SleepLockWidgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000020 /* SleepLockWidgets.swift */; };
 		A10000000000000000000021 /* SleepLockWidgets.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = D10000000000000000000002 /* SleepLockWidgets.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		A10000000000000000000022 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000022 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +88,7 @@
 		B10000000000000000000018 /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		B10000000000000000000019 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B10000000000000000000020 /* SleepLockWidgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepLockWidgets.swift; sourceTree = "<group>"; };
+		B10000000000000000000022 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D10000000000000000000001 /* SleepLock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SleepLock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D10000000000000000000002 /* SleepLockWidgets.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SleepLockWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -226,6 +228,7 @@
 			isa = PBXGroup;
 			children = (
 				B10000000000000000000020 /* SleepLockWidgets.swift */,
+				B10000000000000000000022 /* Assets.xcassets */,
 			);
 			path = SleepLockWidgets;
 			sourceTree = "<group>";
@@ -329,6 +332,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A10000000000000000000022 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

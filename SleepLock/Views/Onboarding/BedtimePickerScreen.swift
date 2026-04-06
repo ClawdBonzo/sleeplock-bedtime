@@ -22,9 +22,11 @@ struct BedtimePickerScreen: View {
                 Spacer().frame(height: SLTheme.Spacing.lg)
 
                 VStack(spacing: SLTheme.Spacing.md) {
-                    Image(systemName: "bed.double.fill")
-                        .font(.system(size: 48))
-                        .foregroundStyle(SLTheme.Colors.sleepBlue)
+                    Image("Onboarding-3")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(maxHeight: 160)
+                        .clipShape(RoundedRectangle(cornerRadius: SLTheme.Radius.lg))
 
                     Text("Set Your Bedtime\nCommitment")
                         .font(SLTheme.Typography.title)

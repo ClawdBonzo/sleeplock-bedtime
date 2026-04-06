@@ -17,15 +17,12 @@ struct SettingsView: View {
                     if let profile {
                         SLCard {
                             HStack(spacing: SLTheme.Spacing.md) {
-                                ZStack {
-                                    Circle()
-                                        .fill(SLTheme.Colors.primary.opacity(0.2))
-                                        .frame(width: 56, height: 56)
-
-                                    Text(String(profile.displayName.prefix(1)).uppercased())
-                                        .font(SLTheme.Typography.title2)
-                                        .foregroundStyle(SLTheme.Colors.primary)
-                                }
+                                Image("BrandIcon")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 56, height: 56)
+                                    .clipShape(RoundedRectangle(cornerRadius: 14))
+                                    .shadow(color: SLTheme.Colors.primary.opacity(0.3), radius: 8)
 
                                 VStack(alignment: .leading, spacing: SLTheme.Spacing.xxs) {
                                     Text(profile.displayName)
@@ -170,11 +167,21 @@ struct SettingsView: View {
                         .clipShape(RoundedRectangle(cornerRadius: SLTheme.Radius.lg))
                     }
 
-                    Text("SleepLock v1.0.0\nAll data stored locally on your device")
-                        .font(SLTheme.Typography.caption)
-                        .foregroundStyle(SLTheme.Colors.textTertiary)
-                        .multilineTextAlignment(.center)
-                        .padding(.bottom, SLTheme.Spacing.huge)
+                    VStack(spacing: SLTheme.Spacing.sm) {
+                        Image("BrandIcon")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 40, height: 40)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                            .opacity(0.6)
+
+                        Text("SleepLock v1.0.0\nAll data stored locally on your device")
+                            .font(SLTheme.Typography.caption)
+                            .foregroundStyle(SLTheme.Colors.textTertiary)
+                            .multilineTextAlignment(.center)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(.bottom, SLTheme.Spacing.huge)
                 }
                 .padding(.horizontal, SLTheme.Spacing.md)
             }
