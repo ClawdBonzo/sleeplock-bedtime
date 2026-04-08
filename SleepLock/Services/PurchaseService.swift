@@ -13,8 +13,9 @@ final class PurchaseService: @unchecked Sendable {
 
     // MARK: - Configure
     func configure() {
+        // TODO: Replace with live key before App Store release
         Purchases.configure(
-            with: .init(withAPIKey: "test_DbrJVqbbJWhYMjxvsDLkjHDBaBG")
+            with: .init(withAPIKey: "test_AFpuFmRxwiYCSJV0rgzxFqKjZDa")
                 .with(usesStoreKit2IfAvailable: true)
         )
         Purchases.logLevel = .debug
@@ -39,7 +40,7 @@ final class PurchaseService: @unchecked Sendable {
             let result = try await Purchases.shared.purchase(package: package)
             if !result.userCancelled {
                 self.customerInfo = result.customerInfo
-                self.isPremium = result.customerInfo.entitlements["SleepLock Pro"]?.isActive ?? false
+                self.isPremium = result.customerInfo.entitlements["pro"]?.isActive ?? false
                 return true
             }
             return false
@@ -54,7 +55,7 @@ final class PurchaseService: @unchecked Sendable {
         do {
             let info = try await Purchases.shared.restorePurchases()
             self.customerInfo = info
-            self.isPremium = info.entitlements["SleepLock Pro"]?.isActive ?? false
+            self.isPremium = info.entitlements["pro"]?.isActive ?? false
             return isPremium
         } catch {
             print("[PurchaseService] Restore failed: \(error.localizedDescription)")
@@ -67,7 +68,7 @@ final class PurchaseService: @unchecked Sendable {
         do {
             let info = try await Purchases.shared.customerInfo()
             self.customerInfo = info
-            self.isPremium = info.entitlements["SleepLock Pro"]?.isActive ?? false
+            self.isPremium = info.entitlements["pro"]?.isActive ?? false
         } catch {
             print("[PurchaseService] Status refresh failed: \(error.localizedDescription)")
         }

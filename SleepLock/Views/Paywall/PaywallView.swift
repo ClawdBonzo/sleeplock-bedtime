@@ -17,7 +17,7 @@ struct PaywallView: View {
         ("$rc_weekly",   nil,          nil),
         ("$rc_monthly",  "BEST VALUE", nil),
         ("$rc_annual",   nil,          "Save 58%"),
-        ("$rc_lifetime", nil,          "Pay Once")
+        ("$rc_lifetime", nil,          "Best Deal")
     ]
 
     var body: some View {
