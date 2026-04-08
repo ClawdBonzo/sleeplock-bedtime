@@ -9,42 +9,96 @@ struct DashboardView: View {
     @Bindable var streakService: SleepStreakService
 
     @State private var showLogger = false
+    @State private var gamificationService: GamificationService?
 
     private var profile: UserProfile? { profiles.first }
     private var latestEntry: SleepLogEntry? { entries.first }
 
     var body: some View {
         NavigationStack {
-            ScrollView(showsIndicators: false) {
-                VStack(spacing: SLTheme.Spacing.lg) {
-                    // Greeting
-                    greetingSection
+            ZStack {
+                ScrollView(showsIndicators: false) {
+                    VStack(spacing: SLTheme.Spacing.lg) {
+                        // Greeting
+                        greetingSection
 
-                    // Streak Hero
-                    streakHeroCard
+                        // Gamification Level (if available)
+                        if let service = gamificationService, let profile = service.gamificationProfile {
+                            gamificationCard(profile: profile)
+                        }
 
-                    // Tonight's Bedtime
-                    bedtimeCard
+                        // Streak Hero
+                        streakHeroCard
 
-                    // Energy Score
-                    energyScoreCard
+                        // Tonight's Bedtime
+                        bedtimeCard
 
-                    // Quick Stats
-                    statsRow
+                        // Energy Score
+                        energyScoreCard
 
-                    // Quick Log CTA
-                    if !streakService.todayLogged {
-                        quickLogCard
+                        // Quick Stats
+                        statsRow
+
+                        // Quick Log CTA
+                        if !streakService.todayLogged {
+                            quickLogCard
+                        }
                     }
+                    .padding(.horizontal, SLTheme.Spacing.md)
+                    .padding(.bottom, SLTheme.Spacing.huge)
                 }
-                .padding(.horizontal, SLTheme.Spacing.md)
-                .padding(.bottom, SLTheme.Spacing.huge)
+                .background(SLTheme.Colors.backgroundPrimary)
+
+                // Level Up Overlay
+                if let service = gamificationService, service.showLevelUpAnimation {
+                    LevelUpAnimationView(level: service.lastLevelUpLevel ?? .nightOwl)
+                }
             }
-            .background(SLTheme.Colors.backgroundPrimary)
             .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $showLogger) {
                 DailyLoggerView()
                     .onDisappear { streakService.recalculate() }
+            }
+            .onAppear {
+                if gamificationService == nil {
+                    gamificationService = GamificationService(modelContext: modelContext)
+                }
+            }
+        }
+    }
+
+    // MARK: - Gamification Card
+    private func gamificationCard(profile: GamificationProfile) -> some View {
+        SLCard {
+            HStack(spacing: SLTheme.Spacing.md) {
+                VStack(spacing: SLTheme.Spacing.xs) {
+                    Text(profile.currentLevel.emoji)
+                        .font(.system(size: 36))
+
+                    Text(profile.currentLevel.displayName)
+                        .font(.system(size: 11, weight: .semibold))
+                        .foregroundStyle(.white)
+                }
+                .frame(width: 60)
+
+                Spacer()
+
+                VStack(alignment: .leading, spacing: SLTheme.Spacing.xs) {
+                    Text("Level \(profile.currentLevel.rawValue)")
+                        .font(SLTheme.Typography.caption)
+                        .foregroundStyle(SLTheme.Colors.textSecondary)
+
+                    ProgressView(value: profile.progressToNextLevel)
+                        .tint(SLTheme.Colors.primary)
+                        .frame(height: 6)
+
+                    HStack {
+                        Text("\(profile.xpInCurrentLevel)/\(profile.xpToNextLevel) XP")
+                            .font(.system(size: 11, weight: .semibold, design: .rounded))
+                            .foregroundStyle(SLTheme.Colors.textSecondary)
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
             }
         }
     }

@@ -11,6 +11,7 @@ struct DailyLoggerView: View {
     @State private var energyRating: Int = 3
     @State private var notes: String = ""
     @State private var showSuccess = false
+    @State private var gamificationService: GamificationService?
 
     private var profile: UserProfile? { profiles.first }
 
@@ -210,8 +211,33 @@ struct DailyLoggerView: View {
         modelContext.insert(entry)
         try? modelContext.save()
 
+        // Award XP for logging
+        gamificationService?.addXP(25, reason: "Logged sleep")
+
+        // Award bonus XP if hit target
+        if hitTarget {
+            gamificationService?.addXP(25, reason: "Hit bedtime target")
+        }
+
+        // Award XP for high energy
+        if energyRating >= 4 {
+            gamificationService?.addXP(15, reason: "High energy score")
+        }
+
         withAnimation(SLTheme.Animation.spring) {
             showSuccess = true
         }
+    }
+
+    private func setupGamification() {
+        if gamificationService == nil {
+            gamificationService = GamificationService(modelContext: modelContext)
+        }
+    }
+}
+
+extension DailyLoggerView {
+    func onAppear_Setup() {
+        setupGamification()
     }
 }

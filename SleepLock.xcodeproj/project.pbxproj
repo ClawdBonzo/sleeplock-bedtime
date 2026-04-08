@@ -35,6 +35,10 @@
 		A10000000000000000000020 /* SleepLockWidgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000020 /* SleepLockWidgets.swift */; };
 		A10000000000000000000021 /* SleepLockWidgets.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = D10000000000000000000002 /* SleepLockWidgets.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A10000000000000000000022 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000022 /* Assets.xcassets */; };
+		A10000000000000000000023 /* GamificationModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000023 /* GamificationModels.swift */; };
+		A10000000000000000000024 /* GamificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000024 /* GamificationService.swift */; };
+		A10000000000000000000025 /* HapticFeedbackEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000025 /* HapticFeedbackEngine.swift */; };
+		A10000000000000000000026 /* GamificationDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000026 /* GamificationDashboardView.swift */; };
 		AA0000000000000000000001 /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = AC0000000000000000000001 /* RevenueCat */; };
 /* End PBXBuildFile section */
 
@@ -90,6 +94,10 @@
 		B10000000000000000000019 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B10000000000000000000020 /* SleepLockWidgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepLockWidgets.swift; sourceTree = "<group>"; };
 		B10000000000000000000022 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B10000000000000000000023 /* GamificationModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamificationModels.swift; sourceTree = "<group>"; };
+		B10000000000000000000024 /* GamificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamificationService.swift; sourceTree = "<group>"; };
+		B10000000000000000000025 /* HapticFeedbackEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticFeedbackEngine.swift; sourceTree = "<group>"; };
+		B10000000000000000000026 /* GamificationDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamificationDashboardView.swift; sourceTree = "<group>"; };
 		D10000000000000000000001 /* SleepLock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SleepLock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D10000000000000000000002 /* SleepLockWidgets.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SleepLockWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -150,6 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				B10000000000000000000004 /* SleepModels.swift */,
+				B10000000000000000000023 /* GamificationModels.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -195,6 +204,7 @@
 				B10000000000000000000010 /* ProgressChartsView.swift */,
 				B10000000000000000000011 /* RoutineBuilderView.swift */,
 				B10000000000000000000012 /* SettingsView.swift */,
+				B10000000000000000000026 /* GamificationDashboardView.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -205,6 +215,8 @@
 				B10000000000000000000013 /* SleepStreakService.swift */,
 				B10000000000000000000014 /* NotificationService.swift */,
 				B10000000000000000000015 /* PurchaseService.swift */,
+				B10000000000000000000024 /* GamificationService.swift */,
+				B10000000000000000000025 /* HapticFeedbackEngine.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -355,6 +367,7 @@
 				A10000000000000000000002 /* RootView.swift in Sources */,
 				A10000000000000000000003 /* MainTabView.swift in Sources */,
 				A10000000000000000000004 /* SleepModels.swift in Sources */,
+				A10000000000000000000023 /* GamificationModels.swift in Sources */,
 				A10000000000000000000005 /* OnboardingContainerView.swift in Sources */,
 				A10000000000000000000006 /* SplashScreen.swift in Sources */,
 				A10000000000000000000007 /* NameEntryScreen.swift in Sources */,
@@ -369,9 +382,12 @@
 				A10000000000000000000010 /* ProgressChartsView.swift in Sources */,
 				A10000000000000000000011 /* RoutineBuilderView.swift in Sources */,
 				A10000000000000000000012 /* SettingsView.swift in Sources */,
+				A10000000000000000000026 /* GamificationDashboardView.swift in Sources */,
 				A10000000000000000000013 /* SleepStreakService.swift in Sources */,
+				A10000000000000000000024 /* GamificationService.swift in Sources */,
 				A10000000000000000000014 /* NotificationService.swift in Sources */,
 				A10000000000000000000015 /* PurchaseService.swift in Sources */,
+				A10000000000000000000025 /* HapticFeedbackEngine.swift in Sources */,
 				A10000000000000000000016 /* SLTheme.swift in Sources */,
 				A10000000000000000000017 /* SLComponents.swift in Sources */,
 				A10000000000000000000018 /* DateExtensions.swift in Sources */,

@@ -13,33 +13,40 @@ struct MainTabView: View {
                 }
                 .tag(0)
 
+            GamificationDashboardView()
+                .tabItem {
+                    Image(systemName: "star.fill")
+                    Text("Challenges")
+                }
+                .tag(1)
+
             StreakCalendarView()
                 .tabItem {
                     Image("Tab-Streaks").renderingMode(.template)
                     Text("Streaks")
                 }
-                .tag(1)
+                .tag(2)
 
             ProgressChartsView()
                 .tabItem {
                     Image("Tab-Logger").renderingMode(.template)
                     Text("Progress")
                 }
-                .tag(2)
+                .tag(3)
 
             RoutineBuilderView()
                 .tabItem {
                     Image("Tab-Routines").renderingMode(.template)
                     Text("Routine")
                 }
-                .tag(3)
+                .tag(4)
 
             SettingsView()
                 .tabItem {
                     Image("Tab-Settings").renderingMode(.template)
                     Text("Settings")
                 }
-                .tag(4)
+                .tag(5)
         }
         .tint(SLTheme.Colors.primary)
         .onAppear {
