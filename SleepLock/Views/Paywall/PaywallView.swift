@@ -6,18 +6,19 @@ struct PaywallView: View {
     let onContinue: () -> Void
     let onRestore: () -> Void
 
-    @State private var selectedIndex = 1 // 0=weekly, 1=monthly (BEST VALUE), 2=yearly, 3=lifetime
+    @State private var selectedIndex = 1 // 0=monthly (BEST VALUE), 1=yearly
     @State private var packages: [Package] = []
     @State private var isPurchasing = false
     @State private var errorMessage: String?
+    @State private var heroScale: CGFloat = 0.7
+    @State private var heroOpacity: Double = 0
+    @State private var contentOpacity: Double = 0
+    @State private var plansOffset: CGFloat = 30
     @Environment(\.dismiss) private var dismiss
 
-    // Display order: Weekly, Monthly (BEST VALUE), Yearly, Lifetime
     private let planMeta: [(key: String, badge: String?, savings: String?)] = [
-        ("$rc_weekly",   nil,          nil),
         ("$rc_monthly",  "BEST VALUE", nil),
         ("$rc_annual",   nil,          "Save 58%"),
-        ("$rc_lifetime", nil,          "Best Deal")
     ]
 
     var body: some View {
@@ -25,164 +26,195 @@ struct PaywallView: View {
             SLTheme.Colors.backgroundPrimary.ignoresSafeArea()
             StarsBackground().ignoresSafeArea()
 
-            ScrollView(showsIndicators: false) {
-                VStack(spacing: SLTheme.Spacing.xl) {
-                    // Close button
-                    HStack {
-                        Spacer()
-                        Button(action: onContinue) {
-                            Image(systemName: "xmark.circle.fill")
-                                .font(.system(size: 28))
-                                .foregroundStyle(SLTheme.Colors.textTertiary)
-                        }
+            VStack(spacing: 0) {
+                // Close
+                HStack {
+                    Spacer()
+                    Button(action: onContinue) {
+                        Image(systemName: "xmark.circle.fill")
+                            .font(.system(size: 28))
+                            .foregroundStyle(SLTheme.Colors.textTertiary)
                     }
-                    .padding(.top, SLTheme.Spacing.sm)
+                }
+                .padding(.horizontal, SLTheme.Spacing.xl)
+                .padding(.top, SLTheme.Spacing.sm)
 
-                    // Paywall hero illustration
-                    Image("Onboarding-5")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(maxHeight: 180)
-                        .clipShape(RoundedRectangle(cornerRadius: SLTheme.Radius.xl))
-                        .shadow(color: SLTheme.Colors.primary.opacity(0.3), radius: 16, y: 6)
+                // Hero
+                VStack(spacing: SLTheme.Spacing.xs) {
+                    ZStack {
+                        Circle()
+                            .fill(SLTheme.Colors.primary.opacity(0.15))
+                            .frame(width: 96, height: 96)
+                            .blur(radius: 12)
 
-                    // Before/After Energy Teaser
-                    VStack(spacing: SLTheme.Spacing.md) {
+                        Image("BrandIcon")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 72, height: 72)
+                            .clipShape(RoundedRectangle(cornerRadius: 18))
+                            .shadow(color: SLTheme.Colors.primary.opacity(0.5), radius: 16)
+                    }
+                    .scaleEffect(heroScale)
+                    .opacity(heroOpacity)
+
+                    VStack(spacing: 4) {
                         Text("Unlock Your Best Energy")
                             .font(SLTheme.Typography.title)
                             .foregroundStyle(.white)
 
-                        HStack(spacing: SLTheme.Spacing.md) {
-                            EnergyComparisonCard(
-                                title: "Before",
-                                emoji: "😴",
-                                items: ["Inconsistent bedtime", "Low energy mornings", "Brain fog all day"],
-                                color: SLTheme.Colors.warning
-                            )
-
-                            EnergyComparisonCard(
-                                title: "After",
-                                emoji: "⚡",
-                                items: ["Locked-in routine", "Energized mornings", "Peak mental clarity"],
-                                color: SLTheme.Colors.energyGreen
-                            )
-                        }
+                        Text("Build habits that last a lifetime")
+                            .font(SLTheme.Typography.subheadline)
+                            .foregroundStyle(SLTheme.Colors.textSecondary)
                     }
+                    .opacity(contentOpacity)
+                }
+                .padding(.top, SLTheme.Spacing.sm)
 
-                    // Features
-                    VStack(alignment: .leading, spacing: SLTheme.Spacing.sm) {
-                        FeatureRow(icon: "flame.fill", text: "Unlimited streak tracking", color: SLTheme.Colors.streakGold)
-                        FeatureRow(icon: "chart.line.uptrend.xyaxis", text: "Advanced sleep analytics", color: SLTheme.Colors.sleepBlue)
-                        FeatureRow(icon: "bell.badge.fill", text: "Smart bedtime enforcement", color: SLTheme.Colors.primary)
-                        FeatureRow(icon: "list.bullet.clipboard.fill", text: "Personalized routines", color: SLTheme.Colors.secondary)
-                        FeatureRow(icon: "widget.medium.badge.plus", text: "Home screen widgets", color: SLTheme.Colors.accent)
-                    }
-                    .padding(SLTheme.Spacing.md)
-                    .background(SLTheme.Colors.cardBackground)
-                    .clipShape(RoundedRectangle(cornerRadius: SLTheme.Radius.xl))
+                Spacer(minLength: 0)
 
-                    // Trial banner
-                    HStack {
-                        Image(systemName: "gift.fill")
-                            .foregroundStyle(SLTheme.Colors.accent)
-                        Text("Start with a 3-day FREE trial")
-                            .font(SLTheme.Typography.headline)
-                            .foregroundStyle(.white)
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, SLTheme.Spacing.md)
-                    .background(SLTheme.Colors.accent.opacity(0.15))
-                    .clipShape(RoundedRectangle(cornerRadius: SLTheme.Radius.lg))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: SLTheme.Radius.lg)
-                            .stroke(SLTheme.Colors.accent.opacity(0.3), lineWidth: 1)
-                    )
+                // Features (compact 3-row)
+                VStack(alignment: .leading, spacing: SLTheme.Spacing.xs) {
+                    CompactFeatureRow(icon: "flame.fill",              text: "Unlimited streak tracking",    color: SLTheme.Colors.streakGold)
+                    CompactFeatureRow(icon: "chart.line.uptrend.xyaxis", text: "Advanced sleep analytics",  color: SLTheme.Colors.sleepBlue)
+                    CompactFeatureRow(icon: "bell.badge.fill",         text: "Smart bedtime enforcement",   color: SLTheme.Colors.primary)
+                    CompactFeatureRow(icon: "star.fill",               text: "Full gamification + XP",      color: SLTheme.Colors.accent)
+                    CompactFeatureRow(icon: "widget.medium.badge.plus", text: "Home screen widgets",        color: SLTheme.Colors.secondary)
+                }
+                .padding(SLTheme.Spacing.md)
+                .background(SLTheme.Colors.cardBackground)
+                .clipShape(RoundedRectangle(cornerRadius: SLTheme.Radius.lg))
+                .padding(.horizontal, SLTheme.Spacing.xl)
+                .opacity(contentOpacity)
 
-                    // Plan selection — live from RevenueCat
-                    VStack(spacing: SLTheme.Spacing.sm) {
-                        if packages.isEmpty {
-                            // Fallback while loading
-                            ProgressView()
-                                .tint(SLTheme.Colors.primary)
+                Spacer(minLength: 0)
+
+                // Trial badge
+                HStack(spacing: SLTheme.Spacing.xs) {
+                    Image(systemName: "gift.fill")
+                        .foregroundStyle(SLTheme.Colors.accent)
+                        .font(.system(size: 15))
+                    Text("Start with a FREE 3-day trial")
+                        .font(SLTheme.Typography.headline)
+                        .foregroundStyle(.white)
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, SLTheme.Spacing.sm)
+                .background(SLTheme.Colors.accent.opacity(0.12))
+                .clipShape(RoundedRectangle(cornerRadius: SLTheme.Radius.md))
+                .overlay(RoundedRectangle(cornerRadius: SLTheme.Radius.md)
+                    .stroke(SLTheme.Colors.accent.opacity(0.25), lineWidth: 1))
+                .padding(.horizontal, SLTheme.Spacing.xl)
+                .opacity(contentOpacity)
+
+                Spacer(minLength: SLTheme.Spacing.sm)
+
+                // Plans
+                VStack(spacing: SLTheme.Spacing.sm) {
+                    if packages.isEmpty {
+                        // Skeleton while loading
+                        ForEach(0..<2) { _ in
+                            RoundedRectangle(cornerRadius: SLTheme.Radius.lg)
+                                .fill(SLTheme.Colors.backgroundTertiary)
                                 .frame(height: 60)
-                        } else {
-                            ForEach(Array(packages.enumerated()), id: \.element.id) { index, pkg in
-                                let meta = index < planMeta.count ? planMeta[index] : (key: "", badge: nil as String?, savings: nil as String?)
-                                LivePlanRow(
-                                    package: pkg,
-                                    badge: meta.badge,
-                                    savings: meta.savings,
-                                    isSelected: selectedIndex == index,
-                                    onTap: { selectedIndex = index }
-                                )
-                            }
+                                .shimmer()
                         }
-                    }
-
-                    // Error message
-                    if let errorMessage {
-                        Text(errorMessage)
-                            .font(SLTheme.Typography.caption)
-                            .foregroundStyle(SLTheme.Colors.warning)
-                    }
-
-                    // CTA
-                    VStack(spacing: SLTheme.Spacing.sm) {
-                        Button {
-                            Task { await purchaseSelected() }
-                        } label: {
-                            HStack(spacing: SLTheme.Spacing.sm) {
-                                if isPurchasing {
-                                    ProgressView()
-                                        .tint(.white)
-                                } else {
-                                    Image(systemName: "sparkles")
-                                        .font(.system(size: 18, weight: .semibold))
+                    } else {
+                        let displayPackages = packages.prefix(2)
+                        ForEach(Array(displayPackages.enumerated()), id: \.element.id) { index, pkg in
+                            let meta = index < planMeta.count ? planMeta[index] : (key: "", badge: nil as String?, savings: nil as String?)
+                            LivePlanRow(
+                                package: pkg,
+                                badge: meta.badge,
+                                savings: meta.savings,
+                                isSelected: selectedIndex == index,
+                                onTap: {
+                                    withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
+                                        selectedIndex = index
+                                    }
+                                    HapticFeedbackEngine.shared.triggerLightTap()
                                 }
-                                Text(isPurchasing ? "Processing..." : "Start Free Trial")
-                                    .font(SLTheme.Typography.headline)
-                            }
-                            .foregroundStyle(.white)
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 56)
-                            .background(SLTheme.Colors.gradientPrimary)
-                            .clipShape(RoundedRectangle(cornerRadius: SLTheme.Radius.lg))
-                            .shadow(color: SLTheme.Colors.primary.opacity(0.4), radius: 12, y: 4)
+                            )
                         }
-                        .disabled(isPurchasing || packages.isEmpty)
-                        .opacity(isPurchasing ? 0.7 : 1)
-
-                        Text("Cancel anytime. No charge for 3 days.")
-                            .font(SLTheme.Typography.caption)
-                            .foregroundStyle(SLTheme.Colors.textTertiary)
-
-                        HStack(spacing: SLTheme.Spacing.xl) {
-                            Button("Restore Purchases") {
-                                Task { await restorePurchases() }
-                            }
-                            Button("Terms") {}
-                            Button("Privacy") {}
-                        }
-                        .font(SLTheme.Typography.caption)
-                        .foregroundStyle(SLTheme.Colors.textTertiary)
                     }
-                    .padding(.bottom, SLTheme.Spacing.xxl)
                 }
                 .padding(.horizontal, SLTheme.Spacing.xl)
+                .offset(y: plansOffset)
+                .opacity(contentOpacity)
+
+                // Error
+                if let errorMessage {
+                    Text(errorMessage)
+                        .font(SLTheme.Typography.caption)
+                        .foregroundStyle(SLTheme.Colors.warning)
+                        .padding(.horizontal, SLTheme.Spacing.xl)
+                }
+
+                Spacer(minLength: SLTheme.Spacing.sm)
+
+                // CTA + legal (pinned to bottom)
+                VStack(spacing: SLTheme.Spacing.xs) {
+                    Button {
+                        Task { await purchaseSelected() }
+                    } label: {
+                        HStack(spacing: SLTheme.Spacing.sm) {
+                            if isPurchasing {
+                                ProgressView().tint(.white)
+                            } else {
+                                Image(systemName: "sparkles").font(.system(size: 18, weight: .semibold))
+                            }
+                            Text(isPurchasing ? "Processing..." : "Start Free Trial")
+                                .font(SLTheme.Typography.headline)
+                        }
+                        .foregroundStyle(.white)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 56)
+                        .background(isPurchasing ? AnyShapeStyle(SLTheme.Colors.backgroundTertiary) : AnyShapeStyle(SLTheme.Colors.gradientPrimary))
+                        .clipShape(RoundedRectangle(cornerRadius: SLTheme.Radius.lg))
+                        .shadow(color: SLTheme.Colors.primary.opacity(0.4), radius: 12, y: 4)
+                    }
+                    .disabled(isPurchasing || packages.isEmpty)
+
+                    Text("Cancel anytime. No charge for 3 days.")
+                        .font(SLTheme.Typography.caption)
+                        .foregroundStyle(SLTheme.Colors.textTertiary)
+
+                    HStack(spacing: SLTheme.Spacing.xl) {
+                        Button("Restore") { Task { await restorePurchases() } }
+                        Button("Terms") {}
+                        Button("Privacy") {}
+                    }
+                    .font(SLTheme.Typography.caption)
+                    .foregroundStyle(SLTheme.Colors.textTertiary)
+                }
+                .padding(.horizontal, SLTheme.Spacing.xl)
+                .padding(.bottom, SLTheme.Spacing.xl)
+                .opacity(contentOpacity)
             }
         }
-        .task {
-            await loadOfferings()
+        .task { await loadOfferings() }
+        .onAppear { runEntrance() }
+    }
+
+    // MARK: - Entrance Animation
+    private func runEntrance() {
+        withAnimation(.spring(response: 0.7, dampingFraction: 0.6).delay(0.1)) {
+            heroScale = 1.0
+            heroOpacity = 1
+        }
+        withAnimation(.easeOut(duration: 0.5).delay(0.35)) {
+            contentOpacity = 1
+        }
+        withAnimation(.spring(response: 0.6, dampingFraction: 0.75).delay(0.4)) {
+            plansOffset = 0
         }
     }
 
-    // MARK: - Load Offerings
+    // MARK: - Load
     private func loadOfferings() async {
         await PurchaseService.shared.fetchOfferings()
         guard let offering = PurchaseService.shared.offerings?.current else { return }
 
-        // Order: weekly, monthly, annual, lifetime
-        let orderedKeys = ["$rc_weekly", "$rc_monthly", "$rc_annual", "$rc_lifetime"]
+        let orderedKeys = ["$rc_monthly", "$rc_annual"]
         var ordered: [Package] = []
         for key in orderedKeys {
             if let pkg = offering.package(identifier: key) {
@@ -197,22 +229,16 @@ struct PaywallView: View {
         guard selectedIndex < packages.count else { return }
         isPurchasing = true
         errorMessage = nil
-
         let success = await PurchaseService.shared.purchase(package: packages[selectedIndex])
-
         isPurchasing = false
-        if success {
-            onContinue()
-        }
+        if success { onContinue() }
     }
 
     // MARK: - Restore
     private func restorePurchases() async {
         isPurchasing = true
         errorMessage = nil
-
         let restored = await PurchaseService.shared.restore()
-
         isPurchasing = false
         if restored {
             onContinue()
@@ -222,7 +248,33 @@ struct PaywallView: View {
     }
 }
 
-// MARK: - Live Plan Row (RevenueCat Package)
+// MARK: - Compact Feature Row
+private struct CompactFeatureRow: View {
+    let icon: String
+    let text: String
+    let color: Color
+
+    var body: some View {
+        HStack(spacing: SLTheme.Spacing.sm) {
+            Image(systemName: icon)
+                .font(.system(size: 15))
+                .foregroundStyle(color)
+                .frame(width: 22)
+
+            Text(text)
+                .font(.system(size: 14, weight: .regular, design: .rounded))
+                .foregroundStyle(.white)
+
+            Spacer()
+
+            Image(systemName: "checkmark")
+                .font(.system(size: 12, weight: .semibold))
+                .foregroundStyle(color.opacity(0.7))
+        }
+    }
+}
+
+// MARK: - Live Plan Row
 private struct LivePlanRow: View {
     let package: Package
     let badge: String?
@@ -233,7 +285,7 @@ private struct LivePlanRow: View {
     var body: some View {
         Button(action: onTap) {
             HStack {
-                VStack(alignment: .leading, spacing: SLTheme.Spacing.xxxs) {
+                VStack(alignment: .leading, spacing: 2) {
                     HStack(spacing: SLTheme.Spacing.xs) {
                         Text(package.storeProduct.localizedTitle)
                             .font(SLTheme.Typography.headline)
@@ -257,16 +309,15 @@ private struct LivePlanRow: View {
 
                 Spacer()
 
-                VStack(alignment: .trailing, spacing: SLTheme.Spacing.xxxs) {
+                VStack(alignment: .trailing, spacing: 2) {
                     if let savings {
                         Text(savings)
-                            .font(SLTheme.Typography.caption)
+                            .font(.system(size: 12, weight: .semibold))
                             .foregroundStyle(SLTheme.Colors.energyGreen)
                     }
 
-                    if let intro = package.storeProduct.introductoryDiscount,
-                       intro.price == 0 {
-                        Text("\(intro.subscriptionPeriod.value)-day free trial")
+                    if let intro = package.storeProduct.introductoryDiscount, intro.price == 0 {
+                        Text("\(intro.subscriptionPeriod.value)-day trial")
                             .font(.system(size: 10))
                             .foregroundStyle(SLTheme.Colors.accent)
                     }
@@ -298,60 +349,15 @@ private struct LivePlanRow: View {
     }
 }
 
-// MARK: - Energy Comparison Card
-private struct EnergyComparisonCard: View {
-    let title: String
-    let emoji: String
-    let items: [String]
-    let color: Color
-
-    var body: some View {
-        VStack(spacing: SLTheme.Spacing.sm) {
-            Text(emoji)
-                .font(.system(size: 36))
-
-            Text(title)
-                .font(SLTheme.Typography.headline)
-                .foregroundStyle(color)
-
-            VStack(alignment: .leading, spacing: SLTheme.Spacing.xxs) {
-                ForEach(items, id: \.self) { item in
-                    HStack(spacing: SLTheme.Spacing.xxs) {
-                        Image(systemName: title == "Before" ? "xmark" : "checkmark")
-                            .font(.system(size: 10, weight: .bold))
-                            .foregroundStyle(color)
-                        Text(item)
-                            .font(SLTheme.Typography.caption)
-                            .foregroundStyle(SLTheme.Colors.textSecondary)
-                    }
-                }
-            }
-        }
-        .frame(maxWidth: .infinity)
-        .padding(SLTheme.Spacing.md)
-        .background(color.opacity(0.08))
-        .clipShape(RoundedRectangle(cornerRadius: SLTheme.Radius.lg))
-    }
-}
-
-// MARK: - Feature Row
-private struct FeatureRow: View {
-    let icon: String
-    let text: String
-    let color: Color
-
-    var body: some View {
-        HStack(spacing: SLTheme.Spacing.md) {
-            Image(systemName: icon)
-                .font(.system(size: 18))
-                .foregroundStyle(color)
-                .frame(width: 28)
-
-            Text(text)
-                .font(SLTheme.Typography.body)
-                .foregroundStyle(.white)
-
-            Spacer()
-        }
+// MARK: - Shimmer modifier
+private extension View {
+    func shimmer() -> some View {
+        self.overlay(
+            LinearGradient(
+                colors: [.clear, .white.opacity(0.08), .clear],
+                startPoint: .leading,
+                endPoint: .trailing
+            )
+        )
     }
 }
