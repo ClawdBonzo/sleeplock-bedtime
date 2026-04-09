@@ -4,47 +4,55 @@ struct BlockersScreen: View {
     @Binding var selectedBlockers: [String]
     let onNext: () -> Void
 
-    @State private var headerOpacity: Double = 0
-    @State private var headerOffset: CGFloat = 24
-    @State private var gridOpacity: Double = 0
-    @State private var gridOffset: CGFloat = 20
-    @State private var buttonOpacity: Double = 0
+    @State private var appeared = false
 
     var body: some View {
-        SLOnboardingPage {
-            VStack(spacing: SLTheme.Spacing.xl) {
+        ZStack {
+            RadialGradient(
+                colors: [SLTheme.Colors.warning.opacity(0.12), Color.clear],
+                center: UnitPoint(x: 0.5, y: 0.2),
+                startRadius: 10,
+                endRadius: 240
+            )
+            .ignoresSafeArea()
+
+            VStack(spacing: 0) {
                 Spacer().frame(height: SLTheme.Spacing.lg)
 
-                // Icon-based header (no duplicate image asset)
-                VStack(spacing: SLTheme.Spacing.md) {
-                    ZStack {
-                        Circle()
-                            .fill(SLTheme.Colors.warning.opacity(0.12))
-                            .frame(width: 88, height: 88)
+                // Header
+                VStack(spacing: SLTheme.Spacing.sm) {
+                    Text("🌃")
+                        .font(.system(size: 64))
+                        .shadow(color: SLTheme.Colors.warning.opacity(0.3), radius: 12)
+                        .scaleEffect(appeared ? 1 : 0.4)
+                        .opacity(appeared ? 1 : 0)
+                        .animation(.spring(response: 0.7, dampingFraction: 0.55).delay(0.05), value: appeared)
 
-                        Text("🌃")
-                            .font(.system(size: 48))
-                    }
+                    Text("What keeps you\nup at night?")
+                        .font(.system(size: 28, weight: .bold, design: .rounded))
+                        .foregroundStyle(.white)
+                        .multilineTextAlignment(.center)
+                        .offset(y: appeared ? 0 : 24)
+                        .opacity(appeared ? 1 : 0)
+                        .animation(.spring(response: 0.55, dampingFraction: 0.8).delay(0.25), value: appeared)
 
-                    VStack(spacing: SLTheme.Spacing.xs) {
-                        Text("What keeps you\nup at night?")
-                            .font(SLTheme.Typography.title)
-                            .foregroundStyle(.white)
-                            .multilineTextAlignment(.center)
-
-                        Text("Select all that apply — we'll tailor your routine")
-                            .font(SLTheme.Typography.subheadline)
-                            .foregroundStyle(SLTheme.Colors.textSecondary)
-                            .multilineTextAlignment(.center)
-                    }
+                    Text("Select all that apply")
+                        .font(SLTheme.Typography.subheadline)
+                        .foregroundStyle(SLTheme.Colors.textSecondary)
+                        .offset(y: appeared ? 0 : 16)
+                        .opacity(appeared ? 1 : 0)
+                        .animation(.spring(response: 0.55, dampingFraction: 0.8).delay(0.35), value: appeared)
                 }
-                .offset(y: headerOffset)
-                .opacity(headerOpacity)
 
-                // Grid
-                LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: SLTheme.Spacing.sm) {
+                Spacer().frame(height: SLTheme.Spacing.lg)
+
+                // Blockers grid
+                LazyVGrid(
+                    columns: [GridItem(.flexible(), spacing: SLTheme.Spacing.sm), GridItem(.flexible(), spacing: SLTheme.Spacing.sm)],
+                    spacing: SLTheme.Spacing.sm
+                ) {
                     ForEach(Array(SleepBlocker.all.enumerated()), id: \.element.id) { index, blocker in
-                        BlockerTile(
+                        BlockerCell(
                             blocker: blocker,
                             isSelected: selectedBlockers.contains(blocker.id),
                             onTap: {
@@ -58,52 +66,62 @@ struct BlockersScreen: View {
                                 HapticFeedbackEngine.shared.triggerLightTap()
                             }
                         )
-                        .offset(y: gridOffset)
-                        .opacity(gridOpacity)
+                        .offset(y: appeared ? 0 : 28)
+                        .opacity(appeared ? 1 : 0)
                         .animation(
                             .spring(response: 0.5, dampingFraction: 0.75)
-                                .delay(0.45 + Double(index) * 0.055),
-                            value: gridOpacity
+                                .delay(0.4 + Double(index) * 0.06),
+                            value: appeared
                         )
                     }
                 }
-                .offset(y: gridOffset)
-                .opacity(gridOpacity)
+                .padding(.horizontal, SLTheme.Spacing.xl)
 
                 Spacer()
 
+                // CTA
                 VStack(spacing: SLTheme.Spacing.sm) {
-                    SLPrimaryButton("Continue", icon: "arrow.right") { onNext() }
-                        .opacity(selectedBlockers.isEmpty ? 0.45 : 1)
-                        .scaleEffect(selectedBlockers.isEmpty ? 0.97 : 1.0)
-                        .animation(.spring(response: 0.3, dampingFraction: 0.7), value: selectedBlockers.isEmpty)
-                        .disabled(selectedBlockers.isEmpty)
+                    Button(action: onNext) {
+                        HStack(spacing: SLTheme.Spacing.sm) {
+                            Image(systemName: "arrow.right")
+                                .font(.system(size: 16, weight: .semibold))
+                            Text("Continue")
+                                .font(SLTheme.Typography.headline)
+                        }
+                        .foregroundStyle(.white)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 58)
+                        .background {
+                            if selectedBlockers.isEmpty {
+                                Color(hex: "2A2A5A")
+                            } else {
+                                LinearGradient(
+                                    colors: [SLTheme.Colors.primary, Color(hex: "8B5CF6")],
+                                    startPoint: .leading, endPoint: .trailing
+                                )
+                            }
+                        }
+                        .clipShape(RoundedRectangle(cornerRadius: SLTheme.Radius.xl))
+                        .shadow(color: selectedBlockers.isEmpty ? .clear : SLTheme.Colors.primary.opacity(0.4), radius: 12, y: 4)
+                    }
+                    .disabled(selectedBlockers.isEmpty)
+                    .animation(.spring(response: 0.3, dampingFraction: 0.7), value: selectedBlockers.isEmpty)
 
-                    Button("Skip for now") { onNext() }
+                    Button("Skip this step") { onNext() }
                         .font(SLTheme.Typography.subheadline)
                         .foregroundStyle(SLTheme.Colors.textTertiary)
                 }
-                .opacity(buttonOpacity)
+                .padding(.horizontal, SLTheme.Spacing.xl)
                 .padding(.bottom, SLTheme.Spacing.xxl)
+                .opacity(appeared ? 1 : 0)
+                .animation(.easeIn(duration: 0.4).delay(1.0), value: appeared)
             }
         }
-        .onAppear {
-            withAnimation(.spring(response: 0.55, dampingFraction: 0.8).delay(0.15)) {
-                headerOffset = 0
-                headerOpacity = 1
-            }
-            withAnimation(.easeOut(duration: 0.3).delay(0.4)) {
-                gridOffset = 0
-                gridOpacity = 1
-            }
-            withAnimation(.easeIn(duration: 0.4).delay(1.0)) {
-                buttonOpacity = 1
-            }
-        }
+        .onAppear { appeared = true }
     }
 }
 
-private struct BlockerTile: View {
+private struct BlockerCell: View {
     let blocker: SleepBlocker
     let isSelected: Bool
     let onTap: () -> Void
@@ -111,35 +129,43 @@ private struct BlockerTile: View {
     var body: some View {
         Button(action: onTap) {
             VStack(spacing: SLTheme.Spacing.xs) {
-                Image(systemName: blocker.icon)
-                    .font(.system(size: 28))
-                    .foregroundStyle(isSelected ? SLTheme.Colors.primary : SLTheme.Colors.textSecondary)
-                    .scaleEffect(isSelected ? 1.15 : 1.0)
-                    .animation(.spring(response: 0.3, dampingFraction: 0.6), value: isSelected)
+                ZStack {
+                    RoundedRectangle(cornerRadius: SLTheme.Radius.sm)
+                        .fill(isSelected ? SLTheme.Colors.primary.opacity(0.2) : SLTheme.Colors.backgroundTertiary)
+                        .frame(width: 44, height: 44)
+
+                    Image(systemName: blocker.icon)
+                        .font(.system(size: 22))
+                        .foregroundStyle(isSelected ? SLTheme.Colors.primaryLight : SLTheme.Colors.textSecondary)
+                }
+                .scaleEffect(isSelected ? 1.08 : 1.0)
+                .animation(.spring(response: 0.25, dampingFraction: 0.6), value: isSelected)
 
                 Text(blocker.title)
-                    .font(SLTheme.Typography.captionBold)
+                    .font(.system(size: 13, weight: .semibold, design: .rounded))
                     .foregroundStyle(.white)
+                    .lineLimit(1)
 
                 Text(blocker.description)
-                    .font(.system(size: 10))
+                    .font(.system(size: 10, design: .rounded))
                     .foregroundStyle(SLTheme.Colors.textTertiary)
                     .multilineTextAlignment(.center)
                     .lineLimit(2)
+                    .fixedSize(horizontal: false, vertical: true)
             }
             .frame(maxWidth: .infinity)
             .padding(.vertical, SLTheme.Spacing.md)
             .padding(.horizontal, SLTheme.Spacing.xs)
             .background(
                 RoundedRectangle(cornerRadius: SLTheme.Radius.lg)
-                    .fill(isSelected ? SLTheme.Colors.primary.opacity(0.15) : SLTheme.Colors.backgroundTertiary)
-                    .animation(.easeInOut(duration: 0.18), value: isSelected)
+                    .fill(isSelected ? SLTheme.Colors.primary.opacity(0.1) : SLTheme.Colors.backgroundTertiary)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: SLTheme.Radius.lg)
+                            .stroke(isSelected ? SLTheme.Colors.primary.opacity(0.5) : Color.clear, lineWidth: 1.5)
+                    )
             )
-            .overlay(
-                RoundedRectangle(cornerRadius: SLTheme.Radius.lg)
-                    .stroke(isSelected ? SLTheme.Colors.primary : Color.clear, lineWidth: 1.5)
-                    .animation(.easeInOut(duration: 0.18), value: isSelected)
-            )
+            .animation(.easeInOut(duration: 0.18), value: isSelected)
         }
+        .buttonStyle(.plain)
     }
 }

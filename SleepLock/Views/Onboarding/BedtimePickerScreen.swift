@@ -5,13 +5,8 @@ struct BedtimePickerScreen: View {
     @Binding var wakeTime: Date
     let onNext: () -> Void
 
-    @State private var imageScale: CGFloat = 0.8
-    @State private var imageOpacity: Double = 0
-    @State private var titleOpacity: Double = 0
-    @State private var titleOffset: CGFloat = 20
-    @State private var pickersOpacity: Double = 0
-    @State private var pickersOffset: CGFloat = 24
-    @State private var buttonOpacity: Double = 0
+    @State private var appeared = false
+    @State private var moonFloat: CGFloat = 0
 
     private var sleepDuration: String {
         let interval = wakeTime.timeIntervalSince(bedtime)
@@ -22,37 +17,65 @@ struct BedtimePickerScreen: View {
     }
 
     var body: some View {
-        SLOnboardingPage {
-            VStack(spacing: SLTheme.Spacing.xl) {
+        ZStack {
+            RadialGradient(
+                colors: [SLTheme.Colors.sleepBlue.opacity(0.18), Color.clear],
+                center: UnitPoint(x: 0.5, y: 0.2),
+                startRadius: 10,
+                endRadius: 260
+            )
+            .ignoresSafeArea()
+
+            VStack(spacing: 0) {
                 Spacer().frame(height: SLTheme.Spacing.lg)
 
                 // Header
-                VStack(spacing: SLTheme.Spacing.md) {
-                    Image("Onboarding-3")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(maxHeight: 160)
-                        .clipShape(RoundedRectangle(cornerRadius: SLTheme.Radius.lg))
-                        .shadow(color: SLTheme.Colors.primary.opacity(0.25), radius: 18, y: 6)
-                        .scaleEffect(imageScale)
-                        .opacity(imageOpacity)
+                VStack(spacing: SLTheme.Spacing.sm) {
+                    ZStack {
+                        // Concentric glow rings
+                        ForEach(0..<2) { i in
+                            Circle()
+                                .stroke(SLTheme.Colors.primary.opacity(0.07 - Double(i) * 0.02), lineWidth: 1)
+                                .frame(width: CGFloat(90 + i * 38), height: CGFloat(90 + i * 38))
+                                .scaleEffect(appeared ? 1 : 0.3)
+                                .opacity(appeared ? 1 : 0)
+                                .animation(
+                                    .spring(response: 0.85, dampingFraction: 0.6)
+                                        .delay(0.05 + Double(i) * 0.1),
+                                    value: appeared
+                                )
+                        }
 
-                    VStack(spacing: SLTheme.Spacing.xs) {
-                        Text("Set Your Bedtime\nCommitment")
-                            .font(SLTheme.Typography.title)
-                            .foregroundStyle(.white)
-                            .multilineTextAlignment(.center)
-
-                        Text("This is the time you'll aim to be in bed")
-                            .font(SLTheme.Typography.subheadline)
-                            .foregroundStyle(SLTheme.Colors.textSecondary)
+                        Text("🌙")
+                            .font(.system(size: 58))
+                            .shadow(color: SLTheme.Colors.primary.opacity(0.5), radius: 14)
+                            .offset(y: moonFloat)
+                            .scaleEffect(appeared ? 1 : 0.4)
+                            .opacity(appeared ? 1 : 0)
+                            .animation(.spring(response: 0.7, dampingFraction: 0.55).delay(0.05), value: appeared)
                     }
-                    .offset(y: titleOffset)
-                    .opacity(titleOpacity)
+                    .frame(height: 90)
+
+                    Text("Set Your Bedtime\nCommitment")
+                        .font(.system(size: 28, weight: .bold, design: .rounded))
+                        .foregroundStyle(.white)
+                        .multilineTextAlignment(.center)
+                        .offset(y: appeared ? 0 : 24)
+                        .opacity(appeared ? 1 : 0)
+                        .animation(.spring(response: 0.55, dampingFraction: 0.8).delay(0.25), value: appeared)
+
+                    Text("This is the time you'll aim to be in bed")
+                        .font(SLTheme.Typography.subheadline)
+                        .foregroundStyle(SLTheme.Colors.textSecondary)
+                        .offset(y: appeared ? 0 : 16)
+                        .opacity(appeared ? 1 : 0)
+                        .animation(.spring(response: 0.55, dampingFraction: 0.8).delay(0.35), value: appeared)
                 }
 
+                Spacer().frame(height: SLTheme.Spacing.lg)
+
                 // Pickers
-                VStack(spacing: SLTheme.Spacing.lg) {
+                VStack(spacing: SLTheme.Spacing.md) {
                     VStack(spacing: SLTheme.Spacing.xs) {
                         Label("Bedtime", systemImage: "moon.fill")
                             .font(SLTheme.Typography.headline)
@@ -94,32 +117,46 @@ struct BedtimePickerScreen: View {
                     .padding(.horizontal, SLTheme.Spacing.md)
                     .background(SLTheme.Colors.energyGreen.opacity(0.15))
                     .clipShape(Capsule())
+                    .scaleEffect(appeared ? 1 : 0.85)
+                    .opacity(appeared ? 1 : 0)
+                    .animation(.spring(response: 0.4, dampingFraction: 0.7).delay(0.65), value: appeared)
                 }
-                .offset(y: pickersOffset)
-                .opacity(pickersOpacity)
+                .padding(.horizontal, SLTheme.Spacing.xl)
+                .offset(y: appeared ? 0 : 28)
+                .opacity(appeared ? 1 : 0)
+                .animation(.spring(response: 0.55, dampingFraction: 0.8).delay(0.45), value: appeared)
 
                 Spacer()
 
-                SLPrimaryButton("Lock It In", icon: "lock.fill") { onNext() }
-                    .opacity(buttonOpacity)
-                    .padding(.bottom, SLTheme.Spacing.xxl)
+                Button(action: onNext) {
+                    HStack(spacing: SLTheme.Spacing.sm) {
+                        Image(systemName: "lock.fill")
+                            .font(.system(size: 16, weight: .semibold))
+                        Text("Lock It In")
+                            .font(SLTheme.Typography.headline)
+                    }
+                    .foregroundStyle(.white)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 58)
+                    .background(
+                        LinearGradient(
+                            colors: [SLTheme.Colors.primary, Color(hex: "8B5CF6")],
+                            startPoint: .leading, endPoint: .trailing
+                        )
+                    )
+                    .clipShape(RoundedRectangle(cornerRadius: SLTheme.Radius.xl))
+                    .shadow(color: SLTheme.Colors.primary.opacity(0.4), radius: 12, y: 4)
+                }
+                .padding(.horizontal, SLTheme.Spacing.xl)
+                .padding(.bottom, SLTheme.Spacing.xxl)
+                .opacity(appeared ? 1 : 0)
+                .animation(.easeIn(duration: 0.4).delay(0.85), value: appeared)
             }
         }
         .onAppear {
-            withAnimation(.spring(response: 0.65, dampingFraction: 0.65).delay(0.1)) {
-                imageScale = 1.0
-                imageOpacity = 1
-            }
-            withAnimation(.spring(response: 0.5, dampingFraction: 0.8).delay(0.3)) {
-                titleOffset = 0
-                titleOpacity = 1
-            }
-            withAnimation(.spring(response: 0.55, dampingFraction: 0.8).delay(0.45)) {
-                pickersOffset = 0
-                pickersOpacity = 1
-            }
-            withAnimation(.easeIn(duration: 0.4).delay(0.75)) {
-                buttonOpacity = 1
+            appeared = true
+            withAnimation(.easeInOut(duration: 2.8).repeatForever(autoreverses: true)) {
+                moonFloat = -8
             }
         }
     }

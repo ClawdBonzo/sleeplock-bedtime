@@ -7,51 +7,27 @@ struct MainTabView: View {
     var body: some View {
         TabView(selection: $selectedTab) {
             DashboardView(streakService: streakService)
-                .tabItem {
-                    Image("Tab-Dashboard").renderingMode(.template)
-                    Text("Home")
-                }
+                .tabItem { Label("Home", systemImage: "moon.stars.fill") }
                 .tag(0)
 
             GamificationDashboardView()
-                .tabItem {
-                    Image(systemName: "star.fill")
-                    Text("Challenges")
-                }
+                .tabItem { Label("Challenges", systemImage: "star.fill") }
                 .tag(1)
 
             StreakCalendarView()
-                .tabItem {
-                    Image("Tab-Streaks").renderingMode(.template)
-                    Text("Streaks")
-                }
+                .tabItem { Label("Streaks", systemImage: "flame.fill") }
                 .tag(2)
 
-            ProgressChartsView()
-                .tabItem {
-                    Image("Tab-Logger").renderingMode(.template)
-                    Text("Progress")
-                }
+            RoutineBuilderView()
+                .tabItem { Label("Routine", systemImage: "list.clipboard.fill") }
                 .tag(3)
 
-            RoutineBuilderView()
-                .tabItem {
-                    Image("Tab-Routines").renderingMode(.template)
-                    Text("Routine")
-                }
-                .tag(4)
-
             SettingsView()
-                .tabItem {
-                    Image("Tab-Settings").renderingMode(.template)
-                    Text("Settings")
-                }
-                .tag(5)
+                .tabItem { Label("Settings", systemImage: "gearshape.fill") }
+                .tag(4)
         }
         .tint(SLTheme.Colors.primary)
-        .onAppear {
-            configureTabBarAppearance()
-        }
+        .onAppear { configureTabBarAppearance() }
     }
 
     private func configureTabBarAppearance() {
@@ -59,14 +35,19 @@ struct MainTabView: View {
         appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = UIColor(SLTheme.Colors.backgroundSecondary)
 
+        let normalAttrs: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor(SLTheme.Colors.textTertiary),
+            .font: UIFont.systemFont(ofSize: 10, weight: .medium)
+        ]
+        let selectedAttrs: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor(SLTheme.Colors.primary),
+            .font: UIFont.systemFont(ofSize: 10, weight: .semibold)
+        ]
+
+        appearance.stackedLayoutAppearance.normal.titleTextAttributes = normalAttrs
+        appearance.stackedLayoutAppearance.selected.titleTextAttributes = selectedAttrs
         appearance.stackedLayoutAppearance.normal.iconColor = UIColor(SLTheme.Colors.textTertiary)
-        appearance.stackedLayoutAppearance.normal.titleTextAttributes = [
-            .foregroundColor: UIColor(SLTheme.Colors.textTertiary)
-        ]
         appearance.stackedLayoutAppearance.selected.iconColor = UIColor(SLTheme.Colors.primary)
-        appearance.stackedLayoutAppearance.selected.titleTextAttributes = [
-            .foregroundColor: UIColor(SLTheme.Colors.primary)
-        ]
 
         UITabBar.appearance().standardAppearance = appearance
         UITabBar.appearance().scrollEdgeAppearance = appearance

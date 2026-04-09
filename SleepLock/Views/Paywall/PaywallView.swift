@@ -21,6 +21,12 @@ struct PaywallView: View {
         ("$rc_annual",   nil,          "Save 58%"),
     ]
 
+    // Fallback plan data shown immediately while RevenueCat loads
+    private let fallbackPlans: [(title: String, price: String, period: String, badge: String?, savings: String?, hasTrial: Bool)] = [
+        ("Monthly",  "$4.99",  "/mo", "BEST VALUE", nil,       true),
+        ("Annual",   "$29.99", "/yr", nil,          "Save 58%", true),
+    ]
+
     var body: some View {
         ZStack {
             SLTheme.Colors.backgroundPrimary.ignoresSafeArea()
@@ -108,15 +114,25 @@ struct PaywallView: View {
 
                 Spacer(minLength: SLTheme.Spacing.sm)
 
-                // Plans
+                // Plans — show live RevenueCat rows when loaded, fallback otherwise
                 VStack(spacing: SLTheme.Spacing.sm) {
                     if packages.isEmpty {
-                        // Skeleton while loading
-                        ForEach(0..<2) { _ in
-                            RoundedRectangle(cornerRadius: SLTheme.Radius.lg)
-                                .fill(SLTheme.Colors.backgroundTertiary)
-                                .frame(height: 60)
-                                .shimmer()
+                        ForEach(Array(fallbackPlans.enumerated()), id: \.offset) { index, plan in
+                            FallbackPlanRow(
+                                title: plan.title,
+                                price: plan.price,
+                                period: plan.period,
+                                badge: plan.badge,
+                                savings: plan.savings,
+                                hasTrial: plan.hasTrial,
+                                isSelected: selectedIndex == index,
+                                onTap: {
+                                    withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
+                                        selectedIndex = index
+                                    }
+                                    HapticFeedbackEngine.shared.triggerLightTap()
+                                }
+                            )
                         }
                     } else {
                         let displayPackages = packages.prefix(2)
@@ -172,7 +188,7 @@ struct PaywallView: View {
                         .clipShape(RoundedRectangle(cornerRadius: SLTheme.Radius.lg))
                         .shadow(color: SLTheme.Colors.primary.opacity(0.4), radius: 12, y: 4)
                     }
-                    .disabled(isPurchasing || packages.isEmpty)
+                    .disabled(isPurchasing)
 
                     Text("Cancel anytime. No charge for 3 days.")
                         .font(SLTheme.Typography.caption)
@@ -226,7 +242,11 @@ struct PaywallView: View {
 
     // MARK: - Purchase
     private func purchaseSelected() async {
-        guard selectedIndex < packages.count else { return }
+        guard selectedIndex < packages.count else {
+            // Packages not yet loaded from RevenueCat — skip to main app
+            onContinue()
+            return
+        }
         isPurchasing = true
         errorMessage = nil
         let success = await PurchaseService.shared.purchase(package: packages[selectedIndex])
@@ -271,6 +291,75 @@ private struct CompactFeatureRow: View {
                 .font(.system(size: 12, weight: .semibold))
                 .foregroundStyle(color.opacity(0.7))
         }
+    }
+}
+
+// MARK: - Fallback Plan Row (shown when RevenueCat sandbox has no packages)
+private struct FallbackPlanRow: View {
+    let title: String
+    let price: String
+    let period: String
+    let badge: String?
+    let savings: String?
+    let hasTrial: Bool
+    let isSelected: Bool
+    let onTap: () -> Void
+
+    var body: some View {
+        Button(action: onTap) {
+            HStack {
+                VStack(alignment: .leading, spacing: 2) {
+                    HStack(spacing: 6) {
+                        Text(title)
+                            .font(.system(size: 16, weight: .semibold, design: .rounded))
+                            .foregroundStyle(.white)
+
+                        if let badge {
+                            Text(badge)
+                                .font(.system(size: 9, weight: .bold))
+                                .foregroundStyle(.white)
+                                .padding(.horizontal, 6)
+                                .padding(.vertical, 2)
+                                .background(SLTheme.Colors.accent)
+                                .clipShape(Capsule())
+                        }
+                    }
+
+                    Text(price + period)
+                        .font(.system(size: 14, design: .rounded))
+                        .foregroundStyle(SLTheme.Colors.textSecondary)
+                }
+
+                Spacer()
+
+                VStack(alignment: .trailing, spacing: 2) {
+                    if let savings {
+                        Text(savings)
+                            .font(.system(size: 12, weight: .semibold))
+                            .foregroundStyle(SLTheme.Colors.energyGreen)
+                    }
+
+                    if hasTrial {
+                        Text("3-day trial")
+                            .font(.system(size: 10))
+                            .foregroundStyle(SLTheme.Colors.accent)
+                    }
+                }
+
+                Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
+                    .font(.system(size: 24))
+                    .foregroundStyle(isSelected ? SLTheme.Colors.primary : SLTheme.Colors.textTertiary)
+                    .padding(.leading, 6)
+            }
+            .padding(SLTheme.Spacing.md)
+            .background(isSelected ? SLTheme.Colors.primary.opacity(0.12) : SLTheme.Colors.backgroundTertiary)
+            .clipShape(RoundedRectangle(cornerRadius: SLTheme.Radius.lg))
+            .overlay(
+                RoundedRectangle(cornerRadius: SLTheme.Radius.lg)
+                    .stroke(isSelected ? SLTheme.Colors.primary : Color.clear, lineWidth: 1.5)
+            )
+        }
+        .buttonStyle(.plain)
     }
 }
 
