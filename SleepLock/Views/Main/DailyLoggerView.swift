@@ -46,6 +46,7 @@ struct DailyLoggerView: View {
             }
             .toolbarBackground(SLTheme.Colors.backgroundPrimary, for: .navigationBar)
             .toolbarColorScheme(.dark, for: .navigationBar)
+            .onAppear { setupGamification() }
         }
     }
 
@@ -233,11 +234,5 @@ struct DailyLoggerView: View {
         if gamificationService == nil {
             gamificationService = GamificationService(modelContext: modelContext)
         }
-    }
-}
-
-extension DailyLoggerView {
-    func onAppear_Setup() {
-        setupGamification()
     }
 }

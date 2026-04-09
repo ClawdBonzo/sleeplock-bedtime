@@ -2,7 +2,8 @@ import Foundation
 import SwiftData
 
 @Observable
-final class GamificationService: @unchecked Sendable {
+@MainActor
+final class GamificationService {
     static let shared = GamificationService()
 
     private let modelContext: ModelContext?
@@ -93,7 +94,8 @@ final class GamificationService: @unchecked Sendable {
             showLevelUpAnimation = true
             HapticFeedbackEngine.shared.triggerLevelUp()
 
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            Task { @MainActor in
+                try? await Task.sleep(for: .seconds(2.0))
                 self.showLevelUpAnimation = false
             }
         }

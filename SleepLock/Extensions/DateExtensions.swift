@@ -18,27 +18,19 @@ extension Date {
     }
 
     var shortTime: String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "h:mm a"
-        return formatter.string(from: self)
+        Date.shortTimeFormatter.string(from: self)
     }
 
     var dayOfWeek: String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "EEE"
-        return formatter.string(from: self)
+        Date.dayOfWeekFormatter.string(from: self)
     }
 
     var monthDay: String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MMM d"
-        return formatter.string(from: self)
+        Date.monthDayFormatter.string(from: self)
     }
 
     var fullDate: String {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        return formatter.string(from: self)
+        Date.fullDateFormatter.string(from: self)
     }
 
     func daysFrom(_ date: Date) -> Int {
@@ -56,6 +48,32 @@ extension Date {
         let comps = Calendar.current.dateComponents([.hour, .minute], from: self)
         return (comps.hour ?? 0, comps.minute ?? 0)
     }
+
+    // MARK: - Cached formatters
+
+    private static let shortTimeFormatter: DateFormatter = {
+        let f = DateFormatter()
+        f.dateFormat = "h:mm a"
+        return f
+    }()
+
+    private static let dayOfWeekFormatter: DateFormatter = {
+        let f = DateFormatter()
+        f.dateFormat = "EEE"
+        return f
+    }()
+
+    private static let monthDayFormatter: DateFormatter = {
+        let f = DateFormatter()
+        f.dateFormat = "MMM d"
+        return f
+    }()
+
+    private static let fullDateFormatter: DateFormatter = {
+        let f = DateFormatter()
+        f.dateStyle = .medium
+        return f
+    }()
 }
 
 extension Calendar {
@@ -65,7 +83,8 @@ extension Calendar {
         let endDay = end.startOfDay
         while current <= endDay {
             dates.append(current)
-            current = self.date(byAdding: .day, value: 1, to: current)!
+            guard let next = self.date(byAdding: .day, value: 1, to: current) else { break }
+            current = next
         }
         return dates
     }

@@ -43,14 +43,14 @@ final class SleepStreakService {
 
         // If today isn't logged yet, start from yesterday
         if !(entries.first?.date.isToday ?? false) {
-            expectedDate = calendar.date(byAdding: .day, value: -1, to: expectedDate)!
+            expectedDate = calendar.date(byAdding: .day, value: -1, to: expectedDate) ?? expectedDate
         }
 
         for entry in entries {
             let entryDay = entry.date.startOfDay
             if calendar.isDate(entryDay, inSameDayAs: expectedDate) && entry.hitTarget {
                 streak += 1
-                expectedDate = calendar.date(byAdding: .day, value: -1, to: expectedDate)!
+                expectedDate = calendar.date(byAdding: .day, value: -1, to: expectedDate) ?? expectedDate
             } else if calendar.isDate(entryDay, inSameDayAs: expectedDate) {
                 break // Logged but didn't hit target
             } else {
@@ -98,7 +98,7 @@ final class SleepStreakService {
 
     private func calculateWeeklyConsistency(from entries: [SleepLogEntry]) -> Double {
         let calendar = Calendar.current
-        let weekAgo = calendar.date(byAdding: .day, value: -7, to: Date())!
+        let weekAgo = calendar.date(byAdding: .day, value: -7, to: Date()) ?? Date()
         let thisWeek = entries.filter { $0.date >= weekAgo }
         guard !thisWeek.isEmpty else { return 0 }
 

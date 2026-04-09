@@ -246,19 +246,19 @@ struct SLOnboardingPage<Content: View>: View {
 // MARK: - Animated Stars Background
 struct StarsBackground: View {
     @State private var twinkle = false
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    // Pre-computed fractional positions (x: 0–1, y: 0–1, radius: 0.5–3.5)
+    private static let starData: [(CGFloat, CGFloat, CGFloat)] = (0..<80).map { i in
+        var gen = SeededRandom(seed: UInt64(i * 17 + 3))
+        return (gen.next(), gen.next(), gen.next() * 3 + 0.5)
+    }
 
     var body: some View {
         Canvas { context, size in
-            let starPositions: [(CGFloat, CGFloat, CGFloat)] = (0..<80).map { i in
-                var gen = SeededRandom(seed: UInt64(i * 17 + 3))
-                return (
-                    gen.next() * size.width,
-                    gen.next() * size.height,
-                    gen.next() * 3 + 0.5
-                )
-            }
-
-            for (x, y, radius) in starPositions {
+            for (fx, fy, radius) in Self.starData {
+                let x = fx * size.width
+                let y = fy * size.height
                 let rect = CGRect(x: x - radius / 2, y: y - radius / 2, width: radius, height: radius)
                 context.fill(
                     Path(ellipseIn: rect),
@@ -266,7 +266,9 @@ struct StarsBackground: View {
                 )
             }
         }
+        .accessibilityHidden(true)
         .onAppear {
+            guard !reduceMotion else { return }
             withAnimation(.easeInOut(duration: 2).repeatForever(autoreverses: true)) {
                 twinkle = true
             }

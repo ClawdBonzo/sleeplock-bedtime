@@ -1,6 +1,7 @@
 import UIKit
 
-final class HapticFeedbackEngine: @unchecked Sendable {
+@MainActor
+final class HapticFeedbackEngine {
     static let shared = HapticFeedbackEngine()
 
     private init() {}
@@ -8,73 +9,50 @@ final class HapticFeedbackEngine: @unchecked Sendable {
     // MARK: - Haptic Patterns
 
     func triggerLevelUp() {
-        let generator = UIImpactFeedbackGenerator(style: .heavy)
-        generator.impactOccurred()
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            let g = UIImpactFeedbackGenerator(style: .medium)
-            g.impactOccurred()
-        }
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-            let g = UIImpactFeedbackGenerator(style: .light)
-            g.impactOccurred()
-        }
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            let notificationGenerator = UINotificationFeedbackGenerator()
-            notificationGenerator.notificationOccurred(.success)
+        UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+        Task { @MainActor in
+            try? await Task.sleep(for: .seconds(0.1))
+            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+            try? await Task.sleep(for: .seconds(0.1))
+            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+            try? await Task.sleep(for: .seconds(0.1))
+            UINotificationFeedbackGenerator().notificationOccurred(.success)
         }
     }
 
     func triggerQuestCompletion() {
-        let generator = UIImpactFeedbackGenerator(style: .medium)
-        generator.impactOccurred()
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
-            let g = UIImpactFeedbackGenerator(style: .light)
-            g.impactOccurred()
-        }
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            let notificationGenerator = UINotificationFeedbackGenerator()
-            notificationGenerator.notificationOccurred(.success)
+        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+        Task { @MainActor in
+            try? await Task.sleep(for: .seconds(0.15))
+            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+            try? await Task.sleep(for: .seconds(0.15))
+            UINotificationFeedbackGenerator().notificationOccurred(.success)
         }
     }
 
     func triggerBadgeUnlock() {
         let patterns: [UIImpactFeedbackGenerator.FeedbackStyle] = [.light, .medium, .light, .heavy]
-
-        for (index, style) in patterns.enumerated() {
-            DispatchQueue.main.asyncAfter(deadline: .now() + Double(index) * 0.08) {
-                let g = UIImpactFeedbackGenerator(style: style)
-                g.impactOccurred()
+        Task { @MainActor in
+            for style in patterns {
+                UIImpactFeedbackGenerator(style: style).impactOccurred()
+                try? await Task.sleep(for: .seconds(0.08))
             }
-        }
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-            let notificationGenerator = UINotificationFeedbackGenerator()
-            notificationGenerator.notificationOccurred(.success)
+            try? await Task.sleep(for: .seconds(0.08))
+            UINotificationFeedbackGenerator().notificationOccurred(.success)
         }
     }
 
     func triggerStreakMilestone() {
-        let generator = UIImpactFeedbackGenerator(style: .heavy)
-        generator.impactOccurred()
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-            let g = UIImpactFeedbackGenerator(style: .heavy)
-            g.impactOccurred()
-        }
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
-            let notificationGenerator = UINotificationFeedbackGenerator()
-            notificationGenerator.notificationOccurred(.success)
+        UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+        Task { @MainActor in
+            try? await Task.sleep(for: .seconds(0.2))
+            UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+            try? await Task.sleep(for: .seconds(0.15))
+            UINotificationFeedbackGenerator().notificationOccurred(.success)
         }
     }
 
     func triggerLightTap() {
-        let selectionGenerator = UISelectionFeedbackGenerator()
-        selectionGenerator.selectionChanged()
+        UISelectionFeedbackGenerator().selectionChanged()
     }
 }

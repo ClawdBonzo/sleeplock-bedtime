@@ -13,7 +13,7 @@ final class PurchaseService: @unchecked Sendable {
 
     // MARK: - Configure
     func configure() {
-        // TODO: Replace with live key before App Store release
+        // TODO: Replace "test_AFpuFmRxwiYCSJV0rgzxFqKjZDa" with live appl_... key before App Store submission
         Purchases.configure(
             with: .init(withAPIKey: "test_AFpuFmRxwiYCSJV0rgzxFqKjZDa")
                 .with(usesStoreKit2IfAvailable: true)

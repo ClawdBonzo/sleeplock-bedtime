@@ -215,6 +215,9 @@ struct SettingsView: View {
         try? modelContext.delete(model: SleepLogEntry.self)
         try? modelContext.delete(model: RoutineStep.self)
         try? modelContext.delete(model: UserProfile.self)
+        try? modelContext.delete(model: GamificationProfile.self)
+        try? modelContext.delete(model: Quest.self)
+        try? modelContext.delete(model: Badge.self)
         NotificationService.shared.cancelAll()
     }
 }
