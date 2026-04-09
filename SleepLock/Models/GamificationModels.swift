@@ -33,6 +33,17 @@ enum SleepLevel: Int, Codable, CaseIterable {
         }
     }
 
+    var sfSymbol: String {
+        switch self {
+        case .nightOwl: return "moon.stars.fill"
+        case .sleepyHead: return "moon.zzz.fill"
+        case .restfulDreamer: return "cloud.fill"
+        case .sleepMaster: return "star.fill"
+        case .sleepChampion: return "flame.fill"
+        case .sleepKing: return "crown.fill"
+        }
+    }
+
     var xpRequired: Int {
         switch self {
         case .nightOwl: return 0
@@ -148,7 +159,24 @@ enum QuestObjective: String, Codable {
         case .streakMilestone, .weekOfConsistency:
             return "🔥"
         case .completedRoutine:
-            return "✓"
+            return "✅"
+        }
+    }
+
+    var sfSymbol: String {
+        switch self {
+        case .hitBedtime, .completeBedtimeStreak3, .completeBedtimeStreak7:
+            return "bed.double.fill"
+        case .completeWindDown, .completeWindDownStreak3:
+            return "moon.zzz.fill"
+        case .logSleepQuality:
+            return "star.fill"
+        case .energyScore80Plus:
+            return "bolt.fill"
+        case .streakMilestone, .weekOfConsistency:
+            return "flame.fill"
+        case .completedRoutine:
+            return "checklist"
         }
     }
 }
@@ -226,6 +254,19 @@ enum BadgeType: String, Codable, CaseIterable {
         case .allQuests: return "Complete 50 quests"
         case .energyChampion: return "Achieve 90+ energy 10 times"
         case .consistencyKing: return "Hit bedtime 100 times"
+        }
+    }
+
+    var sfSymbol: String {
+        switch self {
+        case .firstBedtime: return "moon.stars.fill"
+        case .week1Streak, .week2Streak, .month1Streak: return "flame.fill"
+        case .month3Streak, .month6Streak, .year1Streak: return "crown.fill"
+        case .perfectWeek: return "sparkles"
+        case .level3, .level5: return "star.fill"
+        case .allQuests: return "scope"
+        case .energyChampion: return "bolt.fill"
+        case .consistencyKing: return "diamond.fill"
         }
     }
 

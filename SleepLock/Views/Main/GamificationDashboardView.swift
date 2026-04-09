@@ -59,19 +59,22 @@ struct GamificationDashboardView: View {
     private func quickStatsRow(service: GamificationService) -> some View {
         HStack(spacing: SLTheme.Spacing.md) {
             StatCard(
-                icon: "📊",
+                sfSymbol: "sparkles",
+                symbolColor: SLTheme.Colors.accent,
                 label: "Total XP",
                 value: "\(service.gamificationProfile?.totalXP ?? 0)"
             )
 
             StatCard(
-                icon: "🎯",
+                sfSymbol: "scope",
+                symbolColor: SLTheme.Colors.primary,
                 label: "Quests",
                 value: "\(service.dailyQuests.filter { $0.isCompleted }.count + service.weeklyQuests.filter { $0.isCompleted }.count)"
             )
 
             StatCard(
-                icon: "🏆",
+                sfSymbol: "trophy.fill",
+                symbolColor: SLTheme.Colors.streakGold,
                 label: "Badges",
                 value: "\(service.unlockedBadges.count)"
             )
@@ -116,8 +119,12 @@ struct LevelProgressCard: View {
         VStack(spacing: SLTheme.Spacing.md) {
             HStack(alignment: .top, spacing: SLTheme.Spacing.md) {
                 VStack(spacing: SLTheme.Spacing.xs) {
-                    Text(profile.currentLevel.emoji)
-                        .font(.system(size: 48))
+                    Image(systemName: profile.currentLevel.sfSymbol)
+                        .font(.system(size: 36, weight: .semibold))
+                        .foregroundStyle(SLTheme.Colors.primaryLight)
+                        .frame(width: 56, height: 56)
+                        .background(SLTheme.Colors.primary.opacity(0.15))
+                        .clipShape(RoundedRectangle(cornerRadius: 14))
 
                     Text(profile.currentLevel.displayName)
                         .font(SLTheme.Typography.headline)
@@ -172,8 +179,12 @@ struct QuestRowView: View {
     var body: some View {
         VStack(spacing: SLTheme.Spacing.xs) {
             HStack(alignment: .center, spacing: SLTheme.Spacing.md) {
-                Text(quest.objective.emoji)
-                    .font(.system(size: 24))
+                Image(systemName: quest.objective.sfSymbol)
+                    .font(.system(size: 20, weight: .semibold))
+                    .foregroundStyle(SLTheme.Colors.primaryLight)
+                    .frame(width: 40, height: 40)
+                    .background(SLTheme.Colors.primary.opacity(0.15))
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
 
                 VStack(alignment: .leading, spacing: SLTheme.Spacing.xxxs) {
                     HStack {
@@ -244,9 +255,12 @@ struct BadgeCardView: View {
 
     var body: some View {
         VStack(spacing: SLTheme.Spacing.xs) {
-            Text(badge.type.emoji)
-                .font(.system(size: 32))
-                .opacity(badge.isUnlocked ? 1 : 0.3)
+            Image(systemName: badge.type.sfSymbol)
+                .font(.system(size: 24, weight: .semibold))
+                .foregroundStyle(badge.isUnlocked ? SLTheme.Colors.streakGold : SLTheme.Colors.textTertiary)
+                .frame(width: 44, height: 44)
+                .background(badge.isUnlocked ? SLTheme.Colors.streakGold.opacity(0.15) : SLTheme.Colors.backgroundTertiary)
+                .clipShape(RoundedRectangle(cornerRadius: 12))
 
             Text(badge.type.displayName)
                 .font(.system(size: 11, weight: .semibold, design: .rounded))
@@ -268,14 +282,16 @@ struct BadgeCardView: View {
 // MARK: - Stat Card
 
 struct StatCard: View {
-    let icon: String
+    let sfSymbol: String
+    let symbolColor: Color
     let label: String
     let value: String
 
     var body: some View {
         VStack(spacing: SLTheme.Spacing.xs) {
-            Text(icon)
-                .font(.system(size: 20))
+            Image(systemName: sfSymbol)
+                .font(.system(size: 18, weight: .semibold))
+                .foregroundStyle(symbolColor)
 
             Text(value)
                 .font(SLTheme.Typography.headline)
@@ -312,8 +328,9 @@ struct LevelUpAnimationView: View {
                         .blur(radius: 30)
                         .scaleEffect(scale * 1.5)
 
-                    Text(level.emoji)
-                        .font(.system(size: 80))
+                    Image(systemName: level.sfSymbol)
+                        .font(.system(size: 72, weight: .bold))
+                        .foregroundStyle(SLTheme.Colors.primaryLight)
                         .scaleEffect(scale)
                         .rotation3DEffect(
                             .degrees(rotation),

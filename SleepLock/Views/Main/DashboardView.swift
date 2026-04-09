@@ -72,8 +72,12 @@ struct DashboardView: View {
         SLCard {
             HStack(spacing: SLTheme.Spacing.md) {
                 VStack(spacing: SLTheme.Spacing.xs) {
-                    Text(profile.currentLevel.emoji)
-                        .font(.system(size: 36))
+                    Image(systemName: profile.currentLevel.sfSymbol)
+                        .font(.system(size: 26, weight: .semibold))
+                        .foregroundStyle(SLTheme.Colors.primaryLight)
+                        .frame(width: 48, height: 48)
+                        .background(SLTheme.Colors.primary.opacity(0.15))
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
 
                     Text(profile.currentLevel.displayName)
                         .font(.system(size: 11, weight: .semibold))
