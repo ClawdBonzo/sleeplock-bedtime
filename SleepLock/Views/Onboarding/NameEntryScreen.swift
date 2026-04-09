@@ -10,7 +10,6 @@ struct NameEntryScreen: View {
 
     var body: some View {
         ZStack {
-            // Soft radial gradient behind the moon
             RadialGradient(
                 colors: [SLTheme.Colors.primary.opacity(0.2), Color.clear],
                 center: UnitPoint(x: 0.5, y: 0.3),
@@ -22,7 +21,7 @@ struct NameEntryScreen: View {
             VStack(spacing: 0) {
                 Spacer()
 
-                // Animated moon icon
+                // Animated icon
                 ZStack {
                     ForEach(0..<3) { i in
                         let ringOpacity = 0.08 - Double(i) * 0.025
@@ -31,17 +30,24 @@ struct NameEntryScreen: View {
                         Circle()
                             .stroke(SLTheme.Colors.primary.opacity(ringOpacity), lineWidth: 1)
                             .frame(width: ringSize, height: ringSize)
-                            .scaleEffect(appeared ? 1 : 0.4)
+                            .scaleEffect(appeared ? 1 : 0.3)
                             .opacity(appeared ? 1 : 0)
                             .animation(
-                                .spring(response: 0.8, dampingFraction: 0.6).delay(delay),
+                                .spring(response: 0.85, dampingFraction: 0.6).delay(delay),
                                 value: appeared
                             )
                     }
 
-                    Text("🌙")
-                        .font(.system(size: 70))
-                        .shadow(color: SLTheme.Colors.primary.opacity(0.4), radius: 16)
+                    Image(systemName: "moon.fill")
+                        .font(.system(size: 60, weight: .medium))
+                        .foregroundStyle(
+                            LinearGradient(
+                                colors: [SLTheme.Colors.primaryLight, SLTheme.Colors.primary],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                        .shadow(color: SLTheme.Colors.primary.opacity(0.5), radius: 16)
                         .offset(y: floatOffset)
                         .scaleEffect(appeared ? 1 : 0.4)
                         .opacity(appeared ? 1 : 0)
@@ -139,7 +145,6 @@ struct NameEntryScreen: View {
         .onAppear {
             appeared = true
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) { isFocused = true }
-
             withAnimation(.easeInOut(duration: 2.5).repeatForever(autoreverses: true)) {
                 floatOffset = -8
             }

@@ -22,8 +22,14 @@ struct SleepHabitsScreen: View {
 
                 // Header
                 VStack(spacing: SLTheme.Spacing.sm) {
-                    Text("😴")
-                        .font(.system(size: 64))
+                    Image(systemName: "moon.zzz.fill")
+                        .font(.system(size: 52, weight: .medium))
+                        .foregroundStyle(
+                            LinearGradient(
+                                colors: [SLTheme.Colors.primaryLight, SLTheme.Colors.sleepBlue],
+                                startPoint: .topLeading, endPoint: .bottomTrailing
+                            )
+                        )
                         .shadow(color: SLTheme.Colors.sleepBlue.opacity(0.4), radius: 12)
                         .scaleEffect(appeared ? 1 : 0.4)
                         .opacity(appeared ? 1 : 0)

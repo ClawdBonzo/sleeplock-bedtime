@@ -6,7 +6,6 @@ struct BedtimePickerScreen: View {
     let onNext: () -> Void
 
     @State private var appeared = false
-    @State private var moonFloat: CGFloat = 0
 
     private var sleepDuration: String {
         let interval = wakeTime.timeIntervalSince(bedtime)
@@ -31,30 +30,19 @@ struct BedtimePickerScreen: View {
 
                 // Header
                 VStack(spacing: SLTheme.Spacing.sm) {
-                    ZStack {
-                        // Concentric glow rings
-                        ForEach(0..<2) { i in
-                            Circle()
-                                .stroke(SLTheme.Colors.primary.opacity(0.07 - Double(i) * 0.02), lineWidth: 1)
-                                .frame(width: CGFloat(90 + i * 38), height: CGFloat(90 + i * 38))
-                                .scaleEffect(appeared ? 1 : 0.3)
-                                .opacity(appeared ? 1 : 0)
-                                .animation(
-                                    .spring(response: 0.85, dampingFraction: 0.6)
-                                        .delay(0.05 + Double(i) * 0.1),
-                                    value: appeared
-                                )
-                        }
-
-                        Text("🌙")
-                            .font(.system(size: 58))
-                            .shadow(color: SLTheme.Colors.primary.opacity(0.5), radius: 14)
-                            .offset(y: moonFloat)
-                            .scaleEffect(appeared ? 1 : 0.4)
-                            .opacity(appeared ? 1 : 0)
-                            .animation(.spring(response: 0.7, dampingFraction: 0.55).delay(0.05), value: appeared)
-                    }
-                    .frame(height: 90)
+                    Image(systemName: "moon.stars.fill")
+                        .font(.system(size: 52, weight: .medium))
+                        .foregroundStyle(
+                            LinearGradient(
+                                colors: [SLTheme.Colors.primaryLight, SLTheme.Colors.primary],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                        .shadow(color: SLTheme.Colors.primary.opacity(0.5), radius: 14)
+                        .scaleEffect(appeared ? 1 : 0.4)
+                        .opacity(appeared ? 1 : 0)
+                        .animation(.spring(response: 0.7, dampingFraction: 0.55).delay(0.05), value: appeared)
 
                     Text("Set Your Bedtime\nCommitment")
                         .font(.system(size: 28, weight: .bold, design: .rounded))
@@ -76,35 +64,77 @@ struct BedtimePickerScreen: View {
 
                 // Pickers
                 VStack(spacing: SLTheme.Spacing.md) {
-                    VStack(spacing: SLTheme.Spacing.xs) {
-                        Label("Bedtime", systemImage: "moon.fill")
-                            .font(SLTheme.Typography.headline)
-                            .foregroundStyle(SLTheme.Colors.primaryLight)
+                    // Bedtime picker
+                    VStack(spacing: 0) {
+                        HStack(spacing: SLTheme.Spacing.xs) {
+                            Image(systemName: "moon.fill")
+                                .font(.system(size: 14, weight: .semibold))
+                                .foregroundStyle(SLTheme.Colors.primaryLight)
+                            Text("Bedtime")
+                                .font(SLTheme.Typography.headline)
+                                .foregroundStyle(SLTheme.Colors.primaryLight)
+                            Spacer()
+                        }
+                        .padding(.horizontal, SLTheme.Spacing.md)
+                        .padding(.vertical, SLTheme.Spacing.sm)
+                        .background(SLTheme.Colors.backgroundTertiary)
+                        .clipShape(UnevenRoundedRectangle(
+                            topLeadingRadius: SLTheme.Radius.lg,
+                            bottomLeadingRadius: 0,
+                            bottomTrailingRadius: 0,
+                            topTrailingRadius: SLTheme.Radius.lg
+                        ))
 
                         DatePicker("", selection: $bedtime, displayedComponents: .hourAndMinute)
                             .datePickerStyle(.wheel)
                             .labelsHidden()
-                            .frame(height: 100)
+                            .frame(height: 120)
                             .colorScheme(.dark)
+                            .clipped()
+                            .background(SLTheme.Colors.backgroundTertiary)
+                            .clipShape(UnevenRoundedRectangle(
+                                topLeadingRadius: 0,
+                                bottomLeadingRadius: SLTheme.Radius.lg,
+                                bottomTrailingRadius: SLTheme.Radius.lg,
+                                topTrailingRadius: 0
+                            ))
                     }
-                    .padding(SLTheme.Spacing.md)
-                    .background(SLTheme.Colors.backgroundTertiary)
-                    .clipShape(RoundedRectangle(cornerRadius: SLTheme.Radius.lg))
 
-                    VStack(spacing: SLTheme.Spacing.xs) {
-                        Label("Wake Up", systemImage: "sun.max.fill")
-                            .font(SLTheme.Typography.headline)
-                            .foregroundStyle(SLTheme.Colors.accent)
+                    // Wake up picker
+                    VStack(spacing: 0) {
+                        HStack(spacing: SLTheme.Spacing.xs) {
+                            Image(systemName: "sun.max.fill")
+                                .font(.system(size: 14, weight: .semibold))
+                                .foregroundStyle(SLTheme.Colors.accent)
+                            Text("Wake Up")
+                                .font(SLTheme.Typography.headline)
+                                .foregroundStyle(SLTheme.Colors.accent)
+                            Spacer()
+                        }
+                        .padding(.horizontal, SLTheme.Spacing.md)
+                        .padding(.vertical, SLTheme.Spacing.sm)
+                        .background(SLTheme.Colors.backgroundTertiary)
+                        .clipShape(UnevenRoundedRectangle(
+                            topLeadingRadius: SLTheme.Radius.lg,
+                            bottomLeadingRadius: 0,
+                            bottomTrailingRadius: 0,
+                            topTrailingRadius: SLTheme.Radius.lg
+                        ))
 
                         DatePicker("", selection: $wakeTime, displayedComponents: .hourAndMinute)
                             .datePickerStyle(.wheel)
                             .labelsHidden()
-                            .frame(height: 100)
+                            .frame(height: 120)
                             .colorScheme(.dark)
+                            .clipped()
+                            .background(SLTheme.Colors.backgroundTertiary)
+                            .clipShape(UnevenRoundedRectangle(
+                                topLeadingRadius: 0,
+                                bottomLeadingRadius: SLTheme.Radius.lg,
+                                bottomTrailingRadius: SLTheme.Radius.lg,
+                                topTrailingRadius: 0
+                            ))
                     }
-                    .padding(SLTheme.Spacing.md)
-                    .background(SLTheme.Colors.backgroundTertiary)
-                    .clipShape(RoundedRectangle(cornerRadius: SLTheme.Radius.lg))
 
                     // Duration badge
                     HStack(spacing: SLTheme.Spacing.xs) {
@@ -153,11 +183,6 @@ struct BedtimePickerScreen: View {
                 .animation(.easeIn(duration: 0.4).delay(0.85), value: appeared)
             }
         }
-        .onAppear {
-            appeared = true
-            withAnimation(.easeInOut(duration: 2.8).repeatForever(autoreverses: true)) {
-                moonFloat = -8
-            }
-        }
+        .onAppear { appeared = true }
     }
 }

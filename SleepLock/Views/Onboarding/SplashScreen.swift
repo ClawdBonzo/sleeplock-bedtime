@@ -49,19 +49,13 @@ struct SplashScreen: View {
                         .scaleEffect(ring1Scale)
                         .opacity(ring1Opacity)
 
-                    // Glow disc
-                    Circle()
-                        .fill(SLTheme.Colors.primary.opacity(0.15))
-                        .frame(width: 100, height: 100)
-                        .blur(radius: 20)
-
                     // Brand icon
                     Image("BrandIcon")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 80, height: 80)
-                        .clipShape(RoundedRectangle(cornerRadius: 20))
-                        .shadow(color: SLTheme.Colors.primary.opacity(0.6), radius: 20)
+                        .frame(width: 100, height: 100)
+                        .clipShape(RoundedRectangle(cornerRadius: 24))
+                        .shadow(color: SLTheme.Colors.primary.opacity(0.7), radius: 28)
                         .scaleEffect(iconScale)
                         .opacity(iconOpacity)
 

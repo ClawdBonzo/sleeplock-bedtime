@@ -6,6 +6,18 @@ struct BlockersScreen: View {
 
     @State private var appeared = false
 
+    // Per-blocker accent colors matching the SF Symbol icons
+    private let blockerColors: [Color] = [
+        Color(hex: "4F88FF"),   // Screen Time - blue
+        Color(hex: "FF9F0A"),   // Caffeine - orange
+        Color(hex: "BF5AF2"),   // Stress - purple
+        Color(hex: "64D2FF"),   // Irregular - teal
+        Color(hex: "FF375F"),   // Noise - red
+        Color(hex: "30D158"),   // Late Eating - green
+        Color(hex: "FF6B35"),   // Late Exercise - deep orange
+        Color(hex: "FFD60A"),   // Long Naps - yellow
+    ]
+
     var body: some View {
         ZStack {
             RadialGradient(
@@ -21,9 +33,15 @@ struct BlockersScreen: View {
 
                 // Header
                 VStack(spacing: SLTheme.Spacing.sm) {
-                    Text("🌃")
-                        .font(.system(size: 64))
-                        .shadow(color: SLTheme.Colors.warning.opacity(0.3), radius: 12)
+                    Image(systemName: "moon.haze.fill")
+                        .font(.system(size: 52, weight: .medium))
+                        .foregroundStyle(
+                            LinearGradient(
+                                colors: [SLTheme.Colors.warning, SLTheme.Colors.primaryLight],
+                                startPoint: .topLeading, endPoint: .bottomTrailing
+                            )
+                        )
+                        .shadow(color: SLTheme.Colors.warning.opacity(0.35), radius: 12)
                         .scaleEffect(appeared ? 1 : 0.4)
                         .opacity(appeared ? 1 : 0)
                         .animation(.spring(response: 0.7, dampingFraction: 0.55).delay(0.05), value: appeared)
@@ -52,8 +70,10 @@ struct BlockersScreen: View {
                     spacing: SLTheme.Spacing.sm
                 ) {
                     ForEach(Array(SleepBlocker.all.enumerated()), id: \.element.id) { index, blocker in
+                        let accentColor = blockerColors[index % blockerColors.count]
                         BlockerCell(
                             blocker: blocker,
+                            accentColor: accentColor,
                             isSelected: selectedBlockers.contains(blocker.id),
                             onTap: {
                                 withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
@@ -123,6 +143,7 @@ struct BlockersScreen: View {
 
 private struct BlockerCell: View {
     let blocker: SleepBlocker
+    let accentColor: Color
     let isSelected: Bool
     let onTap: () -> Void
 
@@ -131,12 +152,12 @@ private struct BlockerCell: View {
             VStack(spacing: SLTheme.Spacing.xs) {
                 ZStack {
                     RoundedRectangle(cornerRadius: SLTheme.Radius.sm)
-                        .fill(isSelected ? SLTheme.Colors.primary.opacity(0.2) : SLTheme.Colors.backgroundTertiary)
+                        .fill(isSelected ? accentColor.opacity(0.22) : SLTheme.Colors.backgroundTertiary)
                         .frame(width: 44, height: 44)
 
                     Image(systemName: blocker.icon)
-                        .font(.system(size: 22))
-                        .foregroundStyle(isSelected ? SLTheme.Colors.primaryLight : SLTheme.Colors.textSecondary)
+                        .font(.system(size: 20, weight: .semibold))
+                        .foregroundStyle(isSelected ? accentColor : SLTheme.Colors.textSecondary)
                 }
                 .scaleEffect(isSelected ? 1.08 : 1.0)
                 .animation(.spring(response: 0.25, dampingFraction: 0.6), value: isSelected)
@@ -158,10 +179,10 @@ private struct BlockerCell: View {
             .padding(.horizontal, SLTheme.Spacing.xs)
             .background(
                 RoundedRectangle(cornerRadius: SLTheme.Radius.lg)
-                    .fill(isSelected ? SLTheme.Colors.primary.opacity(0.1) : SLTheme.Colors.backgroundTertiary)
+                    .fill(isSelected ? accentColor.opacity(0.1) : SLTheme.Colors.backgroundTertiary)
                     .overlay(
                         RoundedRectangle(cornerRadius: SLTheme.Radius.lg)
-                            .stroke(isSelected ? SLTheme.Colors.primary.opacity(0.5) : Color.clear, lineWidth: 1.5)
+                            .stroke(isSelected ? accentColor.opacity(0.6) : Color.clear, lineWidth: 1.5)
                     )
             )
             .animation(.easeInOut(duration: 0.18), value: isSelected)
