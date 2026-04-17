@@ -19,7 +19,7 @@ private struct PlanConfig: Identifiable {
 private let allPlans: [PlanConfig] = [
     PlanConfig(
         id: "weekly",
-        rcKey: "com.clawdbonzo.sleeplock.weekly",
+        rcKey: "$rc_weekly",
         title: "Weekly",
         fallbackPrice: "$4.99",
         period: "/wk",
@@ -31,7 +31,7 @@ private let allPlans: [PlanConfig] = [
     ),
     PlanConfig(
         id: "monthly",
-        rcKey: "com.clawdbonzo.sleeplock.monthly",
+        rcKey: "$rc_monthly",
         title: "Monthly",
         fallbackPrice: "$9.99",
         period: "/mo",
@@ -43,7 +43,7 @@ private let allPlans: [PlanConfig] = [
     ),
     PlanConfig(
         id: "yearly",
-        rcKey: "com.clawdbonzo.sleeplock.yearly",
+        rcKey: "$rc_annual",
         title: "Yearly",
         fallbackPrice: "$49.99",
         period: "/yr",
@@ -55,7 +55,7 @@ private let allPlans: [PlanConfig] = [
     ),
     PlanConfig(
         id: "lifetime",
-        rcKey: "com.clawdbonzo.sleeplock.lifetime",
+        rcKey: "$rc_lifetime",
         title: "Lifetime",
         fallbackPrice: "$79.99",
         period: "",
@@ -73,12 +73,14 @@ struct PaywallView: View {
     let userName: String
     let onContinue: () -> Void
     let onRestore: () -> Void
+    var allowDismiss: Bool = true
 
     @State private var selectedIndex = 1        // Monthly pre-selected
     @State private var rcPackages: [String: Package] = [:]
     @State private var isPurchasing = false
     @State private var errorMessage: String?
     @State private var appeared = false
+    @State private var showMaybeLater = false
     @Environment(\.dismiss) private var dismiss
 
     private var selectedPlan: PlanConfig { allPlans[selectedIndex] }
@@ -97,15 +99,18 @@ struct PaywallView: View {
 
             VStack(spacing: 0) {
 
-                // ── Close button ──────────────────────────────────────
+                // ── Close button (only when dismissal is allowed) ─────
                 HStack {
                     Spacer()
-                    Button(action: onContinue) {
-                        Image(systemName: "xmark.circle.fill")
-                            .font(.system(size: 26))
-                            .foregroundStyle(SLTheme.Colors.textTertiary)
+                    if allowDismiss {
+                        Button(action: onContinue) {
+                            Image(systemName: "xmark.circle.fill")
+                                .font(.system(size: 26))
+                                .foregroundStyle(SLTheme.Colors.textTertiary)
+                        }
                     }
                 }
+                .frame(height: 36)
                 .padding(.horizontal, SLTheme.Spacing.xl)
                 .padding(.top, SLTheme.Spacing.sm)
 
@@ -241,6 +246,15 @@ struct PaywallView: View {
                     }
                     .font(.system(size: 11))
                     .foregroundStyle(SLTheme.Colors.textTertiary)
+
+                    // Maybe Later — only on hard paywall, appears after 3s delay
+                    if !allowDismiss {
+                        Button("Maybe Later") { onContinue() }
+                            .font(.system(size: 12))
+                            .foregroundStyle(SLTheme.Colors.textTertiary.opacity(0.5))
+                            .opacity(showMaybeLater ? 1 : 0)
+                            .animation(.easeIn(duration: 0.4), value: showMaybeLater)
+                    }
                 }
                 .padding(.horizontal, SLTheme.Spacing.xl)
                 .padding(.bottom, SLTheme.Spacing.lg)
@@ -250,8 +264,13 @@ struct PaywallView: View {
         }
         .task { await loadOfferings() }
         .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+            Task { @MainActor in
+                try? await Task.sleep(for: .seconds(0.05))
                 appeared = true
+                if !allowDismiss {
+                    try? await Task.sleep(for: .seconds(3.0))
+                    showMaybeLater = true
+                }
             }
         }
     }
@@ -339,20 +358,21 @@ private struct PaywallFeatureRow: View {
     var body: some View {
         HStack(spacing: SLTheme.Spacing.sm) {
             Image(systemName: icon)
-                .font(.system(size: 14, weight: .semibold))
+                .font(.system(size: 18, weight: .semibold))
                 .foregroundStyle(color)
-                .frame(width: 20)
+                .frame(width: 26)
 
             Text(text)
-                .font(.system(size: 13, weight: .regular, design: .rounded))
+                .font(.system(size: 15, weight: .regular, design: .rounded))
                 .foregroundStyle(.white)
 
             Spacer()
 
             Image(systemName: "checkmark")
-                .font(.system(size: 11, weight: .bold))
+                .font(.system(size: 13, weight: .bold))
                 .foregroundStyle(color.opacity(0.8))
         }
+        .padding(.vertical, 2)
     }
 }
 

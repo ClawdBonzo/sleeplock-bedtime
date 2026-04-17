@@ -212,12 +212,16 @@ struct DailyLoggerView: View {
         modelContext.insert(entry)
         try? modelContext.save()
 
+        // Confirmation haptic
+        HapticFeedbackEngine.shared.triggerLightTap()
+
         // Award XP for logging
         gamificationService?.addXP(25, reason: "Logged sleep")
 
         // Award bonus XP if hit target
         if hitTarget {
             gamificationService?.addXP(25, reason: "Hit bedtime target")
+            checkStreakMilestone()
         }
 
         // Award XP for high energy
@@ -227,6 +231,30 @@ struct DailyLoggerView: View {
 
         withAnimation(SLTheme.Animation.spring) {
             showSuccess = true
+        }
+    }
+
+    private func checkStreakMilestone() {
+        let descriptor = FetchDescriptor<SleepLogEntry>(sortBy: [SortDescriptor(\.date, order: .reverse)])
+        guard let entries = try? modelContext.fetch(descriptor) else { return }
+
+        // Count current streak from the freshly saved entries
+        let calendar = Calendar.current
+        var streak = 0
+        var expectedDate = Date().startOfDay
+        for entry in entries {
+            let entryDay = entry.date.startOfDay
+            if calendar.isDate(entryDay, inSameDayAs: expectedDate) && entry.hitTarget {
+                streak += 1
+                expectedDate = calendar.date(byAdding: .day, value: -1, to: expectedDate) ?? expectedDate
+            } else {
+                break
+            }
+        }
+
+        let milestones: Set<Int> = [7, 14, 30, 60, 100, 180, 365]
+        if milestones.contains(streak) {
+            HapticFeedbackEngine.shared.triggerStreakMilestone()
         }
     }
 

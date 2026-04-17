@@ -13,9 +13,8 @@ final class PurchaseService: @unchecked Sendable {
 
     // MARK: - Configure
     func configure() {
-        // TODO: Replace "test_AFpuFmRxwiYCSJV0rgzxFqKjZDa" with live appl_... key before App Store submission
         Purchases.configure(
-            with: .init(withAPIKey: "test_AFpuFmRxwiYCSJV0rgzxFqKjZDa")
+            with: .init(withAPIKey: "appl_aPYYAojwFtMRdlQyrevFaEJEmnU")
                 .with(usesStoreKit2IfAvailable: true)
         )
         Purchases.logLevel = .debug

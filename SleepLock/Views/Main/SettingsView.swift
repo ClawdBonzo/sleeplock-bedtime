@@ -6,6 +6,7 @@ struct SettingsView: View {
     @Query(sort: \UserProfile.createdAt) private var profiles: [UserProfile]
 
     @State private var showResetAlert = false
+    @State private var showPaywall = false
 
     private var profile: UserProfile? { profiles.first }
 
@@ -36,6 +37,52 @@ struct SettingsView: View {
 
                                 Spacer()
                             }
+                        }
+                    }
+
+                    // Upgrade to Premium
+                    if !PurchaseService.shared.isPremium {
+                        Button { showPaywall = true } label: {
+                            HStack(spacing: SLTheme.Spacing.md) {
+                                ZStack {
+                                    Circle()
+                                        .fill(LinearGradient(
+                                            colors: [Color(hex: "F59E0B"), Color(hex: "D97706")],
+                                            startPoint: .topLeading, endPoint: .bottomTrailing
+                                        ))
+                                        .frame(width: 44, height: 44)
+                                    Image(systemName: "crown.fill")
+                                        .font(.system(size: 20))
+                                        .foregroundStyle(.white)
+                                }
+
+                                VStack(alignment: .leading, spacing: 2) {
+                                    Text("Upgrade to Premium")
+                                        .font(SLTheme.Typography.headline)
+                                        .foregroundStyle(.white)
+                                    Text("Unlock all features & remove limits")
+                                        .font(SLTheme.Typography.caption)
+                                        .foregroundStyle(SLTheme.Colors.textSecondary)
+                                }
+
+                                Spacer()
+
+                                Image(systemName: "chevron.right")
+                                    .font(.system(size: 14, weight: .semibold))
+                                    .foregroundStyle(Color(hex: "F59E0B"))
+                            }
+                            .padding(SLTheme.Spacing.md)
+                            .background(
+                                LinearGradient(
+                                    colors: [Color(hex: "F59E0B").opacity(0.15), Color(hex: "7C3AED").opacity(0.15)],
+                                    startPoint: .leading, endPoint: .trailing
+                                )
+                            )
+                            .clipShape(RoundedRectangle(cornerRadius: SLTheme.Radius.xl))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: SLTheme.Radius.xl)
+                                    .stroke(Color(hex: "F59E0B").opacity(0.4), lineWidth: 1)
+                            )
                         }
                     }
 
@@ -195,6 +242,13 @@ struct SettingsView: View {
                 Button("Reset", role: .destructive) { resetData() }
             } message: {
                 Text("This will delete all your sleep logs, streaks, and settings. This cannot be undone.")
+            }
+            .fullScreenCover(isPresented: $showPaywall) {
+                PaywallView(
+                    userName: profile?.displayName ?? "",
+                    onContinue: { showPaywall = false },
+                    onRestore: { showPaywall = false }
+                )
             }
         }
     }

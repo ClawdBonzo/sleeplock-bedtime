@@ -6,9 +6,15 @@ struct RootView: View {
     @Query(sort: \UserProfile.createdAt) private var profiles: [UserProfile]
     @State private var streakService = SleepStreakService()
     @State private var showOnboarding: Bool?
+    // Tracks if user tapped "Maybe Later" this session — resets on next launch
+    @State private var hasTemporarilyDismissedPaywall = false
 
     private var hasCompletedOnboarding: Bool {
         profiles.first?.onboardingCompleted ?? false
+    }
+
+    private var isPremium: Bool {
+        PurchaseService.shared.isPremium
     }
 
     var body: some View {
@@ -20,6 +26,18 @@ struct RootView: View {
                             self.showOnboarding = false
                         }
                     }
+                } else if !isPremium && !hasTemporarilyDismissedPaywall {
+                    // Hard paywall gate — shown every launch until subscribed
+                    PaywallView(
+                        userName: profiles.first?.displayName ?? "",
+                        onContinue: {
+                            withAnimation { hasTemporarilyDismissedPaywall = true }
+                        },
+                        onRestore: {
+                            withAnimation { hasTemporarilyDismissedPaywall = true }
+                        },
+                        allowDismiss: false
+                    )
                 } else {
                     MainTabView(streakService: streakService)
                 }

@@ -67,7 +67,8 @@ struct OnboardingContainerView: View {
                 onRestore: {
                     saveProfile()
                     onComplete()
-                }
+                },
+                allowDismiss: false
             )
         }
     }

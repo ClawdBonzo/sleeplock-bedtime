@@ -29,7 +29,10 @@ struct SleepLockApp: App {
         .modelContainer(for: [
             UserProfile.self,
             SleepLogEntry.self,
-            RoutineStep.self
+            RoutineStep.self,
+            GamificationProfile.self,
+            Quest.self,
+            Badge.self
         ])
     }
 }
@@ -42,20 +45,27 @@ struct AnimatedSplashScreen: View {
     @State private var logoOpacity: Double = 0
     @State private var titleOpacity: Double = 0
     @State private var glowOpacity: Double = 0
-    @Environment(\.colorScheme) private var colorScheme
+    @State private var pulse = false
 
     var body: some View {
         ZStack {
-            // Background — use the splash image
-            Image(colorScheme == .dark ? "Splash-Dark" : "Splash-Dark")
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .ignoresSafeArea()
-
-            // Fallback gradient behind image
+            // Background
             SLTheme.Colors.backgroundPrimary
                 .ignoresSafeArea()
-                .zIndex(-1)
+
+            StarsBackground()
+                .ignoresSafeArea()
+
+            // Radial glow
+            RadialGradient(
+                colors: [SLTheme.Colors.primary.opacity(0.25), Color.clear],
+                center: .center,
+                startRadius: 40,
+                endRadius: 300
+            )
+            .ignoresSafeArea()
+            .scaleEffect(pulse ? 1.1 : 1.0)
+            .animation(.easeInOut(duration: 3).repeatForever(autoreverses: true), value: pulse)
 
             VStack(spacing: SLTheme.Spacing.xl) {
                 Spacer()
@@ -63,7 +73,7 @@ struct AnimatedSplashScreen: View {
                 ZStack {
                     // Glow behind icon
                     Circle()
-                        .fill(SLTheme.Colors.moonGlow.opacity(0.2))
+                        .fill(SLTheme.Colors.moonGlow.opacity(0.25))
                         .frame(width: 200, height: 200)
                         .blur(radius: 40)
                         .opacity(glowOpacity)
@@ -72,9 +82,9 @@ struct AnimatedSplashScreen: View {
                     Image("BrandIcon")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 140, height: 140)
-                        .clipShape(RoundedRectangle(cornerRadius: 32))
-                        .shadow(color: SLTheme.Colors.primary.opacity(0.5), radius: 24, y: 4)
+                        .frame(width: 120, height: 120)
+                        .clipShape(RoundedRectangle(cornerRadius: 28))
+                        .shadow(color: SLTheme.Colors.primary.opacity(0.6), radius: 28, y: 4)
                         .scaleEffect(logoScale)
                         .opacity(logoOpacity)
                 }
@@ -95,7 +105,7 @@ struct AnimatedSplashScreen: View {
             }
         }
         .onAppear {
-            withAnimation(.easeOut(duration: 0.6)) {
+            withAnimation(.spring(response: 0.7, dampingFraction: 0.6)) {
                 logoOpacity = 1
                 logoScale = 1.0
             }
@@ -105,7 +115,11 @@ struct AnimatedSplashScreen: View {
             withAnimation(.easeIn(duration: 0.5).delay(0.4)) {
                 titleOpacity = 1
             }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+
+            pulse = true
+
+            Task { @MainActor in
+                try? await Task.sleep(for: .seconds(2.0))
                 onFinished()
             }
         }
