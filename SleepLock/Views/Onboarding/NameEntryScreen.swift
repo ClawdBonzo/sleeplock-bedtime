@@ -107,7 +107,10 @@ struct NameEntryScreen: View {
                 Spacer()
 
                 // CTA
-                Button(action: onNext) {
+                Button(action: {
+                    isFocused = false
+                    onNext()
+                }) {
                     HStack(spacing: SLTheme.Spacing.sm) {
                         Image(systemName: "arrow.right")
                             .font(.system(size: 16, weight: .semibold))

@@ -57,6 +57,13 @@ struct OnboardingContainerView: View {
                 .animation(.easeInOut(duration: 0.4), value: currentStep)
             }
         }
+        .onChange(of: currentStep) { _, _ in
+            // Dismiss any stuck keyboard (e.g. from NameEntryScreen) when advancing.
+            UIApplication.shared.sendAction(
+                #selector(UIResponder.resignFirstResponder),
+                to: nil, from: nil, for: nil
+            )
+        }
         .fullScreenCover(isPresented: $showPaywall) {
             PaywallView(
                 userName: profile.name,
