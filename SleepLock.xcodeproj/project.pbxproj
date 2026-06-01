@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		440191FD2FCDAF9600679902 /* SleepLock-InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 440191FC2FCDAF9600679902 /* SleepLock-InfoPlist.xcstrings */; };
 		440191FF2FCDAF9600679902 /* SleepLockWidgets-InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 440191FE2FCDAF9600679902 /* SleepLockWidgets-InfoPlist.xcstrings */; };
+		44A237952FCE1B8700289DD3 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 44A237942FCE1B8700289DD3 /* InfoPlist.xcstrings */; };
 		A10000000000000000000001 /* SleepLockApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000001 /* SleepLockApp.swift */; };
 		A10000000000000000000002 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000002 /* RootView.swift */; };
 		A10000000000000000000003 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000003 /* MainTabView.swift */; };
@@ -77,6 +78,7 @@
 /* Begin PBXFileReference section */
 		440191FC2FCDAF9600679902 /* SleepLock-InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = "SleepLock-InfoPlist.xcstrings"; sourceTree = "<group>"; };
 		440191FE2FCDAF9600679902 /* SleepLockWidgets-InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = "SleepLockWidgets-InfoPlist.xcstrings"; sourceTree = "<group>"; };
+		44A237942FCE1B8700289DD3 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 		B10000000000000000000001 /* SleepLockApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepLockApp.swift; sourceTree = "<group>"; };
 		B10000000000000000000002 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		B10000000000000000000003 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
@@ -265,6 +267,7 @@
 				B10000000000000000000022 /* Assets.xcassets */,
 				B100000000000000000LCATW /* Localizable.xcstrings */,
 				440191FE2FCDAF9600679902 /* SleepLockWidgets-InfoPlist.xcstrings */,
+				44A237942FCE1B8700289DD3 /* InfoPlist.xcstrings */,
 			);
 			path = SleepLockWidgets;
 			sourceTree = "<group>";
@@ -383,6 +386,7 @@
 			files = (
 				A10000000000000000000022 /* Assets.xcassets in Resources */,
 				A100000000000000000LCATW /* Localizable.xcstrings in Resources */,
+				44A237952FCE1B8700289DD3 /* InfoPlist.xcstrings in Resources */,
 				440191FF2FCDAF9600679902 /* SleepLockWidgets-InfoPlist.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -610,11 +614,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SleepLock/SleepLock.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 3N9RY9EG8V;
-				PROVISIONING_PROFILE_SPECIFIER = "SleepLock AppStore";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = SleepLock;
@@ -633,6 +636,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.clawdbonzo.SleepLock;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "SleepLock AppStore";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -671,11 +675,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = SleepLockWidgets/SleepLockWidgets.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 3N9RY9EG8V;
-				PROVISIONING_PROFILE_SPECIFIER = "SleepLockWidgets AppStore";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution";
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = SleepLockWidgets/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = SleepLockWidgets;
@@ -690,6 +693,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.clawdbonzo.SleepLock.widgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "SleepLockWidgets AppStore";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 6.0;

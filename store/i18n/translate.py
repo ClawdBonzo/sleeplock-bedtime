@@ -274,8 +274,11 @@ for li, lang in enumerate(LANGS):
         if src in T:
             val = T[src][li]
         else:
+            # NON-DESTRUCTIVE: never overwrite an existing translation with the
+            # English source. Leave any pre-existing <target> from the export
+            # intact so an incomplete map can't wipe catalog translations.
             missing.add(src)
-            val = src
+            continue
         if tgt_el is None:
             tgt_el = ET.SubElement(unit, f"{{{NS}}}target")
             # place target right after source
