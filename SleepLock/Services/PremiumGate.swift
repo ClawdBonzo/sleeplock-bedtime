@@ -9,9 +9,8 @@ import SwiftUI
 // ship its own. `privacy` MUST point at a live privacy policy hosted by you —
 // replace the placeholder before submission.
 enum SLLegal {
-    static let terms = URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")!
-    // TODO: Replace with the real hosted SleepLock privacy policy URL before submission.
-    static let privacy = URL(string: "https://sleeplock.app/privacy")!
+    static let terms = URL(string: "https://gwlabs.app/terms")!
+    static let privacy = URL(string: "https://gwlabs.app/privacy")!
 }
 
 // MARK: - Pro Feature Definition

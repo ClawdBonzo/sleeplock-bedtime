@@ -1,5 +1,11 @@
 # SleepLock — App Store Connect metadata (6 locales)
 
+**URLs (App Information — apply to all locales):**
+- Privacy Policy URL: https://gwlabs.app/privacy
+- Support URL: https://gwlabs.app/support
+- Marketing URL (optional): https://gwlabs.app
+- Terms of Use (EULA): https://gwlabs.app/terms
+
 Primary language: English (U.S.). Localizations: Japanese, Korean, German, Dutch, Swedish.
 Limits: Name ≤30, Subtitle ≤30, Promo ≤170, Keywords ≤100 (comma-separated, no spaces after commas), Description ≤4000.
 
