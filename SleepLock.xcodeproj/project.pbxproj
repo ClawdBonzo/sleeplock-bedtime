@@ -646,7 +646,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 3N9RY9EG8V;
-				GENERATE_INFOPLIST_FILE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = SleepLockWidgets/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = SleepLockWidgets;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
@@ -675,7 +676,8 @@
 				DEVELOPMENT_TEAM = 3N9RY9EG8V;
 				PROVISIONING_PROFILE_SPECIFIER = "SleepLockWidgets AppStore";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution";
-				GENERATE_INFOPLIST_FILE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = SleepLockWidgets/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = SleepLockWidgets;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
