@@ -83,7 +83,7 @@ struct GamificationDashboardView: View {
 
     // MARK: - Quests Section
 
-    private func questsSection(title: String, quests: [Quest], service: GamificationService) -> some View {
+    private func questsSection(title: LocalizedStringKey, quests: [Quest], service: GamificationService) -> some View {
         VStack(alignment: .leading, spacing: SLTheme.Spacing.md) {
             Label(title, systemImage: "checklist")
                 .font(SLTheme.Typography.headline)

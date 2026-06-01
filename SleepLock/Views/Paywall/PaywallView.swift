@@ -6,17 +6,17 @@ import RevenueCat
 private struct PlanConfig: Identifiable {
     let id: String
     let rcKey: String
-    let title: String
+    let title: LocalizedStringKey
     let fallbackPrice: String
     let period: String           // "/wk", "/mo", "/yr", "" for lifetime
-    let badge: String?
+    let badge: LocalizedStringKey?
     let badgeIsGold: Bool
-    let savings: String?
+    let savings: LocalizedStringKey?
     let hasTrial: Bool
     let isLifetime: Bool
 }
 
-private let allPlans: [PlanConfig] = [
+private nonisolated(unsafe) let allPlans: [PlanConfig] = [
     PlanConfig(
         id: "weekly",
         rcKey: "$rc_weekly",
@@ -86,10 +86,10 @@ struct PaywallView: View {
     private var selectedPlan: PlanConfig { allPlans[selectedIndex] }
 
     private var ctaText: String {
-        if isPurchasing { return "Processing..." }
-        if selectedPlan.hasTrial { return "Start 3-Day Free Trial" }
-        if selectedPlan.isLifetime { return "Get Lifetime Access" }
-        return "Subscribe Now"
+        if isPurchasing { return String(localized: "Processing...") }
+        if selectedPlan.hasTrial { return String(localized: "Start 3-Day Free Trial") }
+        if selectedPlan.isLifetime { return String(localized: "Get Lifetime Access") }
+        return String(localized: "Subscribe Now")
     }
 
     var body: some View {
@@ -326,7 +326,7 @@ struct PaywallView: View {
             if success {
                 onContinue()
             } else {
-                errorMessage = "Purchase failed. Please try again."
+                errorMessage = String(localized: "Purchase failed. Please try again.")
             }
         } else {
             #if DEBUG
@@ -334,7 +334,7 @@ struct PaywallView: View {
             // real purchase in Release builds.
             onContinue()
             #else
-            errorMessage = "Plans are loading. Please check your connection and try again."
+            errorMessage = String(localized: "Plans are loading. Please check your connection and try again.")
             #endif
         }
     }
@@ -349,7 +349,7 @@ struct PaywallView: View {
         if restored {
             onContinue()
         } else {
-            errorMessage = "No active subscription found."
+            errorMessage = String(localized: "No active subscription found.")
         }
     }
 }
@@ -358,7 +358,7 @@ struct PaywallView: View {
 
 private struct PaywallFeatureRow: View {
     let icon: String
-    let text: String
+    let text: LocalizedStringKey
     let color: Color
 
     var body: some View {

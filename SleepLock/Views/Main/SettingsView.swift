@@ -279,7 +279,7 @@ struct SettingsView: View {
 
 // MARK: - Settings Time Row
 private struct SettingsTimeRow: View {
-    let label: String
+    let label: LocalizedStringKey
     let icon: String
     let color: Color
     @Binding var time: Date
@@ -306,7 +306,7 @@ private struct SettingsTimeRow: View {
 // MARK: - Settings Link Row
 private struct SettingsLinkRow: View {
     let icon: String
-    let title: String
+    let title: LocalizedStringKey
     let color: Color
     var url: URL? = nil
 

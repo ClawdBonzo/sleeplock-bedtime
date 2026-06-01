@@ -11,6 +11,7 @@ struct DashboardView: View {
 
     @State private var showLogger = false
     @State private var gamificationService: GamificationService?
+    @State private var deepLinkAnalytics = false
 
     private var profile: UserProfile? { profiles.first }
     private var latestEntry: SleepLogEntry? { entries.first }
@@ -67,11 +68,18 @@ struct DashboardView: View {
                         writeWidgetSnapshot()
                     }
             }
+            .navigationDestination(isPresented: $deepLinkAnalytics) {
+                ProgressChartsView()
+                    .proGated(.analytics, isPremium: isPremium, userName: profile?.displayName ?? "")
+            }
             .onAppear {
                 if gamificationService == nil {
                     gamificationService = GamificationService(modelContext: modelContext)
                 }
                 writeWidgetSnapshot()
+                #if DEBUG
+                if CommandLine.arguments.contains("-ShowAnalytics") { deepLinkAnalytics = true }
+                #endif
             }
         }
     }

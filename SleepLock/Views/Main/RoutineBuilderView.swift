@@ -223,7 +223,7 @@ private struct RoutineStepRow: View {
 
 // MARK: - Tip Row
 private struct TipRow: View {
-    let text: String
+    let text: LocalizedStringKey
     var body: some View {
         HStack(alignment: .top, spacing: SLTheme.Spacing.xs) {
             Image(systemName: "checkmark.circle.fill")
