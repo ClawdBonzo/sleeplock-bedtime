@@ -92,6 +92,17 @@ struct PaywallView: View {
         return String(localized: "Subscribe Now")
     }
 
+    // Auto-renewable subscription disclosure (Apple Guideline 3.1.2).
+    private var disclosureText: LocalizedStringKey {
+        if selectedPlan.isLifetime {
+            return "One-time purchase — no subscription, no auto-renewal."
+        }
+        if selectedPlan.hasTrial {
+            return "3-day free trial, then auto-renews until canceled. Cancel anytime in Settings."
+        }
+        return "Auto-renews until canceled. Cancel anytime in Settings."
+    }
+
     var body: some View {
         ZStack {
             SLTheme.Colors.backgroundPrimary.ignoresSafeArea()
@@ -234,9 +245,11 @@ struct PaywallView: View {
                     .disabled(isPurchasing)
                     .animation(.spring(response: 0.25, dampingFraction: 0.7), value: selectedIndex)
 
-                    Text(selectedPlan.hasTrial ? "No charge for 3 days · Cancel anytime" : "No refunds · Cancel subscription anytime")
+                    Text(disclosureText)
                         .font(.system(size: 11, design: .rounded))
                         .foregroundStyle(SLTheme.Colors.textTertiary)
+                        .multilineTextAlignment(.center)
+                        .fixedSize(horizontal: false, vertical: true)
 
                     HStack(spacing: SLTheme.Spacing.xl) {
                         Button("Restore") { Task { await restorePurchases() } }

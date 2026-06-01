@@ -252,6 +252,12 @@ T.update({
  "Never lose your record": ["記録を失わない","기록을 잃지 않기","Verliere nie deinen Rekord","Verlies nooit je record","Förlora aldrig ditt rekord"],
 })
 
+T.update({
+ "One-time purchase — no subscription, no auto-renewal.": ["買い切り — サブスクなし、自動更新なし。","1회 구매 — 구독 없음, 자동 갱신 없음.","Einmaliger Kauf — kein Abo, keine automatische Verlängerung.","Eenmalige aankoop — geen abonnement, geen automatische verlenging.","Engångsköp — ingen prenumeration, ingen automatisk förnyelse."],
+ "3-day free trial, then auto-renews until canceled. Cancel anytime in Settings.": ["3日間無料、その後は解約するまで自動更新。設定でいつでも解約できます。","3일 무료 후 해지할 때까지 자동 갱신. 설정에서 언제든 해지할 수 있습니다.","3 Tage gratis, danach automatische Verlängerung bis zur Kündigung. Jederzeit in den Einstellungen kündbar.","3 dagen gratis, daarna automatische verlenging tot opzegging. Altijd opzegbaar in Instellingen.","3 dagar gratis, sedan automatisk förnyelse tills du avslutar. Avsluta när som helst i Inställningar."],
+ "Auto-renews until canceled. Cancel anytime in Settings.": ["解約するまで自動更新。設定でいつでも解約できます。","해지할 때까지 자동 갱신. 설정에서 언제든 해지할 수 있습니다.","Automatische Verlängerung bis zur Kündigung. Jederzeit in den Einstellungen kündbar.","Automatische verlenging tot opzegging. Altijd opzegbaar in Instellingen.","Automatisk förnyelse tills du avslutar. Avsluta när som helst i Inställningar."],
+})
+
 missing = set()
 counts = {}
 for li, lang in enumerate(LANGS):
