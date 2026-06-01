@@ -2,11 +2,11 @@ import SwiftUI
 
 // MARK: - Primary Button
 struct SLPrimaryButton: View {
-    let title: String
+    let title: LocalizedStringKey
     let icon: String?
     let action: () -> Void
 
-    init(_ title: String, icon: String? = nil, action: @escaping () -> Void) {
+    init(_ title: LocalizedStringKey, icon: String? = nil, action: @escaping () -> Void) {
         self.title = title
         self.icon = icon
         self.action = action
@@ -34,10 +34,10 @@ struct SLPrimaryButton: View {
 
 // MARK: - Secondary Button
 struct SLSecondaryButton: View {
-    let title: String
+    let title: LocalizedStringKey
     let action: () -> Void
 
-    init(_ title: String, action: @escaping () -> Void) {
+    init(_ title: LocalizedStringKey, action: @escaping () -> Void) {
         self.title = title
         self.action = action
     }
@@ -100,12 +100,12 @@ struct SLGlowCard<Content: View>: View {
 
 // MARK: - Chip / Tag
 struct SLChip: View {
-    let title: String
+    let title: LocalizedStringKey
     let icon: String?
     let isSelected: Bool
     let action: () -> Void
 
-    init(_ title: String, icon: String? = nil, isSelected: Bool = false, action: @escaping () -> Void) {
+    init(_ title: LocalizedStringKey, icon: String? = nil, isSelected: Bool = false, action: @escaping () -> Void) {
         self.title = title
         self.icon = icon
         self.isSelected = isSelected
@@ -173,10 +173,10 @@ struct SLProgressRing: View {
 
 // MARK: - Section Header
 struct SLSectionHeader: View {
-    let title: String
-    let subtitle: String?
+    let title: LocalizedStringKey
+    let subtitle: LocalizedStringKey?
 
-    init(_ title: String, subtitle: String? = nil) {
+    init(_ title: LocalizedStringKey, subtitle: LocalizedStringKey? = nil) {
         self.title = title
         self.subtitle = subtitle
     }
@@ -201,7 +201,7 @@ struct SLSectionHeader: View {
 struct SLStatPill: View {
     let icon: String
     let value: String
-    let label: String
+    let label: LocalizedStringKey
     let color: Color
 
     var body: some View {

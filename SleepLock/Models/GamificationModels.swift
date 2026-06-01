@@ -13,12 +13,12 @@ enum SleepLevel: Int, Codable, CaseIterable {
 
     var displayName: String {
         switch self {
-        case .nightOwl: return "Night Owl"
-        case .sleepyHead: return "Sleepy Head"
-        case .restfulDreamer: return "Restful Dreamer"
-        case .sleepMaster: return "Sleep Master"
-        case .sleepChampion: return "Sleep Champion"
-        case .sleepKing: return "Sleep King"
+        case .nightOwl: return String(localized: "Night Owl")
+        case .sleepyHead: return String(localized: "Sleepy Head")
+        case .restfulDreamer: return String(localized: "Restful Dreamer")
+        case .sleepMaster: return String(localized: "Sleep Master")
+        case .sleepChampion: return String(localized: "Sleep Champion")
+        case .sleepKing: return String(localized: "Sleep King")
         }
     }
 
@@ -130,7 +130,18 @@ enum QuestObjective: String, Codable {
     case weekOfConsistency = "Perfect week"
 
     var displayText: String {
-        return self.rawValue
+        switch self {
+        case .hitBedtime: return String(localized: "Hit bedtime")
+        case .completeBedtimeStreak3: return String(localized: "Hit bedtime 3 times")
+        case .completeBedtimeStreak7: return String(localized: "Hit bedtime 7 times")
+        case .completeWindDown: return String(localized: "Complete wind-down")
+        case .completeWindDownStreak3: return String(localized: "Complete wind-down 3 times")
+        case .logSleepQuality: return String(localized: "Log sleep quality")
+        case .energyScore80Plus: return String(localized: "Reach 80+ energy")
+        case .streakMilestone: return String(localized: "10-day streak")
+        case .completedRoutine: return String(localized: "Complete routine")
+        case .weekOfConsistency: return String(localized: "Perfect week")
+        }
     }
 
     var xpReward: Int {
@@ -236,24 +247,38 @@ enum BadgeType: String, Codable, CaseIterable {
     case consistencyKing = "Consistency King"
 
     var displayName: String {
-        return self.rawValue
+        switch self {
+        case .firstBedtime: return String(localized: "First Step")
+        case .week1Streak: return String(localized: "Week Wonder")
+        case .week2Streak: return String(localized: "Fortnight Fighter")
+        case .month1Streak: return String(localized: "Monthly Master")
+        case .month3Streak: return String(localized: "Tri-Monthly Titan")
+        case .month6Streak: return String(localized: "Six-Month Sage")
+        case .year1Streak: return String(localized: "Yearly Yogi")
+        case .perfectWeek: return String(localized: "Perfect Week")
+        case .level3: return String(localized: "Rising Star")
+        case .level5: return String(localized: "Sleep Sage")
+        case .allQuests: return String(localized: "Quest Conqueror")
+        case .energyChampion: return String(localized: "Energy Champion")
+        case .consistencyKing: return String(localized: "Consistency King")
+        }
     }
 
     var description: String {
         switch self {
-        case .firstBedtime: return "Hit your first bedtime goal"
-        case .week1Streak: return "Maintain a 7-day streak"
-        case .week2Streak: return "Maintain a 14-day streak"
-        case .month1Streak: return "Maintain a 30-day streak"
-        case .month3Streak: return "Maintain a 90-day streak"
-        case .month6Streak: return "Maintain a 180-day streak"
-        case .year1Streak: return "Maintain a 365-day streak"
-        case .perfectWeek: return "Hit bedtime 7 days straight"
-        case .level3: return "Reach level 3"
-        case .level5: return "Reach level 5"
-        case .allQuests: return "Complete 50 quests"
-        case .energyChampion: return "Achieve 90+ energy 10 times"
-        case .consistencyKing: return "Hit bedtime 100 times"
+        case .firstBedtime: return String(localized: "Hit your first bedtime goal")
+        case .week1Streak: return String(localized: "Maintain a 7-day streak")
+        case .week2Streak: return String(localized: "Maintain a 14-day streak")
+        case .month1Streak: return String(localized: "Maintain a 30-day streak")
+        case .month3Streak: return String(localized: "Maintain a 90-day streak")
+        case .month6Streak: return String(localized: "Maintain a 180-day streak")
+        case .year1Streak: return String(localized: "Maintain a 365-day streak")
+        case .perfectWeek: return String(localized: "Hit bedtime 7 days straight")
+        case .level3: return String(localized: "Reach level 3")
+        case .level5: return String(localized: "Reach level 5")
+        case .allQuests: return String(localized: "Complete 50 quests")
+        case .energyChampion: return String(localized: "Achieve 90+ energy 10 times")
+        case .consistencyKing: return String(localized: "Hit bedtime 100 times")
         }
     }
 

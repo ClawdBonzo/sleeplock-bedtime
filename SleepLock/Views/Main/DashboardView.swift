@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftData
+import WidgetKit
 
 struct DashboardView: View {
     @Environment(\.modelContext) private var modelContext
@@ -13,6 +14,7 @@ struct DashboardView: View {
 
     private var profile: UserProfile? { profiles.first }
     private var latestEntry: SleepLogEntry? { entries.first }
+    private var isPremium: Bool { PurchaseService.shared.isPremium }
 
     var body: some View {
         NavigationStack {
@@ -39,6 +41,9 @@ struct DashboardView: View {
                         // Quick Stats
                         statsRow
 
+                        // Sleep Analytics (Pro)
+                        analyticsCard
+
                         // Quick Log CTA
                         if !streakService.todayLogged {
                             quickLogCard
@@ -57,12 +62,16 @@ struct DashboardView: View {
             .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $showLogger) {
                 DailyLoggerView()
-                    .onDisappear { streakService.recalculate() }
+                    .onDisappear {
+                        streakService.recalculate()
+                        writeWidgetSnapshot()
+                    }
             }
             .onAppear {
                 if gamificationService == nil {
                     gamificationService = GamificationService(modelContext: modelContext)
                 }
+                writeWidgetSnapshot()
             }
         }
     }
@@ -120,12 +129,23 @@ struct DashboardView: View {
                     .foregroundStyle(SLTheme.Colors.primaryLight)
             }
             Spacer()
-            Image("BrandIcon")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 44, height: 44)
-                .clipShape(RoundedRectangle(cornerRadius: 12))
-                .shadow(color: SLTheme.Colors.primary.opacity(0.3), radius: 8)
+            Button {
+                showLogger = true
+            } label: {
+                Image(systemName: "plus")
+                    .font(.system(size: 20, weight: .bold))
+                    .foregroundStyle(.white)
+                    .frame(width: 44, height: 44)
+                    .background(
+                        LinearGradient(
+                            colors: [SLTheme.Colors.primary, Color(hex: "8B5CF6")],
+                            startPoint: .topLeading, endPoint: .bottomTrailing
+                        )
+                    )
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                    .shadow(color: SLTheme.Colors.primary.opacity(0.4), radius: 8, y: 2)
+            }
+            .accessibilityLabel("Log last night's sleep")
         }
         .padding(.top, SLTheme.Spacing.md)
     }
@@ -133,31 +153,31 @@ struct DashboardView: View {
     // MARK: - Streak Hero
     private var streakHeroCard: some View {
         SLGlowCard(glowColor: SLTheme.Colors.streakGold) {
-            VStack(spacing: SLTheme.Spacing.sm) {
-                HStack {
+            HStack(spacing: SLTheme.Spacing.md) {
+                // Left: label
+                HStack(spacing: SLTheme.Spacing.xs) {
                     Image(systemName: "flame.fill")
                         .foregroundStyle(SLTheme.Colors.streakGold)
                     Text("Current Streak")
                         .font(SLTheme.Typography.headline)
                         .foregroundStyle(SLTheme.Colors.textSecondary)
-                    Spacer()
-                    if streakService.currentStreak > 0 {
-                        Image(systemName: "trophy.fill")
-                            .foregroundStyle(SLTheme.Colors.streakGold)
-                    }
                 }
 
-                Text("\(streakService.currentStreak)")
-                    .font(SLTheme.Typography.streakNumber)
-                    .foregroundStyle(SLTheme.Colors.streakGold)
-                    .shadow(color: SLTheme.Colors.streakGold.opacity(0.3), radius: 10)
+                Spacer(minLength: 0)
 
-                Text(streakService.currentStreak == 1 ? "night" : "nights")
-                    .font(SLTheme.Typography.subheadline)
-                    .foregroundStyle(SLTheme.Colors.textSecondary)
+                // Right: number + unit + best
+                HStack(alignment: .firstTextBaseline, spacing: 6) {
+                    Text("\(streakService.currentStreak)")
+                        .font(SLTheme.Typography.title)
+                        .foregroundStyle(SLTheme.Colors.streakGold)
+                        .shadow(color: SLTheme.Colors.streakGold.opacity(0.3), radius: 8)
+                    Text(streakService.currentStreak == 1 ? "night" : "nights")
+                        .font(SLTheme.Typography.subheadline)
+                        .foregroundStyle(SLTheme.Colors.textSecondary)
+                }
 
                 if streakService.longestStreak > streakService.currentStreak {
-                    Text("Best: \(streakService.longestStreak) nights")
+                    Text("Best \(streakService.longestStreak)")
                         .font(SLTheme.Typography.caption)
                         .foregroundStyle(SLTheme.Colors.textTertiary)
                 }
@@ -262,6 +282,46 @@ struct DashboardView: View {
         }
     }
 
+    // MARK: - Sleep Analytics (Pro)
+    private var analyticsCard: some View {
+        NavigationLink {
+            ProgressChartsView()
+                .proGated(.analytics, isPremium: isPremium, userName: profile?.displayName ?? "")
+        } label: {
+            HStack(spacing: SLTheme.Spacing.md) {
+                Image(systemName: "chart.line.uptrend.xyaxis")
+                    .font(.system(size: 28))
+                    .foregroundStyle(SLTheme.Colors.sleepBlue)
+                    .frame(width: 44, height: 44)
+                    .background(SLTheme.Colors.sleepBlue.opacity(0.15))
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
+
+                VStack(alignment: .leading, spacing: SLTheme.Spacing.xxxs) {
+                    Text("Sleep Analytics")
+                        .font(SLTheme.Typography.headline)
+                        .foregroundStyle(.white)
+
+                    Text("Consistency, energy & duration trends")
+                        .font(SLTheme.Typography.caption)
+                        .foregroundStyle(SLTheme.Colors.textSecondary)
+                }
+
+                Spacer()
+
+                Image(systemName: isPremium ? "chevron.right" : "lock.fill")
+                    .font(.system(size: 14, weight: .semibold))
+                    .foregroundStyle(isPremium ? SLTheme.Colors.textTertiary : SLTheme.Colors.streakGold)
+            }
+            .padding(SLTheme.Spacing.md)
+            .background(SLTheme.Colors.backgroundSecondary)
+            .clipShape(RoundedRectangle(cornerRadius: SLTheme.Radius.xl))
+            .overlay(
+                RoundedRectangle(cornerRadius: SLTheme.Radius.xl)
+                    .stroke(SLTheme.Colors.sleepBlue.opacity(0.2), lineWidth: 1)
+            )
+        }
+    }
+
     // MARK: - Quick Log
     private var quickLogCard: some View {
         Button { showLogger = true } label: {
@@ -295,14 +355,26 @@ struct DashboardView: View {
         }
     }
 
+    // MARK: - Widget Snapshot
+    private func writeWidgetSnapshot() {
+        SharedSnapshot.save(.init(
+            isPremium: isPremium,
+            streakCount: streakService.currentStreak,
+            bedtime: profile?.targetBedtime.shortTime ?? "10:30 PM",
+            energyScore: Int(streakService.energyScore),
+            hitTargetToday: streakService.todayLogged
+        ))
+        WidgetCenter.shared.reloadAllTimelines()
+    }
+
     // MARK: - Helpers
     private var greetingText: String {
         let hour = Calendar.current.component(.hour, from: Date())
         switch hour {
-        case 5..<12: return "Good Morning"
-        case 12..<17: return "Good Afternoon"
-        case 17..<21: return "Good Evening"
-        default: return "Good Night"
+        case 5..<12: return String(localized: "Good Morning")
+        case 12..<17: return String(localized: "Good Afternoon")
+        case 17..<21: return String(localized: "Good Evening")
+        default: return String(localized: "Good Night")
         }
     }
 

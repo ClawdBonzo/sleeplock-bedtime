@@ -121,8 +121,12 @@ struct DailyLoggerView: View {
                         HStack(spacing: SLTheme.Spacing.md) {
                             ForEach(EnergyLevel.allCases, id: \.rawValue) { level in
                                 VStack(spacing: SLTheme.Spacing.xxs) {
-                                    Text(level.emoji)
-                                        .font(.system(size: energyRating == level.rawValue ? 40 : 28))
+                                    Image(systemName: level.emoji)
+                                        .font(.system(size: energyRating == level.rawValue ? 32 : 24, weight: .semibold))
+                                        .foregroundStyle(
+                                            energyRating == level.rawValue ?
+                                            level.color : SLTheme.Colors.textTertiary
+                                        )
                                         .scaleEffect(energyRating == level.rawValue ? 1.1 : 1)
 
                                     Text(level.label)

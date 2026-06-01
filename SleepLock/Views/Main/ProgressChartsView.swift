@@ -122,8 +122,9 @@ struct ProgressChartsView: View {
                                         AxisValueLabel {
                                             if let val = value.as(Int.self),
                                                let level = EnergyLevel(rawValue: val) {
-                                                Text(level.emoji)
-                                                    .font(.system(size: 12))
+                                                Image(systemName: level.emoji)
+                                                    .font(.system(size: 11, weight: .semibold))
+                                                    .foregroundStyle(level.color)
                                             }
                                         }
                                     }

@@ -241,8 +241,8 @@ struct PaywallView: View {
 
                     HStack(spacing: SLTheme.Spacing.xl) {
                         Button("Restore") { Task { await restorePurchases() } }
-                        Button("Terms") {}
-                        Button("Privacy") {}
+                        Link("Terms", destination: SLLegal.terms)
+                        Link("Privacy", destination: SLLegal.privacy)
                     }
                     .font(.system(size: 11))
                     .foregroundStyle(SLTheme.Colors.textTertiary)
@@ -329,7 +329,13 @@ struct PaywallView: View {
                 errorMessage = "Purchase failed. Please try again."
             }
         } else {
+            #if DEBUG
+            // Sandbox/preview convenience only — never grant access without a
+            // real purchase in Release builds.
             onContinue()
+            #else
+            errorMessage = "Plans are loading. Please check your connection and try again."
+            #endif
         }
     }
 

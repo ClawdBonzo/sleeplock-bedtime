@@ -13,6 +13,18 @@ final class PurchaseService: @unchecked Sendable {
 
     // MARK: - Configure
     func configure() {
+        #if DEBUG
+        // Screenshot / QA overrides — never compiled into Release builds.
+        if CommandLine.arguments.contains("-ForcePremium") {
+            isPremium = true
+            return
+        }
+        if CommandLine.arguments.contains("-ForceFree") {
+            isPremium = false
+            return
+        }
+        #endif
+
         Purchases.configure(
             with: .init(withAPIKey: "appl_aPYYAojwFtMRdlQyrevFaEJEmnU")
                 .with(usesStoreKit2IfAvailable: true)

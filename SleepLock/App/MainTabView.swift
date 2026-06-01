@@ -1,8 +1,20 @@
 import SwiftUI
+import SwiftData
 
 struct MainTabView: View {
     @Bindable var streakService: SleepStreakService
-    @State private var selectedTab = 0
+    @State private var selectedTab: Int = {
+        #if DEBUG
+        if let idx = CommandLine.arguments.firstIndex(of: "-StartTab"),
+           idx + 1 < CommandLine.arguments.count,
+           let n = Int(CommandLine.arguments[idx + 1]) { return n }
+        #endif
+        return 0
+    }()
+    @Query(sort: \UserProfile.createdAt) private var profiles: [UserProfile]
+
+    private var isPremium: Bool { PurchaseService.shared.isPremium }
+    private var userName: String { profiles.first?.displayName ?? "" }
 
     var body: some View {
         TabView(selection: $selectedTab) {
@@ -11,10 +23,12 @@ struct MainTabView: View {
                 .tag(0)
 
             GamificationDashboardView()
+                .proGated(.gamification, isPremium: isPremium, userName: userName)
                 .tabItem { Label("Challenges", systemImage: "star.fill") }
                 .tag(1)
 
             StreakCalendarView()
+                .proGated(.streaks, isPremium: isPremium, userName: userName)
                 .tabItem { Label("Streaks", systemImage: "flame.fill") }
                 .tag(2)
 

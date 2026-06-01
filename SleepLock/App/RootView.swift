@@ -7,7 +7,13 @@ struct RootView: View {
     @State private var streakService = SleepStreakService()
     @State private var showOnboarding: Bool?
     // Tracks if user tapped "Maybe Later" this session — resets on next launch
-    @State private var hasTemporarilyDismissedPaywall = false
+    @State private var hasTemporarilyDismissedPaywall: Bool = {
+        #if DEBUG
+        return CommandLine.arguments.contains("-SkipLaunchPaywall")
+        #else
+        return false
+        #endif
+    }()
 
     private var hasCompletedOnboarding: Bool {
         profiles.first?.onboardingCompleted ?? false

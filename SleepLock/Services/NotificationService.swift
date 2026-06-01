@@ -16,7 +16,11 @@ final class NotificationService: Sendable {
         }
     }
 
-    func scheduleBedtimeReminder(bedtime: Date, minutesBefore: Int, userName: String) {
+    /// - Parameter enforceBedtime: when `true` (SleepLock Pro), schedules the
+    ///   at-bedtime and past-bedtime "Smart bedtime enforcement" nudges in
+    ///   addition to the basic pre-bedtime reminder. Free users get only the
+    ///   single pre-bedtime reminder.
+    func scheduleBedtimeReminder(bedtime: Date, minutesBefore: Int, userName: String, enforceBedtime: Bool) {
         let center = UNUserNotificationCenter.current()
 
         // Remove old bedtime reminders
@@ -35,8 +39,8 @@ final class NotificationService: Sendable {
             let reminderComponents = calendar.dateComponents([.hour, .minute], from: reminderTime)
 
             let content = UNMutableNotificationContent()
-            content.title = "Bedtime in \(minutesBefore) min"
-            content.body = "Hey \(userName), time to start your sleep routine! Your energized self will thank you tomorrow."
+            content.title = String(localized: "Bedtime in \(minutesBefore) min")
+            content.body = String(localized: "Hey \(userName), time to start your sleep routine! Your energized self will thank you tomorrow.")
             content.sound = .default
             content.categoryIdentifier = "BEDTIME_REMINDER"
 
@@ -45,10 +49,13 @@ final class NotificationService: Sendable {
             center.add(request)
         }
 
+        // Smart bedtime enforcement (Pro only): at-bedtime + past-bedtime nudges.
+        guard enforceBedtime else { return }
+
         // At bedtime
         let bedtimeContent = UNMutableNotificationContent()
-        bedtimeContent.title = "Bedtime Now!"
-        bedtimeContent.body = "Lights out, \(userName)! Keep your streak alive by getting to bed now."
+        bedtimeContent.title = String(localized: "Bedtime Now!")
+        bedtimeContent.body = String(localized: "Lights out, \(userName)! Keep your streak alive by getting to bed now.")
         bedtimeContent.sound = .default
         bedtimeContent.categoryIdentifier = "BEDTIME_NOW"
 
@@ -61,8 +68,8 @@ final class NotificationService: Sendable {
         let pastComponents = calendar.dateComponents([.hour, .minute], from: pastTime)
 
         let pastContent = UNMutableNotificationContent()
-        pastContent.title = "Still up?"
-        pastContent.body = "It's 15 minutes past your bedtime. Every minute counts for your streak and energy score!"
+        pastContent.title = String(localized: "Still up?")
+        pastContent.body = String(localized: "It's 15 minutes past your bedtime. Every minute counts for your streak and energy score!")
         pastContent.sound = .default
 
         let pastTrigger = UNCalendarNotificationTrigger(dateMatching: pastComponents, repeats: true)
@@ -79,8 +86,8 @@ final class NotificationService: Sendable {
         let components = calendar.dateComponents([.hour, .minute], from: logTime)
 
         let content = UNMutableNotificationContent()
-        content.title = "Good Morning!"
-        content.body = "How did you sleep, \(userName)? Log your bedtime and energy level to keep your streak going!"
+        content.title = String(localized: "Good Morning!")
+        content.body = String(localized: "How did you sleep, \(userName)? Log your bedtime and energy level to keep your streak going!")
         content.sound = .default
         content.categoryIdentifier = "MORNING_LOG"
 

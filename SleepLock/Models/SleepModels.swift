@@ -126,11 +126,11 @@ struct SleepHabit: Identifiable {
     let description: String
 
     static let options: [SleepHabit] = [
-        SleepHabit(id: "terrible", title: "Terrible", emoji: "😴", description: "I barely sleep and feel exhausted"),
-        SleepHabit(id: "poor", title: "Needs Work", emoji: "😐", description: "Inconsistent schedule, often tired"),
-        SleepHabit(id: "okay", title: "Okay", emoji: "🙂", description: "Sometimes good, sometimes bad"),
-        SleepHabit(id: "good", title: "Pretty Good", emoji: "😊", description: "Mostly consistent, want to improve"),
-        SleepHabit(id: "great", title: "Great", emoji: "⭐", description: "Just want to maintain my streak")
+        SleepHabit(id: "terrible", title: "Terrible", emoji: "hand.thumbsdown.fill", description: "I barely sleep and feel exhausted"),
+        SleepHabit(id: "poor", title: "Needs Work", emoji: "exclamationmark.triangle.fill", description: "Inconsistent schedule, often tired"),
+        SleepHabit(id: "okay", title: "Okay", emoji: "equal.circle.fill", description: "Sometimes good, sometimes bad"),
+        SleepHabit(id: "good", title: "Pretty Good", emoji: "checkmark.circle.fill", description: "Mostly consistent, want to improve"),
+        SleepHabit(id: "great", title: "Great", emoji: "star.fill", description: "Just want to maintain my streak")
     ]
 }
 
@@ -142,14 +142,14 @@ struct RoutineTemplate {
     let category: String
 
     static let defaults: [RoutineTemplate] = [
-        RoutineTemplate(title: "Put away screens", icon: "iphone.slash", duration: 5, category: "wind-down"),
-        RoutineTemplate(title: "Dim the lights", icon: "lightbulb.min", duration: 2, category: "environment"),
-        RoutineTemplate(title: "Journal or read", icon: "book.fill", duration: 15, category: "wind-down"),
-        RoutineTemplate(title: "Stretching or yoga", icon: "figure.yoga", duration: 10, category: "body"),
-        RoutineTemplate(title: "Deep breathing", icon: "wind", duration: 5, category: "relaxation"),
-        RoutineTemplate(title: "Brush teeth & skincare", icon: "drop.fill", duration: 10, category: "hygiene"),
-        RoutineTemplate(title: "Set alarm & charge phone", icon: "alarm.fill", duration: 2, category: "prep"),
-        RoutineTemplate(title: "Gratitude reflection", icon: "heart.fill", duration: 5, category: "mindset")
+        RoutineTemplate(title: String(localized: "Put away screens"), icon: "iphone.slash", duration: 5, category: "wind-down"),
+        RoutineTemplate(title: String(localized: "Dim the lights"), icon: "lightbulb.min", duration: 2, category: "environment"),
+        RoutineTemplate(title: String(localized: "Journal or read"), icon: "book.fill", duration: 15, category: "wind-down"),
+        RoutineTemplate(title: String(localized: "Stretching or yoga"), icon: "figure.yoga", duration: 10, category: "body"),
+        RoutineTemplate(title: String(localized: "Deep breathing"), icon: "wind", duration: 5, category: "relaxation"),
+        RoutineTemplate(title: String(localized: "Brush teeth & skincare"), icon: "drop.fill", duration: 10, category: "hygiene"),
+        RoutineTemplate(title: String(localized: "Set alarm & charge phone"), icon: "alarm.fill", duration: 2, category: "prep"),
+        RoutineTemplate(title: String(localized: "Gratitude reflection"), icon: "heart.fill", duration: 5, category: "mindset")
     ]
 }
 
@@ -163,21 +163,21 @@ enum EnergyLevel: Int, CaseIterable {
 
     var emoji: String {
         switch self {
-        case .exhausted: return "😫"
-        case .tired: return "😴"
-        case .okay: return "😐"
-        case .energized: return "😊"
-        case .supercharged: return "⚡"
+        case .exhausted: return "battery.0percent"
+        case .tired: return "battery.25percent"
+        case .okay: return "battery.50percent"
+        case .energized: return "battery.75percent"
+        case .supercharged: return "bolt.fill"
         }
     }
 
     var label: String {
         switch self {
-        case .exhausted: return "Exhausted"
-        case .tired: return "Tired"
-        case .okay: return "Okay"
-        case .energized: return "Energized"
-        case .supercharged: return "Supercharged"
+        case .exhausted: return String(localized: "Exhausted")
+        case .tired: return String(localized: "Tired")
+        case .okay: return String(localized: "Okay")
+        case .energized: return String(localized: "Energized")
+        case .supercharged: return String(localized: "Supercharged")
         }
     }
 

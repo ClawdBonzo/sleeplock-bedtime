@@ -119,7 +119,8 @@ struct OnboardingContainerView: View {
                 NotificationService.shared.scheduleBedtimeReminder(
                     bedtime: profile.bedtime,
                     minutesBefore: 30,
-                    userName: profile.name
+                    userName: profile.name,
+                    enforceBedtime: PurchaseService.shared.isPremium
                 )
                 NotificationService.shared.scheduleMorningLog(
                     wakeTime: profile.wakeTime,

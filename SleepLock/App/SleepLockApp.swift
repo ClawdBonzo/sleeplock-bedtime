@@ -6,8 +6,24 @@ import RevenueCat
 struct SleepLockApp: App {
     @State private var showSplash = true
 
+    let sharedContainer: ModelContainer
+
     init() {
         PurchaseService.shared.configure()
+
+        let schema = Schema([
+            UserProfile.self,
+            SleepLogEntry.self,
+            RoutineStep.self,
+            GamificationProfile.self,
+            Quest.self,
+            Badge.self
+        ])
+        let config = ModelConfiguration(schema: schema)
+        // swiftlint:disable:next force_try
+        let container = try! ModelContainer(for: schema, configurations: [config])
+        DemoSeeder.seedIfRequested(container: container)
+        self.sharedContainer = container
     }
 
     var body: some Scene {
@@ -26,14 +42,7 @@ struct SleepLockApp: App {
                 }
             }
         }
-        .modelContainer(for: [
-            UserProfile.self,
-            SleepLogEntry.self,
-            RoutineStep.self,
-            GamificationProfile.self,
-            Quest.self,
-            Badge.self
-        ])
+        .modelContainer(sharedContainer)
     }
 }
 

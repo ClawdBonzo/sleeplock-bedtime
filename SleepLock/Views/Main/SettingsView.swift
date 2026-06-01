@@ -194,8 +194,8 @@ struct SettingsView: View {
 
                             SettingsLinkRow(icon: "star.fill", title: "Rate SleepLock", color: SLTheme.Colors.accent)
                             SettingsLinkRow(icon: "square.and.arrow.up", title: "Share with Friends", color: SLTheme.Colors.secondary)
-                            SettingsLinkRow(icon: "doc.text.fill", title: "Privacy Policy", color: SLTheme.Colors.textSecondary)
-                            SettingsLinkRow(icon: "doc.plaintext.fill", title: "Terms of Service", color: SLTheme.Colors.textSecondary)
+                            SettingsLinkRow(icon: "doc.text.fill", title: "Privacy Policy", color: SLTheme.Colors.textSecondary, url: SLLegal.privacy)
+                            SettingsLinkRow(icon: "doc.plaintext.fill", title: "Terms of Service", color: SLTheme.Colors.textSecondary, url: SLLegal.terms)
                         }
                     }
 
@@ -257,7 +257,8 @@ struct SettingsView: View {
         NotificationService.shared.scheduleBedtimeReminder(
             bedtime: profile.targetBedtime,
             minutesBefore: profile.reminderMinutesBefore,
-            userName: profile.displayName
+            userName: profile.displayName,
+            enforceBedtime: PurchaseService.shared.isPremium
         )
         NotificationService.shared.scheduleMorningLog(
             wakeTime: profile.targetWakeTime,
@@ -307,9 +308,14 @@ private struct SettingsLinkRow: View {
     let icon: String
     let title: String
     let color: Color
+    var url: URL? = nil
+
+    @Environment(\.openURL) private var openURL
 
     var body: some View {
-        Button {} label: {
+        Button {
+            if let url { openURL(url) }
+        } label: {
             HStack(spacing: SLTheme.Spacing.sm) {
                 Image(systemName: icon)
                     .foregroundStyle(color)

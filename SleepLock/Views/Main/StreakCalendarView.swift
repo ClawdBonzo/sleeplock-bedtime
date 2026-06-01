@@ -207,7 +207,7 @@ private struct CalendarDayCell: View {
 // MARK: - Legend Item
 private struct LegendItem: View {
     let color: Color
-    let label: String
+    let label: LocalizedStringKey
 
     var body: some View {
         HStack(spacing: SLTheme.Spacing.xxs) {

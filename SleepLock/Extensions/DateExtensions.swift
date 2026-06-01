@@ -53,19 +53,20 @@ extension Date {
 
     private static let shortTimeFormatter: DateFormatter = {
         let f = DateFormatter()
-        f.dateFormat = "h:mm a"
+        // Locale-aware: 12-hour with AM/PM in en, 24-hour in de/sv/etc.
+        f.setLocalizedDateFormatFromTemplate("jmm")
         return f
     }()
 
     private static let dayOfWeekFormatter: DateFormatter = {
         let f = DateFormatter()
-        f.dateFormat = "EEE"
+        f.setLocalizedDateFormatFromTemplate("EEE")
         return f
     }()
 
     private static let monthDayFormatter: DateFormatter = {
         let f = DateFormatter()
-        f.dateFormat = "MMM d"
+        f.setLocalizedDateFormatFromTemplate("MMMd")
         return f
     }()
 

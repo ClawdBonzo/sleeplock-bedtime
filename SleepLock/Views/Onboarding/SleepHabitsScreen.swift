@@ -123,8 +123,9 @@ private struct HabitRow: View {
     var body: some View {
         Button(action: onTap) {
             HStack(spacing: SLTheme.Spacing.md) {
-                Text(habit.emoji)
-                    .font(.system(size: 30))
+                Image(systemName: habit.emoji)
+                    .font(.system(size: 20, weight: .semibold))
+                    .foregroundStyle(isSelected ? SLTheme.Colors.primaryLight : SLTheme.Colors.textSecondary)
                     .frame(width: 44, height: 44)
                     .background(
                         Circle()

@@ -4,40 +4,78 @@ import SwiftUI
 // MARK: - Widget Timeline Entry
 struct SleepLockEntry: TimelineEntry {
     let date: Date
+    let isPremium: Bool
     let streakCount: Int
     let bedtime: String
     let energyScore: Int
     let hitTargetToday: Bool
+
+    init(date: Date, data: SharedSnapshot.WidgetData) {
+        self.date = date
+        self.isPremium = data.isPremium
+        self.streakCount = data.streakCount
+        self.bedtime = data.bedtime
+        self.energyScore = data.energyScore
+        self.hitTargetToday = data.hitTargetToday
+    }
 }
 
 // MARK: - Timeline Provider
 struct SleepLockProvider: TimelineProvider {
     func placeholder(in context: Context) -> SleepLockEntry {
-        SleepLockEntry(
-            date: Date(),
-            streakCount: 7,
-            bedtime: "10:30 PM",
-            energyScore: 78,
-            hitTargetToday: true
-        )
+        SleepLockEntry(date: Date(), data: .placeholder)
     }
 
     func getSnapshot(in context: Context, completion: @escaping (SleepLockEntry) -> Void) {
-        completion(placeholder(in: context))
+        let data = SharedSnapshot.load() ?? .placeholder
+        completion(SleepLockEntry(date: Date(), data: data))
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<SleepLockEntry>) -> Void) {
-        let entry = SleepLockEntry(
-            date: Date(),
-            streakCount: 0,
-            bedtime: "10:30 PM",
-            energyScore: 0,
-            hitTargetToday: false
+        // Read the latest snapshot written by the app (App Group, on-device only).
+        let data = SharedSnapshot.load() ?? SharedSnapshot.WidgetData(
+            isPremium: false, streakCount: 0, bedtime: "10:30 PM",
+            energyScore: 0, hitTargetToday: false
         )
-
+        let entry = SleepLockEntry(date: Date(), data: data)
         let nextUpdate = Calendar.current.date(byAdding: .hour, value: 1, to: Date())!
-        let timeline = Timeline(entries: [entry], policy: .after(nextUpdate))
-        completion(timeline)
+        completion(Timeline(entries: [entry], policy: .after(nextUpdate)))
+    }
+}
+
+// MARK: - Locked (non-Pro) Widget View
+struct SleepLockLockedView: View {
+    var body: some View {
+        VStack(spacing: 6) {
+            Image(systemName: "lock.fill")
+                .font(.system(size: 22, weight: .bold))
+                .foregroundStyle(Color(hex: "A29BFE"))
+            Text("SleepLock Pro")
+                .font(.system(size: 14, weight: .bold, design: .rounded))
+                .foregroundStyle(.white)
+            Text("Unlock widgets in the app")
+                .font(.system(size: 11, design: .rounded))
+                .foregroundStyle(.white.opacity(0.6))
+                .multilineTextAlignment(.center)
+        }
+        .padding()
+        .containerBackground(for: .widget) { Color(hex: "0A1428") }
+    }
+}
+
+// MARK: - Family-aware Entry View
+struct SleepLockEntryView: View {
+    @Environment(\.widgetFamily) private var family
+    let entry: SleepLockEntry
+
+    var body: some View {
+        if !entry.isPremium {
+            SleepLockLockedView()
+        } else if family == .systemMedium {
+            SleepLockMediumView(entry: entry)
+        } else {
+            SleepLockSmallView(entry: entry)
+        }
     }
 }
 
@@ -164,14 +202,7 @@ struct SleepLockWidget: Widget {
 
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: SleepLockProvider()) { entry in
-            if #available(iOS 18.0, *) {
-                Group {
-                    switch WidgetFamily.systemSmall {
-                    default:
-                        SleepLockSmallView(entry: entry)
-                    }
-                }
-            }
+            SleepLockEntryView(entry: entry)
         }
         .configurationDisplayName("SleepLock")
         .description("Track your sleep streak and bedtime at a glance.")

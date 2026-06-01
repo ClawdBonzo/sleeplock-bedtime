@@ -284,7 +284,7 @@ struct BadgeCardView: View {
 struct StatCard: View {
     let sfSymbol: String
     let symbolColor: Color
-    let label: String
+    let label: LocalizedStringKey
     let value: String
 
     var body: some View {
