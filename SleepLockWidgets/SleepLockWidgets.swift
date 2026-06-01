@@ -43,19 +43,27 @@ struct SleepLockProvider: TimelineProvider {
     }
 }
 
-// MARK: - Locked (non-Pro) Widget View
-struct SleepLockLockedView: View {
+// MARK: - Branded Static Tile
+//
+// NOTE: Live-data widgets require an App Group shared container. Until the
+// App Group `group.com.clawdbonzo.SleepLock` is registered (one interactive
+// Xcode/portal step), the widget renders this branded tile instead of reading
+// live streak/bedtime data. Re-enable the App Group capability + restore
+// SleepLockEntryView's family-aware data views to bring live data back.
+struct SleepLockBrandedView: View {
     var body: some View {
-        VStack(spacing: 6) {
-            Image(systemName: "lock.fill")
-                .font(.system(size: 22, weight: .bold))
-                .foregroundStyle(Color(hex: "A29BFE"))
-            Text("SleepLock Pro")
-                .font(.system(size: 14, weight: .bold, design: .rounded))
+        VStack(spacing: 8) {
+            Image("BrandIcon")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 40, height: 40)
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+            Text("SleepLock")
+                .font(.system(size: 16, weight: .bold, design: .rounded))
                 .foregroundStyle(.white)
-            Text("Unlock widgets in the app")
+            Text("Lock in your best sleep")
                 .font(.system(size: 11, design: .rounded))
-                .foregroundStyle(.white.opacity(0.6))
+                .foregroundStyle(.white.opacity(0.7))
                 .multilineTextAlignment(.center)
         }
         .padding()
@@ -63,19 +71,13 @@ struct SleepLockLockedView: View {
     }
 }
 
-// MARK: - Family-aware Entry View
+// MARK: - Entry View
 struct SleepLockEntryView: View {
-    @Environment(\.widgetFamily) private var family
     let entry: SleepLockEntry
 
     var body: some View {
-        if !entry.isPremium {
-            SleepLockLockedView()
-        } else if family == .systemMedium {
-            SleepLockMediumView(entry: entry)
-        } else {
-            SleepLockSmallView(entry: entry)
-        }
+        // Static branded tile until the App Group is registered (see note above).
+        SleepLockBrandedView()
     }
 }
 

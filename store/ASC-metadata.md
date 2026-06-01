@@ -37,7 +37,6 @@ Upgrade to unlock the full experience:
 • Full gamification — XP, sleep levels, quests, and achievement badges
 • Unlimited streak history — your full calendar, month by month
 • Smart bedtime enforcement — gentle nudges at and past bedtime
-• Home screen widgets — your streak and tonight's bedtime at a glance
 
 Free forever: nightly logging, your current streak, and your daily dashboard.
 
@@ -69,7 +68,6 @@ SleepLock Pro
 • フルゲーミフィケーション——XP、睡眠レベル、クエスト、実績バッジ
 • 無制限の連続記録履歴——月ごとの全カレンダー
 • スマート就寝アラート——就寝時刻とその後のやさしいリマインド
-• ホーム画面ウィジェット——連続記録と今夜の就寝時間を一目で
 
 無料でずっと使える：毎晩の記録、現在の連続記録、毎日のダッシュボード。
 
@@ -101,7 +99,6 @@ SleepLock Pro
 • 전체 게이미피케이션 — XP, 수면 레벨, 퀘스트, 업적 배지
 • 무제한 연속 기록 — 월별 전체 캘린더
 • 스마트 취침 알림 — 취침 시각과 그 이후의 부드러운 알림
-• 홈 화면 위젯 — 연속 기록과 오늘 밤 취침 시간을 한눈에
 
 평생 무료: 매일 기록, 현재 연속 기록, 데일리 대시보드.
 
@@ -133,7 +130,6 @@ Schalte mit dem Upgrade alles frei:
 • Volle Gamification — XP, Schlaf-Level, Quests und Erfolgsabzeichen
 • Unbegrenzter Serienverlauf — dein ganzer Kalender, Monat für Monat
 • Intelligente Erinnerungen — sanfte Nudges zur und nach der Schlafenszeit
-• Home-Bildschirm-Widgets — Serie und heutige Schlafenszeit auf einen Blick
 
 Für immer kostenlos: nächtliches Erfassen, deine aktuelle Serie und dein Dashboard.
 
@@ -165,7 +161,6 @@ Ontgrendel met de upgrade alles:
 • Volledige gamification — XP, slaapniveaus, quests en prestatiebadges
 • Onbeperkte reeksgeschiedenis — je volledige kalender, maand voor maand
 • Slimme herinneringen — vriendelijke nudges op en na bedtijd
-• Widgets voor het beginscherm — je reeks en bedtijd van vanavond in één oogopslag
 
 Voor altijd gratis: nachtelijk loggen, je huidige reeks en je dagelijkse dashboard.
 
@@ -197,7 +192,6 @@ Lås upp hela upplevelsen med uppgraderingen:
 • Full gamification — XP, sömnnivåer, uppdrag och prestationsmärken
 • Obegränsad svithistorik — hela din kalender, månad för månad
 • Smarta läggdagspåminnelser — vänliga knuffar vid och efter läggdags
-• Widgetar på hemskärmen — din svit och kvällens läggdags på en gång
 
 Gratis för alltid: nattlig loggning, din nuvarande svit och din dagliga översikt.
 

@@ -149,7 +149,6 @@ struct PaywallView: View {
                     PaywallFeatureRow(icon: "chart.line.uptrend.xyaxis",  text: "Advanced sleep analytics",   color: SLTheme.Colors.sleepBlue)
                     PaywallFeatureRow(icon: "bell.badge.fill",            text: "Smart bedtime enforcement",  color: SLTheme.Colors.primary)
                     PaywallFeatureRow(icon: "star.fill",                  text: "Full gamification + XP",     color: SLTheme.Colors.accent)
-                    PaywallFeatureRow(icon: "square.grid.2x2.fill",       text: "Home screen widgets",        color: SLTheme.Colors.energyGreen)
                 }
                 .padding(.horizontal, SLTheme.Spacing.md)
                 .padding(.vertical, SLTheme.Spacing.sm)
