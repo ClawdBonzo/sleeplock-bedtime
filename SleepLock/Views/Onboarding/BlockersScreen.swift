@@ -136,6 +136,7 @@ struct BlockersScreen: View {
                 .opacity(appeared ? 1 : 0)
                 .animation(.easeIn(duration: 0.4).delay(1.0), value: appeared)
             }
+            .scrollableCentered()
         }
         .onAppear { appeared = true }
     }

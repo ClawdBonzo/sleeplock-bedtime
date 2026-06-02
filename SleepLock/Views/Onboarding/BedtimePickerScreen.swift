@@ -184,6 +184,7 @@ struct BedtimePickerScreen: View {
                 .opacity(appeared ? 1 : 0)
                 .animation(.easeIn(duration: 0.4).delay(0.85), value: appeared)
             }
+            .scrollableCentered()
         }
         .onAppear { appeared = true }
     }

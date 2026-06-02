@@ -288,3 +288,21 @@ private struct SeededRandom {
         return CGFloat((state >> 33)) / CGFloat(UInt64(1) << 31)
     }
 }
+
+// MARK: - Scrollable-Centered Container
+// Keeps content vertically centered when it fits the available height, and
+// scrolls instead of clipping when it doesn't (e.g. iPhone apps run in a small
+// resizable window on iPadOS). Fixes Guideline 4 layout clipping.
+struct ScrollableCenteredModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        GeometryReader { geo in
+            ScrollView(showsIndicators: false) {
+                content.frame(minHeight: geo.size.height)
+            }
+        }
+    }
+}
+
+extension View {
+    func scrollableCentered() -> some View { modifier(ScrollableCenteredModifier()) }
+}

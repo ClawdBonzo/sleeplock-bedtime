@@ -110,6 +110,7 @@ struct SleepHabitsScreen: View {
                 .opacity(appeared ? 1 : 0)
                 .animation(.easeIn(duration: 0.4).delay(0.95), value: appeared)
             }
+            .scrollableCentered()
         }
         .onAppear { appeared = true }
     }

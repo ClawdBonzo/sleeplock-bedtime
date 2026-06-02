@@ -144,6 +144,7 @@ struct NameEntryScreen: View {
                 .animation(.easeIn(duration: 0.4).delay(0.7), value: appeared)
                 .padding(.bottom, SLTheme.Spacing.xxl)
             }
+            .scrollableCentered()
         }
         .onAppear {
             appeared = true
