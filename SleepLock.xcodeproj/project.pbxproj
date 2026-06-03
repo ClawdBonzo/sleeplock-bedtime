@@ -597,6 +597,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = SleepLock;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "SleepLock reads your sleep analysis from Apple Health so it can auto-fill your bedtime and wake time instead of you entering them by hand.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "SleepLock does not write to Apple Health. This permission is only requested so the app can read your existing sleep data.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -632,6 +633,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = SleepLock;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "SleepLock reads your sleep analysis from Apple Health so it can auto-fill your bedtime and wake time instead of you entering them by hand.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "SleepLock does not write to Apple Health. This permission is only requested so the app can read your existing sleep data.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
