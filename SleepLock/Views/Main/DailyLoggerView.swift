@@ -205,6 +205,16 @@ struct DailyLoggerView: View {
 
     // MARK: - Success View
     private var successView: some View {
+        ZStack {
+            if hitTarget {
+                ConfettiBurst()
+                    .allowsHitTesting(false)
+            }
+            successContent
+        }
+    }
+
+    private var successContent: some View {
         VStack(spacing: SLTheme.Spacing.xxl) {
             Spacer()
 
@@ -212,6 +222,8 @@ struct DailyLoggerView: View {
                 .font(.system(size: 80))
                 .foregroundStyle(hitTarget ? SLTheme.Colors.streakGold : SLTheme.Colors.primaryLight)
                 .shadow(color: (hitTarget ? SLTheme.Colors.streakGold : SLTheme.Colors.primary).opacity(0.4), radius: 20)
+                .scaleEffect(showSuccess ? 1 : 0.4)
+                .animation(.spring(response: 0.5, dampingFraction: 0.5), value: showSuccess)
 
             VStack(spacing: SLTheme.Spacing.sm) {
                 Text(hitTarget ? "Streak Alive!" : "Logged!")
@@ -331,5 +343,55 @@ struct DailyLoggerView: View {
         if gamificationService == nil {
             gamificationService = GamificationService(modelContext: modelContext)
         }
+    }
+}
+
+// MARK: - Confetti
+
+/// Lightweight one-shot confetti burst for celebratory moments. Pure SwiftUI,
+/// GPU-animated, no timers — pieces fall and fade once on appear.
+private struct ConfettiBurst: View {
+    private struct Piece: Identifiable {
+        let id = UUID()
+        let x: CGFloat
+        let delay: Double
+        let hue: Double
+        let size: CGFloat
+        let spin: Double
+    }
+
+    private let pieces: [Piece] = (0..<28).map { _ in
+        Piece(
+            x: CGFloat.random(in: 0.05...0.95),
+            delay: Double.random(in: 0...0.35),
+            hue: Double.random(in: 0...1),
+            size: CGFloat.random(in: 6...11),
+            spin: Double.random(in: -240...240)
+        )
+    }
+
+    @State private var animate = false
+
+    var body: some View {
+        GeometryReader { geo in
+            ZStack {
+                ForEach(pieces) { piece in
+                    RoundedRectangle(cornerRadius: 2)
+                        .fill(Color(hue: piece.hue, saturation: 0.8, brightness: 1.0))
+                        .frame(width: piece.size, height: piece.size * 1.6)
+                        .position(
+                            x: piece.x * geo.size.width,
+                            y: animate ? geo.size.height + 40 : -40
+                        )
+                        .rotationEffect(.degrees(animate ? piece.spin : 0))
+                        .opacity(animate ? 0 : 1)
+                        .animation(
+                            .easeIn(duration: 1.6).delay(piece.delay),
+                            value: animate
+                        )
+                }
+            }
+        }
+        .onAppear { animate = true }
     }
 }

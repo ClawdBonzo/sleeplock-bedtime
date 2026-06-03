@@ -266,12 +266,22 @@ struct ProgressChartsView: View {
 
     private var emptyChartPlaceholder: some View {
         VStack(spacing: SLTheme.Spacing.sm) {
-            Image(systemName: "chart.bar.xaxis")
-                .font(.system(size: 36))
-                .foregroundStyle(SLTheme.Colors.textTertiary)
-            Text("No data yet. Start logging your sleep!")
-                .font(SLTheme.Typography.subheadline)
-                .foregroundStyle(SLTheme.Colors.textTertiary)
+            Image(systemName: "moon.stars.fill")
+                .font(.system(size: 40))
+                .foregroundStyle(
+                    LinearGradient(
+                        colors: [SLTheme.Colors.primaryLight, SLTheme.Colors.primary],
+                        startPoint: .topLeading, endPoint: .bottomTrailing
+                    )
+                )
+            Text("Your trends start tonight")
+                .font(SLTheme.Typography.headline)
+                .foregroundStyle(.white)
+            Text("Log a few nights to unlock charts, badges, and your first streak.")
+                .font(SLTheme.Typography.caption)
+                .foregroundStyle(SLTheme.Colors.textSecondary)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, SLTheme.Spacing.lg)
         }
         .frame(height: 160)
         .frame(maxWidth: .infinity)
