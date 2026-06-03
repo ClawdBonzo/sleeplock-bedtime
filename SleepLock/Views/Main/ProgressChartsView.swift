@@ -3,8 +3,20 @@ import SwiftData
 import Charts
 
 struct ProgressChartsView: View {
-    @Query(sort: \SleepLogEntry.date) private var entries: [SleepLogEntry]
+    // Bounded to the last 90 days so we never load a user's entire history just
+    // to render charts whose widest range is 30 days. The cutoff is captured as
+    // a runtime constant in the predicate.
+    @Query private var entries: [SleepLogEntry]
     @State private var selectedRange: ChartRange = .week
+
+    init() {
+        let cutoff = Calendar.current.date(byAdding: .day, value: -90, to: Date()) ?? .distantPast
+        _entries = Query(
+            filter: #Predicate<SleepLogEntry> { $0.date >= cutoff },
+            sort: \.date,
+            order: .forward
+        )
+    }
 
     enum ChartRange: String, CaseIterable {
         case week = "7D"

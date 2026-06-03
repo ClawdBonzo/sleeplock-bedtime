@@ -264,6 +264,9 @@ struct SettingsView: View {
             wakeTime: profile.targetWakeTime,
             userName: profile.displayName
         )
+        NotificationService.shared.scheduleStreakSaverReminder(
+            userName: profile.displayName
+        )
     }
 
     private func resetData() {

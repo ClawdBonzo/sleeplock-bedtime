@@ -163,12 +163,25 @@ struct DashboardView: View {
         SLGlowCard(glowColor: SLTheme.Colors.streakGold) {
             HStack(spacing: SLTheme.Spacing.md) {
                 // Left: label
-                HStack(spacing: SLTheme.Spacing.xs) {
-                    Image(systemName: "flame.fill")
-                        .foregroundStyle(SLTheme.Colors.streakGold)
-                    Text("Current Streak")
-                        .font(SLTheme.Typography.headline)
-                        .foregroundStyle(SLTheme.Colors.textSecondary)
+                VStack(alignment: .leading, spacing: 4) {
+                    HStack(spacing: SLTheme.Spacing.xs) {
+                        Image(systemName: "flame.fill")
+                            .foregroundStyle(SLTheme.Colors.streakGold)
+                        Text("Current Streak")
+                            .font(SLTheme.Typography.headline)
+                            .foregroundStyle(SLTheme.Colors.textSecondary)
+                    }
+
+                    if streakService.streakFreezeTokens > 0 {
+                        HStack(spacing: 3) {
+                            Image(systemName: "snowflake")
+                                .font(.system(size: 11, weight: .semibold))
+                            Text("\(streakService.streakFreezeTokens) freeze\(streakService.streakFreezeTokens == 1 ? "" : "s")")
+                                .font(SLTheme.Typography.caption)
+                        }
+                        .foregroundStyle(Color(hex: "5AC8FA"))
+                        .accessibilityLabel("\(streakService.streakFreezeTokens) streak freezes available")
+                    }
                 }
 
                 Spacer(minLength: 0)

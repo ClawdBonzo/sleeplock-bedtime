@@ -19,6 +19,13 @@ final class GamificationService {
     private(set) var completedQuestThisSession: Quest?
     private(set) var unlockedBadgeThisSession: Badge?
 
+    /// Total completed quests across daily + weekly. Computed once per access
+    /// instead of filtering twice inside a view body on every re-render.
+    var completedQuestCount: Int {
+        dailyQuests.reduce(0) { $0 + ($1.isCompleted ? 1 : 0) }
+            + weeklyQuests.reduce(0) { $0 + ($1.isCompleted ? 1 : 0) }
+    }
+
     init(modelContext: ModelContext? = nil) {
         self.modelContext = modelContext
         if modelContext != nil {
@@ -55,12 +62,16 @@ final class GamificationService {
         guard let modelContext, let profile = gamificationProfile else { return }
 
         do {
-            let descriptor = FetchDescriptor<Quest>()
-            var allQuests = try modelContext.fetch(descriptor)
-            allQuests = allQuests.filter { $0.userId == profile.userId }.sorted { $0.createdAt > $1.createdAt }
+            let uid = profile.userId
+            var descriptor = FetchDescriptor<Quest>(
+                predicate: #Predicate { $0.userId == uid },
+                sortBy: [SortDescriptor(\.createdAt, order: .reverse)]
+            )
+            descriptor.fetchLimit = 50
+            let userQuests = try modelContext.fetch(descriptor)
 
-            dailyQuests = allQuests.filter { $0.type == .daily && !isQuestExpired($0) }
-            weeklyQuests = allQuests.filter { $0.type == .weekly && !isQuestExpired($0) }
+            dailyQuests = userQuests.filter { $0.type == .daily && !isQuestExpired($0) }
+            weeklyQuests = userQuests.filter { $0.type == .weekly && !isQuestExpired($0) }
 
             regenerateExpiredQuests()
         } catch {
@@ -72,9 +83,27 @@ final class GamificationService {
         guard let modelContext, let profile = gamificationProfile else { return }
 
         do {
-            let descriptor = FetchDescriptor<Badge>()
-            var allBadges = try modelContext.fetch(descriptor)
-            badges = allBadges.filter { $0.userId == profile.userId }.sorted { ($0.unlockedAt ?? .distantPast) > ($1.unlockedAt ?? .distantPast) }
+            let uid = profile.userId
+            let descriptor = FetchDescriptor<Badge>(
+                predicate: #Predicate { $0.userId == uid }
+            )
+            var existing = try modelContext.fetch(descriptor)
+
+            // Seed any missing badge types so the badge/award pipeline has rows to
+            // unlock. (Previously no badges were ever created, so the whole badge,
+            // streak-freeze, and rating-prompt flow was dead.)
+            let existingTypes = Set(existing.map(\.type))
+            for type in BadgeType.allCases where !existingTypes.contains(type) {
+                let badge = Badge(userId: uid, type: type)
+                modelContext.insert(badge)
+                existing.append(badge)
+            }
+            if existingTypes.count != BadgeType.allCases.count {
+                try? modelContext.save()
+            }
+
+            badges = existing
+                .sorted { ($0.unlockedAt ?? .distantPast) > ($1.unlockedAt ?? .distantPast) }
             unlockedBadges = badges.filter { $0.isUnlocked }
         } catch {
             print("[GamificationService] Error loading badges: \(error)")
@@ -156,9 +185,11 @@ final class GamificationService {
         if quest.type == .daily {
             return !calendar.isDateInToday(quest.resetAt)
         } else {
-            let components = calendar.dateComponents([.weekday], from: quest.resetAt)
-            let currentComponents = calendar.dateComponents([.weekday], from: now)
-            return components.weekday != currentComponents.weekday || !calendar.isDate(quest.resetAt, inSameDayAs: now)
+            // Weekly quests live for 7 days from creation. Using a day-count
+            // delta is timezone- and DST-stable (unlike comparing weekday
+            // numbers, which broke across week boundaries and time changes).
+            let daysSinceReset = calendar.dateComponents([.day], from: quest.resetAt.startOfDay, to: now.startOfDay).day ?? 0
+            return daysSinceReset >= 7
         }
     }
 
@@ -207,6 +238,26 @@ final class GamificationService {
                 unlockedBadgeThisSession = badge
                 addXP(100)
                 unlockedBadges.append(badge)
+
+                // Award a streak-freeze token at meaningful streak milestones so
+                // the user has a safety net to protect long streaks (capped at 3).
+                switch badge.type {
+                case .week1Streak, .week2Streak, .month1Streak, .month3Streak:
+                    if let p = gamificationProfile {
+                        p.streakFreezeTokens = min(3, p.streakFreezeTokens + 1)
+                    }
+                default:
+                    break
+                }
+
+                // Ask for an App Store rating at a genuine high point — a
+                // meaningful streak badge. Throttled to once per app version.
+                switch badge.type {
+                case .week1Streak, .month1Streak, .consistencyKing:
+                    RatingService.requestReviewAfterMilestone()
+                default:
+                    break
+                }
             }
         }
 

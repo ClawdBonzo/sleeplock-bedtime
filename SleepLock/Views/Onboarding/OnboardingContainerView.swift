@@ -126,6 +126,9 @@ struct OnboardingContainerView: View {
                     wakeTime: profile.wakeTime,
                     userName: profile.name
                 )
+                NotificationService.shared.scheduleStreakSaverReminder(
+                    userName: profile.name
+                )
             }
         }
     }

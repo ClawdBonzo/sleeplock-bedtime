@@ -59,10 +59,22 @@ struct RootView: View {
         .onAppear {
             showOnboarding = !hasCompletedOnboarding
             streakService.configure(with: modelContext)
+            rearmReengagement()
         }
         .onChange(of: profiles.count) {
             showOnboarding = !hasCompletedOnboarding
             streakService.configure(with: modelContext)
         }
+    }
+
+    /// Push the lapsed-user reminder ~2 days out on every launch. Because it's
+    /// removed and re-added here, it only ever fires if the user does NOT return
+    /// within the window.
+    private func rearmReengagement() {
+        guard let profile = profiles.first, profile.notificationsEnabled, profile.onboardingCompleted else { return }
+        NotificationService.shared.scheduleReengagementReminder(
+            userName: profile.displayName,
+            currentStreak: streakService.currentStreak
+        )
     }
 }

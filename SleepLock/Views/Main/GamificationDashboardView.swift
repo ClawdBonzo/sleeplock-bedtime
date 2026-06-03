@@ -69,7 +69,7 @@ struct GamificationDashboardView: View {
                 sfSymbol: "scope",
                 symbolColor: SLTheme.Colors.primary,
                 label: "Quests",
-                value: "\(service.dailyQuests.filter { $0.isCompleted }.count + service.weeklyQuests.filter { $0.isCompleted }.count)"
+                value: "\(service.completedQuestCount)"
             )
 
             StatCard(

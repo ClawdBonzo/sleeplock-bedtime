@@ -38,7 +38,16 @@ struct SleepLockProvider: TimelineProvider {
             energyScore: 0, hitTargetToday: false
         )
         let entry = SleepLockEntry(date: Date(), data: data)
-        let nextUpdate = Calendar.current.date(byAdding: .hour, value: 1, to: Date())!
+
+        // Battery-friendly cadence: refresh tightly around the two moments that
+        // matter (the ~11 PM bedtime/streak-risk window and the ~7 AM morning-log
+        // window), and lazily every 4 hours otherwise. Hourly all-day refresh
+        // drained energy for a tile whose data only changes at those times.
+        let calendar = Calendar.current
+        let now = Date()
+        let hour = calendar.component(.hour, from: now)
+        let refreshHours: Int = (hour == 22 || hour == 23 || hour == 6 || hour == 7) ? 1 : 4
+        let nextUpdate = calendar.date(byAdding: .hour, value: refreshHours, to: now)!
         completion(Timeline(entries: [entry], policy: .after(nextUpdate)))
     }
 }

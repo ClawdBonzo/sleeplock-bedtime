@@ -12,6 +12,8 @@ struct DailyLoggerView: View {
     @State private var notes: String = ""
     @State private var showSuccess = false
     @State private var gamificationService: GamificationService?
+    @State private var isImportingHealth = false
+    @State private var healthImportMessage: String?
 
     private var profile: UserProfile? { profiles.first }
 
@@ -67,6 +69,36 @@ struct DailyLoggerView: View {
                             .font(SLTheme.Typography.subheadline)
                             .foregroundStyle(SLTheme.Colors.textSecondary)
                     }
+                }
+
+                // Apple Health auto-import
+                if HealthKitService.shared.isAvailable {
+                    Button {
+                        Task { await importFromHealth() }
+                    } label: {
+                        HStack(spacing: SLTheme.Spacing.sm) {
+                            if isImportingHealth {
+                                ProgressView().tint(SLTheme.Colors.primary)
+                            } else {
+                                Image(systemName: "heart.fill")
+                                    .foregroundStyle(Color(hex: "FF2D55"))
+                            }
+                            Text(healthImportMessage ?? String(localized: "Import from Apple Health"))
+                                .font(SLTheme.Typography.subheadline)
+                                .foregroundStyle(.white)
+                            Spacer()
+                            if healthImportMessage == nil && !isImportingHealth {
+                                Image(systemName: "chevron.right")
+                                    .font(.caption)
+                                    .foregroundStyle(SLTheme.Colors.textTertiary)
+                            }
+                        }
+                        .padding(SLTheme.Spacing.md)
+                        .frame(maxWidth: .infinity)
+                        .background(SLTheme.Colors.backgroundTertiary)
+                        .clipShape(RoundedRectangle(cornerRadius: SLTheme.Radius.lg))
+                    }
+                    .disabled(isImportingHealth)
                 }
 
                 // Bedtime picker
@@ -256,9 +288,42 @@ struct DailyLoggerView: View {
             }
         }
 
+        // Drive the badge / streak-freeze / rating pipeline off the live streak.
+        gamificationService?.checkAndUnlockBadges(
+            streakDays: streak,
+            level: gamificationService?.gamificationProfile?.currentLevel
+        )
+
         let milestones: Set<Int> = [7, 14, 30, 60, 100, 180, 365]
         if milestones.contains(streak) {
             HapticFeedbackEngine.shared.triggerStreakMilestone()
+        }
+
+        // Re-arm the lapsed-user reminder relative to this fresh log.
+        NotificationService.shared.scheduleReengagementReminder(
+            userName: profile?.displayName ?? "",
+            currentStreak: streak
+        )
+    }
+
+    @MainActor
+    private func importFromHealth() async {
+        isImportingHealth = true
+        defer { isImportingHealth = false }
+
+        let authorized = await HealthKitService.shared.requestAuthorization()
+        guard authorized else {
+            healthImportMessage = String(localized: "Health access unavailable")
+            return
+        }
+
+        if let sample = await HealthKitService.shared.fetchLastNightSleep() {
+            actualBedtime = sample.bedtime
+            actualWakeTime = sample.wakeTime
+            healthImportMessage = String(localized: "Imported from Apple Health ✓")
+            HapticFeedbackEngine.shared.triggerLightTap()
+        } else {
+            healthImportMessage = String(localized: "No sleep data found in Health")
         }
     }
 

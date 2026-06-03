@@ -77,6 +77,52 @@ final class NotificationService: Sendable {
         center.add(pastRequest)
     }
 
+    /// A nightly "streak saver" nudge that fires shortly before midnight to
+    /// catch users who haven't logged yet — the single highest-impact retention
+    /// reminder. Repeats daily; copy is streak-framed to create loss aversion.
+    func scheduleStreakSaverReminder(userName: String, hour: Int = 22, minute: Int = 45) {
+        let center = UNUserNotificationCenter.current()
+        center.removePendingNotificationRequests(withIdentifiers: ["streak-saver"])
+
+        var components = DateComponents()
+        components.hour = hour
+        components.minute = minute
+
+        let content = UNMutableNotificationContent()
+        content.title = String(localized: "Keep your streak alive 🔥")
+        content.body = String(localized: "Almost midnight, \(userName)! Log tonight's sleep before the day ends to protect your streak.")
+        content.sound = .default
+        content.categoryIdentifier = "STREAK_SAVER"
+
+        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: true)
+        let request = UNNotificationRequest(identifier: "streak-saver", content: content, trigger: trigger)
+        center.add(request)
+    }
+
+    /// One-shot re-engagement reminder for lapsed users. Re-armed every time the
+    /// app becomes active (so it only ever fires if the user does NOT return)
+    /// and after each log. Fires ~2 days out with streak-loss framing.
+    func scheduleReengagementReminder(userName: String, currentStreak: Int) {
+        let center = UNUserNotificationCenter.current()
+        center.removePendingNotificationRequests(withIdentifiers: ["reengagement"])
+
+        let content = UNMutableNotificationContent()
+        if currentStreak > 0 {
+            content.title = String(localized: "Your streak needs you 🔥")
+            content.body = String(localized: "You're about to lose your \(currentStreak)-night streak. One good night gets you right back on track.")
+        } else {
+            content.title = String(localized: "We miss you, \(userName)")
+            content.body = String(localized: "It's been a couple of days. A consistent bedtime is just one tap away — log tonight to restart your streak.")
+        }
+        content.sound = .default
+        content.categoryIdentifier = "REENGAGEMENT"
+
+        // 2 days from now.
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 2 * 24 * 60 * 60, repeats: false)
+        let request = UNNotificationRequest(identifier: "reengagement", content: content, trigger: trigger)
+        center.add(request)
+    }
+
     func scheduleMorningLog(wakeTime: Date, userName: String) {
         let center = UNUserNotificationCenter.current()
         center.removePendingNotificationRequests(withIdentifiers: ["morning-log"])

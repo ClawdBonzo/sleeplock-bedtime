@@ -30,6 +30,8 @@
 		A10000000000000000000012 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000012 /* SettingsView.swift */; };
 		A10000000000000000000013 /* SleepStreakService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000013 /* SleepStreakService.swift */; };
 		A10000000000000000000014 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000014 /* NotificationService.swift */; };
+		A100000000000000000HLTH /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100000000000000000HLTH /* HealthKitService.swift */; };
+		A100000000000000000RATE /* RatingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100000000000000000RATE /* RatingService.swift */; };
 		A10000000000000000000015 /* PurchaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000015 /* PurchaseService.swift */; };
 		A10000000000000000000016 /* SLTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000016 /* SLTheme.swift */; };
 		A10000000000000000000017 /* SLComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000017 /* SLComponents.swift */; };
@@ -99,6 +101,8 @@
 		B10000000000000000000012 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		B10000000000000000000013 /* SleepStreakService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepStreakService.swift; sourceTree = "<group>"; };
 		B10000000000000000000014 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		B100000000000000000HLTH /* HealthKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitService.swift; sourceTree = "<group>"; };
+		B100000000000000000RATE /* RatingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingService.swift; sourceTree = "<group>"; };
 		B10000000000000000000015 /* PurchaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseService.swift; sourceTree = "<group>"; };
 		B10000000000000000000016 /* SLTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLTheme.swift; sourceTree = "<group>"; };
 		B10000000000000000000017 /* SLComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLComponents.swift; sourceTree = "<group>"; };
@@ -234,6 +238,8 @@
 			children = (
 				B10000000000000000000013 /* SleepStreakService.swift */,
 				B10000000000000000000014 /* NotificationService.swift */,
+				B100000000000000000HLTH /* HealthKitService.swift */,
+				B100000000000000000RATE /* RatingService.swift */,
 				B10000000000000000000015 /* PurchaseService.swift */,
 				B1000000000000000000PGAT /* PremiumGate.swift */,
 				B100000000000000000SNAP /* SharedSnapshot.swift */,
@@ -422,6 +428,8 @@
 				A10000000000000000000013 /* SleepStreakService.swift in Sources */,
 				A10000000000000000000024 /* GamificationService.swift in Sources */,
 				A10000000000000000000014 /* NotificationService.swift in Sources */,
+				A100000000000000000HLTH /* HealthKitService.swift in Sources */,
+				A100000000000000000RATE /* RatingService.swift in Sources */,
 				A10000000000000000000015 /* PurchaseService.swift in Sources */,
 				A1000000000000000000PGAT /* PremiumGate.swift in Sources */,
 				A100000000000000000SNPA /* SharedSnapshot.swift in Sources */,
@@ -588,6 +596,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = SleepLock;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "SleepLock reads your sleep analysis from Apple Health so it can auto-fill your bedtime and wake time instead of you entering them by hand.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -622,6 +631,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = SleepLock;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "SleepLock reads your sleep analysis from Apple Health so it can auto-fill your bedtime and wake time instead of you entering them by hand.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

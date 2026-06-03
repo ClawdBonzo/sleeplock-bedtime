@@ -84,6 +84,17 @@ final class GamificationProfile {
     var createdAt: Date
     var lastXPGainDate: Date
 
+    // MARK: Streak Freeze (forgiveness mechanic)
+    /// Banked freeze tokens earned at streak milestones. One token auto-protects
+    /// a single missed day so a long streak survives an off-night.
+    var streakFreezeTokens: Int = 0
+    /// `yyyy-MM-dd` keys for days a token protected. The streak calculation
+    /// treats these days as "hit" even if the user missed or didn't log them.
+    var frozenDateKeys: [String] = []
+    /// Last calendar day we evaluated auto-freeze, so we consume at most one
+    /// token per day regardless of how often the streak is recalculated.
+    var lastStreakEvalDay: Date?
+
     init(userId: UUID) {
         self.id = UUID()
         self.userId = userId
@@ -93,6 +104,15 @@ final class GamificationProfile {
         self.xpInCurrentLevel = 0
         self.createdAt = Date()
         self.lastXPGainDate = Date()
+        self.streakFreezeTokens = 1 // start with one safety net
+        self.frozenDateKeys = []
+        self.lastStreakEvalDay = nil
+    }
+
+    /// Stable day key used by the streak-freeze bookkeeping.
+    static func dayKey(for date: Date) -> String {
+        let c = Calendar.current.dateComponents([.year, .month, .day], from: date)
+        return String(format: "%04d-%02d-%02d", c.year ?? 0, c.month ?? 0, c.day ?? 0)
     }
 
     func addXP(_ amount: Int) {
