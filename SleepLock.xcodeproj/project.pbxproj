@@ -590,7 +590,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SleepLock/SleepLock.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = 3N9RY9EG8V;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -626,7 +626,7 @@
 				CODE_SIGN_ENTITLEMENTS = SleepLock/SleepLock.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = 3N9RY9EG8V;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -660,7 +660,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = SleepLockWidgets/SleepLockWidgets.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = 3N9RY9EG8V;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = SleepLockWidgets/Info.plist;
@@ -689,7 +689,7 @@
 				CODE_SIGN_ENTITLEMENTS = SleepLockWidgets/SleepLockWidgets.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = 3N9RY9EG8V;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = SleepLockWidgets/Info.plist;

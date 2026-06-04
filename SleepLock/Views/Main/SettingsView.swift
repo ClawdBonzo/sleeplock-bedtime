@@ -7,6 +7,8 @@ struct SettingsView: View {
 
     @State private var showResetAlert = false
     @State private var showPaywall = false
+    @State private var isConnectingHealth = false
+    @State private var healthStatus: String?
 
     private var profile: UserProfile? { profiles.first }
 
@@ -185,6 +187,46 @@ struct SettingsView: View {
                         }
                     }
 
+                    // Apple Health — clearly identifies HealthKit functionality (Guideline 2.5.1)
+                    if HealthKitService.shared.isAvailable {
+                        SLCard {
+                            VStack(alignment: .leading, spacing: SLTheme.Spacing.md) {
+                                Label("Apple Health", systemImage: "heart.fill")
+                                    .font(SLTheme.Typography.headline)
+                                    .foregroundStyle(.white)
+
+                                Text("SleepLock can read your sleep analysis from Apple Health to automatically fill in your nightly sleep log. SleepLock only reads this data and never writes to Apple Health.")
+                                    .font(SLTheme.Typography.subheadline)
+                                    .foregroundStyle(SLTheme.Colors.textSecondary)
+                                    .fixedSize(horizontal: false, vertical: true)
+
+                                Button {
+                                    Task { await connectHealth() }
+                                } label: {
+                                    HStack(spacing: SLTheme.Spacing.sm) {
+                                        if isConnectingHealth {
+                                            ProgressView().tint(.white)
+                                        } else {
+                                            Image(systemName: "heart.text.square.fill")
+                                                .foregroundStyle(Color(hex: "FF2D55"))
+                                        }
+                                        Text(healthStatus ?? String(localized: "Connect Apple Health"))
+                                            .font(SLTheme.Typography.body)
+                                            .foregroundStyle(.white)
+                                        Spacer()
+                                        if healthStatus == nil && !isConnectingHealth {
+                                            Image(systemName: "chevron.right")
+                                                .font(.system(size: 14, weight: .semibold))
+                                                .foregroundStyle(SLTheme.Colors.textTertiary)
+                                        }
+                                    }
+                                    .padding(.vertical, SLTheme.Spacing.xs)
+                                }
+                                .disabled(isConnectingHealth)
+                            }
+                        }
+                    }
+
                     // About / Links
                     SLCard {
                         VStack(alignment: .leading, spacing: SLTheme.Spacing.md) {
@@ -250,6 +292,23 @@ struct SettingsView: View {
                     onRestore: { showPaywall = false }
                 )
             }
+        }
+    }
+
+    @MainActor
+    private func connectHealth() async {
+        isConnectingHealth = true
+        defer { isConnectingHealth = false }
+        let ok = await HealthKitService.shared.requestAuthorization()
+        if ok {
+            if let sample = await HealthKitService.shared.fetchLastNightSleep() {
+                healthStatus = String(localized: "Connected — last night imported ✓")
+            } else {
+                healthStatus = String(localized: "Connected to Apple Health ✓")
+            }
+            HapticFeedbackEngine.shared.triggerLightTap()
+        } else {
+            healthStatus = String(localized: "Apple Health unavailable")
         }
     }
 
