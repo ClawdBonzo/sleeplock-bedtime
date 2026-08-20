@@ -28,6 +28,15 @@ struct DailyLoggerView: View {
         return NightMath.hitsTarget(actualBedtime: actualBedtime, targetBedtime: profile.targetBedtime)
     }
 
+    // Explicitly LocalizedStringKey: a bare ternary of string literals can
+    // resolve to the non-localizing String overloads of Text/navigationTitle.
+    private var navTitle: LocalizedStringKey {
+        existingEntry == nil ? "Log Sleep" : "Update Sleep Log"
+    }
+    private var headerTitle: LocalizedStringKey {
+        existingEntry == nil ? "Logging for last night" : "Editing today's log"
+    }
+
     var body: some View {
         NavigationStack {
             ZStack {
@@ -43,7 +52,7 @@ struct DailyLoggerView: View {
                     LevelUpAnimationView(level: gamificationService.lastLevelUpLevel ?? .nightOwl)
                 }
             }
-            .navigationTitle(existingEntry == nil ? "Log Sleep" : "Update Sleep Log")
+            .navigationTitle(navTitle)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -66,7 +75,7 @@ struct DailyLoggerView: View {
                     HStack {
                         Image(systemName: "calendar")
                             .foregroundStyle(SLTheme.Colors.primary)
-                        Text(existingEntry == nil ? "Logging for last night" : "Editing today's log")
+                        Text(headerTitle)
                             .font(SLTheme.Typography.headline)
                             .foregroundStyle(.white)
                         Spacer()

@@ -2,108 +2,6 @@
   "sourceLanguage": "en",
   "strings": {
     "": {},
-    "·": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "·"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "·"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "·"
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "·"
-          }
-        },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "·"
-          }
-        }
-      }
-    },
-    "/ %lld": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "/ %lld"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "/ %lld"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "/ %lld"
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "/ %lld"
-          }
-        },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "/ %lld"
-          }
-        }
-      }
-    },
-    "/100": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "/100"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "/100"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "/100"
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "/100"
-          }
-        },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "/100"
-          }
-        }
-      }
-    },
     "%lld": {
       "localizations": {
         "de": {
@@ -138,40 +36,6 @@
         }
       }
     },
-    "%lld min": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%lld Min."
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%lld分"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%lld분"
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%lld min"
-          }
-        },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%lld min"
-          }
-        }
-      }
-    },
     "%lld XP": {
       "localizations": {
         "de": {
@@ -202,6 +66,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "%lld XP"
+          }
+        }
+      }
+    },
+    "%lld min": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld Min."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld分"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld분"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld min"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld min"
           }
         }
       }
@@ -314,138 +212,70 @@
         }
       }
     },
-    "✓": {
+    "/ %lld": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓"
+            "value": "/ %lld"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓"
+            "value": "/ %lld"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓"
+            "value": "/ %lld"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓"
+            "value": "/ %lld"
           }
         },
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓"
+            "value": "/ %lld"
           }
         }
       }
     },
-    "✗": {
+    "/100": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "✗"
+            "value": "/100"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "✗"
+            "value": "/100"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "✗"
+            "value": "/100"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "✗"
+            "value": "/100"
           }
         },
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "✗"
-          }
-        }
-      }
-    },
-    "3-day free trial": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "3 Tage gratis testen"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "3日間無料トライアル"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "3일 무료 체험"
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "3 dagen gratis proberen"
-          }
-        },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "3 dagars gratis prova"
-          }
-        }
-      }
-    },
-    "7 / 14 / 30-day windows": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "7-/14-/30-Tage-Zeiträume"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "7・14・30日間の期間"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "7 / 14 / 30일 기간"
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Perioden van 7 / 14 / 30 dagen"
-          }
-        },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "7/14/30-dagarsperioder"
+            "value": "/100"
           }
         }
       }
@@ -514,6 +344,74 @@
           "stringUnit": {
             "state": "translated",
             "value": "15 min"
+          }
+        }
+      }
+    },
+    "3-day free trial": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 Tage gratis testen"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3日間無料トライアル"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3일 무료 체험"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 dagen gratis proberen"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 dagars gratis prova"
+          }
+        }
+      }
+    },
+    "3-day free trial, then auto-renews until canceled. Cancel anytime in Settings.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 Tage gratis, danach automatische Verlängerung bis zur Kündigung. Jederzeit in den Einstellungen kündbar."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3日間無料、その後は解約するまで自動更新。設定でいつでも解約できます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3일 무료 후 해지할 때까지 자동 갱신. 설정에서 언제든 해지할 수 있습니다."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 dagen gratis, daarna automatische verlenging tot opzegging. Altijd opzegbaar in Instellingen."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 dagar gratis, sedan automatisk förnyelse tills du avslutar. Avsluta när som helst i Inställningar."
           }
         }
       }
@@ -616,6 +514,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "60 min"
+          }
+        }
+      }
+    },
+    "7 / 14 / 30-day windows": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "7-/14-/30-Tage-Zeiträume"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "7・14・30日間の期間"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "7 / 14 / 30일 기간"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Perioden van 7 / 14 / 30 dagen"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "7/14/30-dagarsperioder"
           }
         }
       }
@@ -790,6 +722,40 @@
         }
       }
     },
+    "Advanced Sleep Analytics": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erweiterte Schlaf-Analysen"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "高度な睡眠分析"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "고급 수면 분석"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geavanceerde slaapanalyse"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avancerad sömnanalys"
+          }
+        }
+      }
+    },
     "Advanced sleep analytics": {
       "localizations": {
         "de": {
@@ -824,36 +790,36 @@
         }
       }
     },
-    "Advanced Sleep Analytics": {
+    "Auto-renews until canceled. Cancel anytime in Settings.": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Erweiterte Schlaf-Analysen"
+            "value": "Automatische Verlängerung bis zur Kündigung. Jederzeit in den Einstellungen kündbar."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "高度な睡眠分析"
+            "value": "解約するまで自動更新。設定でいつでも解約できます。"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "고급 수면 분석"
+            "value": "해지할 때까지 자동 갱신. 설정에서 언제든 해지할 수 있습니다."
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Geavanceerde slaapanalyse"
+            "value": "Automatische verlenging tot opzegging. Altijd opzegbaar in Instellingen."
           }
         },
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Avancerad sömnanalys"
+            "value": "Automatisk förnyelse tills du avslutar. Avsluta när som helst i Inställningar."
           }
         }
       }
@@ -956,6 +922,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Undvik skärmar 30+ minuter före läggdags"
+          }
+        }
+      }
+    },
+    "BEST VALUE": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "BESTPREIS"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "おすすめ"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "최고 가성비"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "BESTE KEUS"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "BÄST VÄRDE"
           }
         }
       }
@@ -1130,74 +1130,6 @@
         }
       }
     },
-    "Bedtime consistency charts": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Diagramme zur Schlafenszeit-Konstanz"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "就寝時間の一貫性グラフ"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "취침 시간 일관성 차트"
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Grafieken voor bedtijdconsistentie"
-          }
-        },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Diagram för läggdagskonsekvens"
-          }
-        }
-      }
-    },
-    "Bedtime in %lld min": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Schlafenszeit in %lld Min."
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "就寝まであと%lld分"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "취침 %lld분 전"
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bedtijd over %lld min"
-          }
-        },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Läggdags om %lld min"
-          }
-        }
-      }
-    },
     "Bedtime Now!": {
       "localizations": {
         "de": {
@@ -1266,36 +1198,70 @@
         }
       }
     },
-    "before bedtime": {
+    "Bedtime consistency charts": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "vor dem Schlafen"
+            "value": "Diagramme zur Schlafenszeit-Konstanz"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "就寝前"
+            "value": "就寝時間の一貫性グラフ"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "취침 전"
+            "value": "취침 시간 일관성 차트"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "voor het slapen"
+            "value": "Grafieken voor bedtijdconsistentie"
           }
         },
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "före läggdags"
+            "value": "Diagram för läggdagskonsekvens"
+          }
+        }
+      }
+    },
+    "Bedtime in %lld min": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schlafenszeit in %lld Min."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "就寝まであと%lld分"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "취침 %lld분 전"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bedtijd over %lld min"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Läggdags om %lld min"
           }
         }
       }
@@ -1398,40 +1364,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Bästa svit"
-          }
-        }
-      }
-    },
-    "BEST VALUE": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "BESTPREIS"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "おすすめ"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "최고 가성비"
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "BESTE KEUS"
-          }
-        },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "BÄST VÄRDE"
           }
         }
       }
@@ -1708,6 +1640,40 @@
         }
       }
     },
+    "Completed": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abgeschlossen"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "完了"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "완료"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Voltooid"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slutförd"
+          }
+        }
+      }
+    },
     "Consistency": {
       "localizations": {
         "de": {
@@ -1874,6 +1840,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Fortsätt som %@"
+          }
+        }
+      }
+    },
+    "Couldn't reach the App Store. Check your connection and try again.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "App Store nicht erreichbar. Prüfe deine Verbindung und versuche es erneut."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "App Storeに接続できませんでした。接続を確認してもう一度お試しください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "App Store에 연결할 수 없습니다. 연결을 확인한 후 다시 시도해 주세요."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kan de App Store niet bereiken. Controleer je verbinding en probeer het opnieuw."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kunde inte nå App Store. Kontrollera din anslutning och försök igen."
           }
         }
       }
@@ -2286,6 +2286,40 @@
         }
       }
     },
+    "Editing today's log": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Heutigen Eintrag bearbeiten"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "今日の記録を編集中"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "오늘 기록 수정 중"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Log van vandaag bewerken"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Redigerar dagens logg"
+          }
+        }
+      }
+    },
     "Enable": {
       "localizations": {
         "de": {
@@ -2660,6 +2694,40 @@
         }
       }
     },
+    "Full Gamification + XP": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Volle Gamification + XP"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "フルゲーミフィケーション+XP"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "전체 게이미피케이션 + XP"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Volledige gamification + XP"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Full gamification + XP"
+          }
+        }
+      }
+    },
     "Full calendar history": {
       "localizations": {
         "de": {
@@ -2695,40 +2763,6 @@
       }
     },
     "Full gamification + XP": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Volle Gamification + XP"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "フルゲーミフィケーション+XP"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "전체 게이미피케이션 + XP"
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Volledige gamification + XP"
-          }
-        },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Full gamification + XP"
-          }
-        }
-      }
-    },
-    "Full Gamification + XP": {
       "localizations": {
         "de": {
           "stringUnit": {
@@ -3034,6 +3068,74 @@
         }
       }
     },
+    "Hit Rate": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trefferquote"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "達成率"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "달성률"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slagingspercentage"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Träfffrekvens"
+          }
+        }
+      }
+    },
+    "Hit Target": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ziel erreicht"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "目標達成"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "목표 달성"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Doel gehaald"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nådde mål"
+          }
+        }
+      }
+    },
     "Hit bedtime": {
       "localizations": {
         "de": {
@@ -3064,6 +3166,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Klara läggdags"
+          }
+        }
+      }
+    },
+    "Hit bedtime 100 times": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100-mal einhalten"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "就寝時間を100回守る"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "취침 시간 100회 지키기"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100 keer bedtijd halen"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Klara läggdags 100 gånger"
           }
         }
       }
@@ -3166,108 +3302,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Klara läggdags 7 gånger"
-          }
-        }
-      }
-    },
-    "Hit bedtime 100 times": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "100-mal einhalten"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "就寝時間を100回守る"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "취침 시간 100회 지키기"
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "100 keer bedtijd halen"
-          }
-        },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Klara läggdags 100 gånger"
-          }
-        }
-      }
-    },
-    "Hit Rate": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Trefferquote"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "達成率"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "달성률"
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Slagingspercentage"
-          }
-        },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Träfffrekvens"
-          }
-        }
-      }
-    },
-    "Hit Target": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ziel erreicht"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "目標達成"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "목표 달성"
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Doel gehaald"
-          }
-        },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nådde mål"
           }
         }
       }
@@ -3578,6 +3612,40 @@
         }
       }
     },
+    "I've been fixing my sleep with SleepLock — lock in your best sleep!": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ich verbessere meinen Schlaf mit SleepLock — sichere dir deinen besten Schlaf!"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SleepLockで睡眠を整えています — あなたも最高の睡眠を手に入れよう！"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SleepLock으로 수면 습관을 바꾸고 있어요 — 최고의 수면을 잠가 보세요!"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ik verbeter mijn slaap met SleepLock — vergrendel jouw beste nachtrust!"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jag fixar min sömn med SleepLock — lås in din bästa sömn!"
+          }
+        }
+      }
+    },
     "Icon": {
       "localizations": {
         "de": {
@@ -3642,6 +3710,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Idealt"
+          }
+        }
+      }
+    },
+    "In progress": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In Bearbeitung"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "進行中"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "진행 중"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bezig"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pågår"
           }
         }
       }
@@ -3816,6 +3918,40 @@
         }
       }
     },
+    "Let It Reset": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zurücksetzen lassen"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "リセットする"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "초기화 허용"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Laten resetten"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Låt den nollställas"
+          }
+        }
+      }
+    },
     "Let's unlock your best energy yet": {
       "localizations": {
         "de": {
@@ -3884,40 +4020,6 @@
         }
       }
     },
-    "Level up your sleep with XP, quests, and achievement badges.": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bring deinen Schlaf mit XP, Quests und Erfolgsabzeichen aufs nächste Level."
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "XP、クエスト、実績バッジで睡眠をレベルアップ。"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "XP, 퀘스트, 업적 배지로 수면을 레벨 업하세요."
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Verhoog je slaap met XP, quests en prestatiebadges."
-          }
-        },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nivåhöj din sömn med XP, uppdrag och prestationsmärken."
-          }
-        }
-      }
-    },
     "Level Up!": {
       "localizations": {
         "de": {
@@ -3948,6 +4050,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ny nivå!"
+          }
+        }
+      }
+    },
+    "Level up your sleep with XP, quests, and achievement badges.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bring deinen Schlaf mit XP, Quests und Erfolgsabzeichen aufs nächste Level."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "XP、クエスト、実績バッジで睡眠をレベルアップ。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "XP, 퀘스트, 업적 배지로 수면을 레벨 업하세요."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verhoog je slaap met XP, quests en prestatiebadges."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nivåhöj din sömn med XP, uppdrag och prestationsmärken."
           }
         }
       }
@@ -4020,40 +4156,6 @@
         }
       }
     },
-    "Lock in your best sleep": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sichere dir deinen besten Schlaf"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "最高の睡眠を手に入れよう"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "최고의 수면을 잠그세요"
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Leg je beste slaap vast"
-          }
-        },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Lås in din bästa sömn"
-          }
-        }
-      }
-    },
     "Lock It In": {
       "localizations": {
         "de": {
@@ -4088,36 +4190,36 @@
         }
       }
     },
-    "Log last night's sleep": {
+    "Lock in your best sleep": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Schlaf von gestern erfassen"
+            "value": "Sichere dir deinen besten Schlaf"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "昨夜の睡眠を記録"
+            "value": "最高の睡眠を手に入れよう"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "어젯밤 수면 기록"
+            "value": "최고의 수면을 잠그세요"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Slaap van afgelopen nacht loggen"
+            "value": "Leg je beste slaap vast"
           }
         },
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Logga nattens sömn"
+            "value": "Lås in din bästa sömn"
           }
         }
       }
@@ -4186,6 +4288,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Logga sömn"
+          }
+        }
+      }
+    },
+    "Log last night's sleep": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schlaf von gestern erfassen"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "昨夜の睡眠を記録"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "어젯밤 수면 기록"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slaap van afgelopen nacht loggen"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Logga nattens sömn"
           }
         }
       }
@@ -4292,40 +4428,6 @@
         }
       }
     },
-    "Maintain a 7-day streak": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "7-Tage-Serie halten"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "7日連続を維持"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "7일 연속 유지"
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "7 dagen op rij volhouden"
-          }
-        },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Håll en 7-dagarssvit"
-          }
-        }
-      }
-    },
     "Maintain a 14-day streak": {
       "localizations": {
         "de": {
@@ -4356,74 +4458,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Håll en 14-dagarssvit"
-          }
-        }
-      }
-    },
-    "Maintain a 30-day streak": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "30-Tage-Serie halten"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "30日連続を維持"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "30일 연속 유지"
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "30 dagen op rij volhouden"
-          }
-        },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Håll en 30-dagarssvit"
-          }
-        }
-      }
-    },
-    "Maintain a 90-day streak": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "90-Tage-Serie halten"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "90日連続を維持"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "90일 연속 유지"
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "90 dagen op rij volhouden"
-          }
-        },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Håll en 90-dagarssvit"
           }
         }
       }
@@ -4462,6 +4496,40 @@
         }
       }
     },
+    "Maintain a 30-day streak": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "30-Tage-Serie halten"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "30日連続を維持"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "30일 연속 유지"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "30 dagen op rij volhouden"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Håll en 30-dagarssvit"
+          }
+        }
+      }
+    },
     "Maintain a 365-day streak": {
       "localizations": {
         "de": {
@@ -4492,6 +4560,108 @@
           "stringUnit": {
             "state": "translated",
             "value": "Håll en 365-dagarssvit"
+          }
+        }
+      }
+    },
+    "Maintain a 7-day streak": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "7-Tage-Serie halten"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "7日連続を維持"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "7일 연속 유지"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "7 dagen op rij volhouden"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Håll en 7-dagarssvit"
+          }
+        }
+      }
+    },
+    "Maintain a 90-day streak": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "90-Tage-Serie halten"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "90日連続を維持"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "90일 연속 유지"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "90 dagen op rij volhouden"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Håll en 90-dagarssvit"
+          }
+        }
+      }
+    },
+    "Mark Routine Complete": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Routine als erledigt markieren"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ルーティンを完了にする"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "루틴 완료로 표시"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Routine als voltooid markeren"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Markera rutinen som klar"
           }
         }
       }
@@ -4560,40 +4730,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Medlem sedan %@"
-          }
-        }
-      }
-    },
-    "min": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Min."
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "分"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "분"
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "min"
-          }
-        },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "min"
           }
         }
       }
@@ -4734,40 +4870,6 @@
         }
       }
     },
-    "Monthly hit-rate stats": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Monatliche Trefferquote"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "月間達成率の統計"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "월간 달성률 통계"
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Maandelijkse slagingsstatistieken"
-          }
-        },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Månatlig träffstatistik"
-          }
-        }
-      }
-    },
     "Monthly Master": {
       "localizations": {
         "de": {
@@ -4798,6 +4900,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Månadsmästare"
+          }
+        }
+      }
+    },
+    "Monthly hit-rate stats": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Monatliche Trefferquote"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "月間達成率の統計"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "월간 달성률 통계"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Maandelijkse slagingsstatistieken"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Månatlig träffstatistik"
           }
         }
       }
@@ -4870,36 +5006,36 @@
         }
       }
     },
-    "night": {
+    "Next month": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nacht"
+            "value": "Nächster Monat"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "泊"
+            "value": "次の月"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "박"
+            "value": "다음 달"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "nacht"
+            "value": "Volgende maand"
           }
         },
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "natt"
+            "value": "Nästa månad"
           }
         }
       }
@@ -4938,40 +5074,6 @@
         }
       }
     },
-    "nights": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nächte"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "泊"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "박"
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "nachten"
-          }
-        },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "nätter"
-          }
-        }
-      }
-    },
     "Nights Logged": {
       "localizations": {
         "de": {
@@ -5002,6 +5104,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Loggade nätter"
+          }
+        }
+      }
+    },
+    "No Log": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kein Eintrag"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "記録なし"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "기록 없음"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geen log"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ingen logg"
           }
         }
       }
@@ -5142,40 +5278,6 @@
         }
       }
     },
-    "No Log": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kein Eintrag"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "記録なし"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "기록 없음"
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Geen log"
-          }
-        },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ingen logg"
-          }
-        }
-      }
-    },
     "No refunds · Cancel subscription anytime": {
       "localizations": {
         "de": {
@@ -5278,6 +5380,40 @@
         }
       }
     },
+    "ONE TIME": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "EINMALIG"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "買い切り"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1회 결제"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "EENMALIG"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ENGÅNG"
+          }
+        }
+      }
+    },
     "Okay": {
       "localizations": {
         "de": {
@@ -5346,41 +5482,75 @@
         }
       }
     },
-    "ONE TIME": {
+    "One-time purchase — no subscription, no auto-renewal.": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "EINMALIG"
+            "value": "Einmaliger Kauf — kein Abo, keine automatische Verlängerung."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "買い切り"
+            "value": "買い切り — サブスクなし、自動更新なし。"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "1회 결제"
+            "value": "1회 구매 — 구독 없음, 자동 갱신 없음."
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "EENMALIG"
+            "value": "Eenmalige aankoop — geen abonnement, geen automatische verlenging."
           }
         },
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "ENGÅNG"
+            "value": "Engångsköp — ingen prenumeration, ingen automatisk förnyelse."
           }
         }
       }
     },
-    "Perfect week": {
+    "POPULAR": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "BELIEBT"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "人気"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "인기"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "POPULAIR"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "POPULÄR"
+          }
+        }
+      }
+    },
+    "Perfect Week": {
       "localizations": {
         "de": {
           "stringUnit": {
@@ -5414,7 +5584,7 @@
         }
       }
     },
-    "Perfect Week": {
+    "Perfect week": {
       "localizations": {
         "de": {
           "stringUnit": {
@@ -5478,6 +5648,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Genomsnitt för period"
+          }
+        }
+      }
+    },
+    "Previous month": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vorheriger Monat"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "前の月"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이전 달"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vorige maand"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Föregående månad"
           }
         }
       }
@@ -6196,6 +6400,40 @@
         }
       }
     },
+    "Routine Complete Tonight": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Routine heute erledigt"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "今夜のルーティン完了"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "오늘 밤 루틴 완료"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Routine vanavond voltooid"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rutinen klar i kväll"
+          }
+        }
+      }
+    },
     "Save 58%": {
       "localizations": {
         "de": {
@@ -6298,40 +6536,6 @@
         }
       }
     },
-    "See the trends behind your sleep — bedtime consistency, energy, and duration over time.": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sieh die Trends hinter deinem Schlaf — Schlafenszeit-Konstanz, Energie und Dauer im Zeitverlauf."
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "睡眠の傾向を可視化 — 就寝時間の一貫性、エネルギー、睡眠時間の推移。"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "수면 뒤에 숨은 추이를 확인하세요 — 취침 시간 일관성, 에너지, 수면 시간."
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Zie de trends achter je slaap — bedtijdconsistentie, energie en duur in de tijd."
-          }
-        },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Se trenderna bakom din sömn — läggdagskonsekvens, energi och längd över tid."
-          }
-        }
-      }
-    },
     "See Your Plan": {
       "localizations": {
         "de": {
@@ -6362,6 +6566,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Se din plan"
+          }
+        }
+      }
+    },
+    "See the trends behind your sleep — bedtime consistency, energy, and duration over time.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sieh die Trends hinter deinem Schlaf — Schlafenszeit-Konstanz, Energie und Dauer im Zeitverlauf."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "睡眠の傾向を可視化 — 就寝時間の一貫性、エネルギー、睡眠時間の推移。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "수면 뒤에 숨은 추이를 확인하세요 — 취침 시간 일관성, 에너지, 수면 시간."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zie de trends achter je slaap — bedtijdconsistentie, energie en duur in de tijd."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se trenderna bakom din sömn — läggdagskonsekvens, energi och längd över tid."
           }
         }
       }
@@ -6400,40 +6638,6 @@
         }
       }
     },
-    "Set alarm & charge phone": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Wecker stellen & Handy laden"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "アラーム設定・充電"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "알람 설정 & 충전"
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Wekker zetten & telefoon laden"
-          }
-        },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ställ larm & ladda telefon"
-          }
-        }
-      }
-    },
     "Set Your Bedtime\nCommitment": {
       "localizations": {
         "de": {
@@ -6464,6 +6668,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Bestäm din läggdags\nutfästelse"
+          }
+        }
+      }
+    },
+    "Set alarm & charge phone": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wecker stellen & Handy laden"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "アラーム設定・充電"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "알람 설정 & 충전"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wekker zetten & telefoon laden"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ställ larm & ladda telefon"
           }
         }
       }
@@ -6706,40 +6944,6 @@
         }
       }
     },
-    "Sleep duration: %@": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Schlafdauer: %@"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "睡眠時間: %@"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "수면 시간: %@"
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Slaapduur: %@"
-          }
-        },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sömnlängd: %@"
-          }
-        }
-      }
-    },
     "Sleep King": {
       "localizations": {
         "de": {
@@ -6770,74 +6974,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sömnkung"
-          }
-        }
-      }
-    },
-    "Sleep levels & XP": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Schlaf-Level & XP"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "睡眠レベルとXP"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "수면 레벨 & XP"
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Slaapniveaus & XP"
-          }
-        },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sömnnivåer & XP"
-          }
-        }
-      }
-    },
-    "Sleep logged. Try to hit your target tonight!": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Schlaf erfasst. Erreiche heute Nacht dein Ziel!"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "睡眠を記録しました。今夜は目標達成を目指しましょう！"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "수면을 기록했어요. 오늘 밤 목표를 달성해 보세요!"
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Slaap gelogd. Haal vannacht je doel!"
-          }
-        },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sömn loggad. Försök nå ditt mål i natt!"
           }
         }
       }
@@ -7012,6 +7148,108 @@
         }
       }
     },
+    "Sleep duration: %@": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schlafdauer: %@"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "睡眠時間: %@"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "수면 시간: %@"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slaapduur: %@"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sömnlängd: %@"
+          }
+        }
+      }
+    },
+    "Sleep levels & XP": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schlaf-Level & XP"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "睡眠レベルとXP"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "수면 레벨 & XP"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slaapniveaus & XP"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sömnnivåer & XP"
+          }
+        }
+      }
+    },
+    "Sleep logged. Try to hit your target tonight!": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schlaf erfasst. Erreiche heute Nacht dein Ziel!"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "睡眠を記録しました。今夜は目標達成を目指しましょう！"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "수면을 기록했어요. 오늘 밤 목표를 달성해 보세요!"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slaap gelogd. Haal vannacht je doel!"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sömn loggad. Försök nå ditt mål i natt!"
+          }
+        }
+      }
+    },
     "SleepLock": {
       "localizations": {
         "de": {
@@ -7076,6 +7314,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "SleepLock Pro"
+          }
+        }
+      }
+    },
+    "SleepLock v%@\nYour sleep data is stored locally on your device": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SleepLock v%@\nDeine Schlafdaten werden lokal auf deinem Gerät gespeichert"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SleepLock v%@\n睡眠データはお使いのデバイスにローカル保存されます"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SleepLock v%@\n수면 데이터는 기기에만 저장됩니다"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SleepLock v%@\nJe slaapgegevens worden lokaal op je apparaat opgeslagen"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SleepLock v%@\nDina sömndata lagras lokalt på din enhet"
           }
         }
       }
@@ -7216,6 +7488,40 @@
         }
       }
     },
+    "Start Your Energized Life": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Starte dein energiegeladenes Leben"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "元気な毎日を始めよう"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "활기찬 삶을 시작하세요"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Begin je energieke leven"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Starta ditt energifyllda liv"
+          }
+        }
+      }
+    },
     "Start at %@ to be in bed by %@": {
       "localizations": {
         "de": {
@@ -7252,40 +7558,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Börja %1$@ för att vara i säng %2$@"
-          }
-        }
-      }
-    },
-    "Start Your Energized Life": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Starte dein energiegeladenes Leben"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "元気な毎日を始めよう"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "활기찬 삶을 시작하세요"
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Begin je energieke leven"
-          }
-        },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Starta ditt energifyllda liv"
           }
         }
       }
@@ -7354,6 +7626,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Stegnamn"
+          }
+        }
+      }
+    },
+    "Step options": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schritt-Optionen"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ステップのオプション"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "단계 옵션"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stapopties"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stegalternativ"
           }
         }
       }
@@ -8038,40 +8344,6 @@
         }
       }
     },
-    "Unlimited streak tracking": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Unbegrenztes Serien-Tracking"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "無制限の連続記録トラッキング"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "무제한 연속 기록"
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Onbeperkt reeksen bijhouden"
-          }
-        },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Obegränsad svitspårning"
-          }
-        }
-      }
-    },
     "Unlimited Streak Tracking": {
       "localizations": {
         "de": {
@@ -8106,36 +8378,36 @@
         }
       }
     },
-    "Unlock all features & remove limits": {
+    "Unlimited streak tracking": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Alle Funktionen freischalten & Limits entfernen"
+            "value": "Unbegrenztes Serien-Tracking"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "すべての機能を解除し制限を解除"
+            "value": "無制限の連続記録トラッキング"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "모든 기능 잠금 해제 & 제한 제거"
+            "value": "무제한 연속 기록"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Alle functies ontgrendelen & limieten verwijderen"
+            "value": "Onbeperkt reeksen bijhouden"
           }
         },
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Lås upp alla funktioner & ta bort gränser"
+            "value": "Obegränsad svitspårning"
           }
         }
       }
@@ -8174,6 +8446,40 @@
         }
       }
     },
+    "Unlock all features & remove limits": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alle Funktionen freischalten & Limits entfernen"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "すべての機能を解除し制限を解除"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "모든 기능 잠금 해제 & 제한 제거"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alle functies ontgrendelen & limieten verwijderen"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lås upp alla funktioner & ta bort gränser"
+          }
+        }
+      }
+    },
     "Unlockable achievement badges": {
       "localizations": {
         "de": {
@@ -8204,6 +8510,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Upplåsbara prestationsmärken"
+          }
+        }
+      }
+    },
+    "Update Sleep Log": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schlafeintrag aktualisieren"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "睡眠記録を更新"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "수면 기록 업데이트"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slaaplog bijwerken"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uppdatera sömnlogg"
           }
         }
       }
@@ -8242,36 +8582,70 @@
         }
       }
     },
-    "Wake time": {
+    "Use Freeze": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Aufwachzeit"
+            "value": "Freeze verwenden"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "起床時間"
+            "value": "フリーズを使う"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "기상 시간"
+            "value": "프리즈 사용"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Wektijd"
+            "value": "Freeze gebruiken"
           }
         },
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Vakentid"
+            "value": "Använd frys"
+          }
+        }
+      }
+    },
+    "Use a Streak Freeze?": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Serien-Freeze verwenden?"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "フリーズを使いますか？"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "프리즈를 사용할까요?"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reeks-freeze gebruiken?"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Använda en svit-frys?"
           }
         }
       }
@@ -8340,6 +8714,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Vakna"
+          }
+        }
+      }
+    },
+    "Wake time": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aufwachzeit"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "起床時間"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "기상 시간"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wektijd"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vakentid"
           }
         }
       }
@@ -8718,70 +9126,36 @@
         }
       }
     },
-    "Your full streak history, month by month, with hit-rate stats.": {
+    "You missed yesterday. Spend 1 of your %lld freeze tokens to keep your streak alive?": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Dein vollständiger Serienverlauf, Monat für Monat, mit Trefferquote."
+            "value": "Gestern hast du verpasst. 1 deiner %lld Freeze-Token einsetzen, um deine Serie zu retten?"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "月ごとの全連続記録履歴と達成率の統計。"
+            "value": "昨日は記録がありませんでした。フリーズ（残り%lld個）を1個使って連続記録を守りますか？"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "월별 전체 연속 기록과 달성률 통계."
+            "value": "어제 기록을 놓쳤어요. 프리즈 토큰(보유 %lld개) 중 1개를 사용해 연속 기록을 지킬까요?"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Je volledige reeksgeschiedenis, maand voor maand, met slagingsstatistieken."
+            "value": "Je hebt gisteren gemist. 1 van je %lld freeze-tokens gebruiken om je reeks te behouden?"
           }
         },
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Hela din svithistorik, månad för månad, med träffstatistik."
-          }
-        }
-      }
-    },
-    "Your name": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Dein Name"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "あなたの名前"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "이름"
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Je naam"
-          }
-        },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ditt namn"
+            "value": "Du missade igår. Vill du använda 1 av dina %lld frys-tokens för att rädda din svit?"
           }
         }
       }
@@ -8854,104 +9228,478 @@
         }
       }
     },
-    "One-time purchase — no subscription, no auto-renewal.": {
+    "Your full streak history, month by month, with hit-rate stats.": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dein vollständiger Serienverlauf, Monat für Monat, mit Trefferquote."
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "買い切り — サブスクなし、自動更新なし。"
+            "value": "月ごとの全連続記録履歴と達成率の統計。"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "1회 구매 — 구독 없음, 자동 갱신 없음."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Einmaliger Kauf — kein Abo, keine automatische Verlängerung."
+            "value": "월별 전체 연속 기록과 달성률 통계."
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Eenmalige aankoop — geen abonnement, geen automatische verlenging."
+            "value": "Je volledige reeksgeschiedenis, maand voor maand, met slagingsstatistieken."
           }
         },
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Engångsköp — ingen prenumeration, ingen automatisk förnyelse."
+            "value": "Hela din svithistorik, månad för månad, med träffstatistik."
           }
         }
       }
     },
-    "3-day free trial, then auto-renews until canceled. Cancel anytime in Settings.": {
+    "Your name": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dein Name"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "3日間無料、その後は解約するまで自動更新。設定でいつでも解約できます。"
+            "value": "あなたの名前"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "3일 무료 후 해지할 때까지 자동 갱신. 설정에서 언제든 해지할 수 있습니다."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "3 Tage gratis, danach automatische Verlängerung bis zur Kündigung. Jederzeit in den Einstellungen kündbar."
+            "value": "이름"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "3 dagen gratis, daarna automatische verlenging tot opzegging. Altijd opzegbaar in Instellingen."
+            "value": "Je naam"
           }
         },
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "3 dagar gratis, sedan automatisk förnyelse tills du avslutar. Avsluta när som helst i Inställningar."
+            "value": "Ditt namn"
           }
         }
       }
     },
-    "Auto-renews until canceled. Cancel anytime in Settings.": {
+    "Your purchase went through but Pro didn't activate. Tap Restore, and contact support if it persists.": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dein Kauf war erfolgreich, aber Pro wurde nicht aktiviert. Tippe auf „Wiederherstellen“ und kontaktiere den Support, falls es bestehen bleibt."
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "解約するまで自動更新。設定でいつでも解約できます。"
+            "value": "購入は完了しましたが、Proが有効になりませんでした。「復元」をタップし、解決しない場合はサポートにご連絡ください。"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "해지할 때까지 자동 갱신. 설정에서 언제든 해지할 수 있습니다."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Automatische Verlängerung bis zur Kündigung. Jederzeit in den Einstellungen kündbar."
+            "value": "구매는 완료되었지만 Pro가 활성화되지 않았습니다. '복원'을 탭해 보시고, 문제가 계속되면 지원팀에 문의해 주세요."
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Automatische verlenging tot opzegging. Altijd opzegbaar in Instellingen."
+            "value": "Je aankoop is gelukt, maar Pro is niet geactiveerd. Tik op 'Herstel' en neem contact op met support als het aanhoudt."
           }
         },
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Automatisk förnyelse tills du avslutar. Avsluta när som helst i Inställningar."
+            "value": "Ditt köp gick igenom men Pro aktiverades inte. Tryck på Återställ och kontakta supporten om det kvarstår."
+          }
+        }
+      }
+    },
+    "before bedtime": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "vor dem Schlafen"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "就寝前"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "취침 전"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "voor het slapen"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "före läggdags"
+          }
+        }
+      }
+    },
+    "hit bedtime target": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schlafenszeit-Ziel erreicht"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "就寝目標を達成"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "취침 목표 달성"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "bedtijddoel gehaald"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "nådde läggtidsmålet"
+          }
+        }
+      }
+    },
+    "min": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Min."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "分"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "분"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "min"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "min"
+          }
+        }
+      }
+    },
+    "missed bedtime target": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schlafenszeit-Ziel verpasst"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "就寝目標を未達成"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "취침 목표 놓침"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "bedtijddoel gemist"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "missade läggtidsmålet"
+          }
+        }
+      }
+    },
+    "night": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nacht"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "泊"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "박"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "nacht"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "natt"
+          }
+        }
+      }
+    },
+    "nights": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nächte"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "泊"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "박"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "nachten"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "nätter"
+          }
+        }
+      }
+    },
+    "not logged": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "kein Eintrag"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "記録なし"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "기록 없음"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "niet gelogd"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "inte loggad"
+          }
+        }
+      }
+    },
+    "today": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "heute"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "今日"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "오늘"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "vandaag"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "idag"
+          }
+        }
+      }
+    },
+    "·": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "·"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "·"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "·"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "·"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "·"
+          }
+        }
+      }
+    },
+    "✓": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "✓"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "✓"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "✓"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "✓"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "✓"
+          }
+        }
+      }
+    },
+    "✗": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "✗"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "✗"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "✗"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "✗"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "✗"
           }
         }
       }

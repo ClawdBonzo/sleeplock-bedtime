@@ -60,7 +60,7 @@ SleepLockの特長
 • 就寝時間を「ロックイン」——曖昧なアドバイスではなく、明確な毎晩の約束
 • 途切れない連続記録——目標を守った夜が記録をつなぎます
 • すっきり目覚める——朝のエネルギーを記録し、伸びを実感
-• プライバシー重視——データはすべて端末内に保存。アカウント不要、クラウド不要。
+• プライバシー重視——睡眠データはお使いの端末内に保存。アカウント不要。
 
 SleepLock Pro
 アップグレードですべての機能を解除：
@@ -91,7 +91,7 @@ SleepLock의 특징
 • 취침 시간 잠그기 — 막연한 조언이 아닌 분명한 매일의 다짐
 • 끊기지 않는 연속 기록 — 목표를 지킨 밤이 기록을 이어 줍니다
 • 활기찬 아침 — 아침 에너지를 기록하고 상승을 확인하세요
-• 철저한 프라이버시 — 모든 데이터는 기기에 저장됩니다. 계정도, 클라우드도 없습니다.
+• 철저한 프라이버시 — 수면 데이터는 기기에 저장됩니다. 계정이 필요 없습니다.
 
 SleepLock Pro
 업그레이드하면 모든 기능이 열립니다:
@@ -122,7 +122,7 @@ WARUM SLEEPLOCK
 • Schlafenszeit festlegen — eine klare Verpflichtung statt vager Tipps
 • Unzerbrechliche Serien — jede pünktliche Nacht hält deine Serie am Leben
 • Energiegeladen aufwachen — bewerte deine Morgenenergie und sieh sie steigen
-• Privat — alle Daten lokal auf deinem Gerät. Kein Konto. Keine Cloud.
+• Privat — deine Schlafdaten werden lokal auf deinem Gerät gespeichert. Kein Konto nötig.
 
 SLEEPLOCK PRO
 Schalte mit dem Upgrade alles frei:
@@ -153,7 +153,7 @@ WAAROM SLEEPLOCK
 • Leg je bedtijd vast — een duidelijke toezegging in plaats van vage adviezen
 • Bouw onbreekbare reeksen — elke nacht op tijd houdt je reeks in leven
 • Word energiek wakker — beoordeel je ochtendenergie en zie hem stijgen
-• Privé — alle gegevens lokaal op je apparaat. Geen account. Geen cloud.
+• Privé — je slaapgegevens worden lokaal op je apparaat opgeslagen. Geen account nodig.
 
 SLEEPLOCK PRO
 Ontgrendel met de upgrade alles:
@@ -184,7 +184,7 @@ VARFÖR SLEEPLOCK
 • Lås in din läggdags — ett tydligt löfte i stället för vaga råd
 • Bygg obrytbara svitar — varje natt i tid håller din svit vid liv
 • Vakna energifylld — betygsätt din morgonenergi och se den stiga
-• Privat — all data sparas lokalt på din enhet. Inget konto. Inget moln.
+• Privat — dina sömndata sparas lokalt på din enhet. Inget konto behövs.
 
 SLEEPLOCK PRO
 Lås upp hela upplevelsen med uppgraderingen:
@@ -245,3 +245,20 @@ Subscription group display name:
 | de | Pro Lebenslang | Alle Pro-Funktionen für immer. Einmalig. |
 | nl | Pro Levenslang | Alle Pro-functies voor altijd. Eenmalig. |
 | sv | Pro Livstid | Alla Pro-funktioner för alltid. Engångs. |
+
+
+---
+
+# Version 1.1 — What's New (applied to ASC via API, Aug 20 2026)
+
+## English (U.S.)
+SleepLock 1.1 makes your progress real:
+• New: live home-screen widget with your streak and tonight's bedtime
+• Quests now complete automatically from what you actually do — logging sleep, hitting your bedtime, finishing your wind-down routine
+• New "Mark Routine Complete" button on the Routine tab
+• Streak freezes are now your choice — you decide when to spend one
+• Fairer XP curve, and badges now unlock reliably
+• Better support for night-owl schedules and accurate sleep durations
+• Dynamic Type, VoiceOver, and Reduce Motion support
+
+(ja / ko / de-DE / nl-NL / sv equivalents applied via API — see scratchpad script asc_whatsnew.py; texts mirror the English bullets using in-app terminology: 連続記録 / 연속 기록 / Serie / reeks / svit.)
