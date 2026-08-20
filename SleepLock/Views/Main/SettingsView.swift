@@ -278,7 +278,7 @@ struct SettingsView: View {
                             .clipShape(RoundedRectangle(cornerRadius: 10))
                             .opacity(0.6)
 
-                        Text("SleepLock v1.0.0\nYour sleep data is stored locally on your device")
+                        Text("SleepLock v\(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.1")\nYour sleep data is stored locally on your device")
                             .font(SLTheme.Typography.caption)
                             .foregroundStyle(SLTheme.Colors.textTertiary)
                             .multilineTextAlignment(.center)
