@@ -5,6 +5,7 @@ struct RootView: View {
     @Environment(\.modelContext) private var modelContext
     @Query(sort: \UserProfile.createdAt) private var profiles: [UserProfile]
     @State private var streakService = SleepStreakService()
+    @State private var gamificationService: GamificationService?
     @State private var showOnboarding: Bool?
     // Tracks if user tapped "Maybe Later" this session — resets on next launch
     @State private var hasTemporarilyDismissedPaywall: Bool = {
@@ -25,27 +26,29 @@ struct RootView: View {
 
     var body: some View {
         Group {
-            if let showOnboarding {
+            if let showOnboarding, let gamificationService {
                 if showOnboarding {
                     OnboardingContainerView {
                         withAnimation {
                             self.showOnboarding = false
                         }
                     }
-                } else if !isPremium && !hasTemporarilyDismissedPaywall {
-                    // Hard paywall gate — shown every launch until subscribed
+                    .environment(gamificationService)
+                } else if !isPremium && !hasTemporarilyDismissedPaywall
+                            && !PurchaseService.shared.hasSeenLaunchPaywallThisSession {
+                    // Hard paywall gate — shown once per launch until subscribed.
+                    // (The onboarding flow shows its own copy; hasSeenLaunchPaywall
+                    // ThisSession prevents a back-to-back second paywall.)
                     PaywallView(
                         userName: profiles.first?.displayName ?? "",
                         onContinue: {
-                            withAnimation { hasTemporarilyDismissedPaywall = true }
-                        },
-                        onRestore: {
                             withAnimation { hasTemporarilyDismissedPaywall = true }
                         },
                         allowDismiss: false
                     )
                 } else {
                     MainTabView(streakService: streakService)
+                        .environment(gamificationService)
                 }
             } else {
                 // Loading state
@@ -57,6 +60,9 @@ struct RootView: View {
             }
         }
         .onAppear {
+            if gamificationService == nil {
+                gamificationService = GamificationService(modelContext: modelContext)
+            }
             showOnboarding = !hasCompletedOnboarding
             streakService.configure(with: modelContext)
             rearmReengagement()

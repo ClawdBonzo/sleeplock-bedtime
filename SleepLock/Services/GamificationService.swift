@@ -4,9 +4,7 @@ import SwiftData
 @Observable
 @MainActor
 final class GamificationService {
-    static let shared = GamificationService()
-
-    private let modelContext: ModelContext?
+    private let modelContext: ModelContext
 
     private(set) var gamificationProfile: GamificationProfile?
     private(set) var dailyQuests: [Quest] = []
@@ -19,6 +17,15 @@ final class GamificationService {
     private(set) var completedQuestThisSession: Quest?
     private(set) var unlockedBadgeThisSession: Badge?
 
+    /// Most recent streak reported by a caller — lets badge checks triggered by
+    /// XP/level changes still evaluate streak conditions.
+    private var lastKnownStreak = 0
+
+    /// Re-entrancy guard for the badge fixpoint loop: unlocking a badge awards
+    /// XP, which can level the user up, which can unlock further badges.
+    private var badgeCheckInProgress = false
+    private var needsBadgeRecheck = false
+
     /// Total completed quests across daily + weekly. Computed once per access
     /// instead of filtering twice inside a view body on every re-render.
     var completedQuestCount: Int {
@@ -26,24 +33,27 @@ final class GamificationService {
             + weeklyQuests.reduce(0) { $0 + ($1.isCompleted ? 1 : 0) }
     }
 
-    init(modelContext: ModelContext? = nil) {
+    init(modelContext: ModelContext) {
         self.modelContext = modelContext
-        if modelContext != nil {
-            loadGamificationData()
-        }
+        loadGamificationData()
     }
 
     // MARK: - Initialization & Loading
 
     private func loadGamificationData() {
-        guard let modelContext else { return }
-
         do {
             let descriptor = FetchDescriptor<GamificationProfile>()
             let profiles = try modelContext.fetch(descriptor)
 
             if let profile = profiles.first {
                 self.gamificationProfile = profile
+                // Repair profiles written by the old leveling math, which
+                // treated cumulative thresholds as per-level costs.
+                let before = (profile.currentLevel, profile.xpInCurrentLevel)
+                profile.reconcileLevelFromTotalXP()
+                if before != (profile.currentLevel, profile.xpInCurrentLevel) {
+                    try modelContext.save()
+                }
             } else {
                 let newProfile = GamificationProfile(userId: UUID())
                 modelContext.insert(newProfile)
@@ -58,8 +68,15 @@ final class GamificationService {
         }
     }
 
+    /// Re-syncs quests and badges from the store — call on view appearance so a
+    /// day rollover (expired dailies) is reflected without relaunching.
+    func refresh() {
+        loadQuests()
+        loadBadges()
+    }
+
     private func loadQuests() {
-        guard let modelContext, let profile = gamificationProfile else { return }
+        guard let profile = gamificationProfile else { return }
 
         do {
             let uid = profile.userId
@@ -80,7 +97,7 @@ final class GamificationService {
     }
 
     private func loadBadges() {
-        guard let modelContext, let profile = gamificationProfile else { return }
+        guard let profile = gamificationProfile else { return }
 
         do {
             let uid = profile.userId
@@ -110,6 +127,78 @@ final class GamificationService {
         }
     }
 
+    // MARK: - Events
+
+    /// The single entry point for a saved sleep log. Awards XP, advances quests,
+    /// updates lifetime counters, and re-checks badges. `isFirstLogOfNight` is
+    /// false when the user edits an already-logged night — edits never re-award.
+    func recordSleepLogged(hitTarget: Bool, energyRating: Int, isFirstLogOfNight: Bool, currentStreak: Int) {
+        guard isFirstLogOfNight, let profile = gamificationProfile else { return }
+
+        lastKnownStreak = max(lastKnownStreak, currentStreak)
+
+        addXP(25, reason: "Logged sleep")
+        if hitTarget {
+            addXP(25, reason: "Hit bedtime target")
+            profile.hitNightCount += 1
+        }
+        if energyRating >= 4 {
+            addXP(15, reason: "High energy score")
+        }
+        if energyRating >= 5 {
+            profile.highEnergyDayCount += 1
+        }
+
+        advanceQuests { objective in
+            switch objective {
+            case .logSleepQuality:
+                return true
+            case .hitBedtime, .completeBedtimeStreak3, .completeBedtimeStreak7, .weekOfConsistency:
+                return hitTarget
+            case .energyScore80Plus:
+                return energyRating >= 4
+            case .streakMilestone:
+                return currentStreak >= 10
+            case .completeWindDown, .completeWindDownStreak3, .completedRoutine:
+                return false
+            }
+        }
+
+        checkAndUnlockBadges(streakDays: currentStreak)
+        saveChanges()
+    }
+
+    /// Marks tonight's wind-down routine as done. Guarded to once per calendar
+    /// day so repeated taps can't farm quest progress.
+    /// - Returns: `true` if the completion counted (first time today).
+    @discardableResult
+    func recordRoutineCompleted() -> Bool {
+        guard let profile = gamificationProfile else { return false }
+        if let last = profile.lastRoutineCompletedDay, Calendar.current.isDateInToday(last) {
+            return false
+        }
+        profile.lastRoutineCompletedDay = Date()
+
+        addXP(15, reason: "Completed wind-down routine")
+        advanceQuests { objective in
+            switch objective {
+            case .completeWindDown, .completeWindDownStreak3, .completedRoutine:
+                return true
+            default:
+                return false
+            }
+        }
+        checkAndUnlockBadges()
+        saveChanges()
+        return true
+    }
+
+    /// Lets the streak pipeline (recalculations, freezes) push badge checks.
+    func updateStreak(_ streak: Int) {
+        lastKnownStreak = streak
+        checkAndUnlockBadges(streakDays: streak)
+    }
+
     // MARK: - XP & Level Management
 
     func addXP(_ amount: Int, reason: String = "") {
@@ -127,6 +216,9 @@ final class GamificationService {
                 try? await Task.sleep(for: .seconds(2.0))
                 self.showLevelUpAnimation = false
             }
+
+            // A level change can unlock level badges.
+            checkAndUnlockBadges()
         }
 
         saveChanges()
@@ -134,15 +226,31 @@ final class GamificationService {
 
     // MARK: - Quest Management
 
+    /// Advances every live, incomplete quest whose objective the predicate
+    /// matches; completed quests award their XP exactly once (`xpRewarded`).
+    private func advanceQuests(matching shouldAdvance: (QuestObjective) -> Bool) {
+        guard let profile = gamificationProfile else { return }
+
+        for quest in dailyQuests + weeklyQuests where !quest.isCompleted {
+            guard shouldAdvance(quest.objective) else { continue }
+            quest.advance()
+            if quest.isCompleted && !quest.xpRewarded {
+                quest.xpRewarded = true
+                profile.completedQuestCount += 1
+                completedQuestThisSession = quest
+                HapticFeedbackEngine.shared.triggerQuestCompletion()
+                addXP(quest.objective.xpReward, reason: "Quest complete")
+            }
+        }
+    }
+
     private func regenerateExpiredQuests() {
-        guard let modelContext, let profile = gamificationProfile else { return }
+        guard let profile = gamificationProfile else { return }
 
         dailyQuests.removeAll { isQuestExpired($0) }
 
-        let existingDailyCount = dailyQuests.count
         let dailyQuestGoal = 3
-
-        if existingDailyCount < dailyQuestGoal {
+        if dailyQuests.count < dailyQuestGoal {
             let questTemplates: [QuestObjective] = [
                 .hitBedtime,
                 .completeWindDown,
@@ -151,12 +259,18 @@ final class GamificationService {
                 .energyScore80Plus
             ]
 
-            for i in 0..<(dailyQuestGoal - existingDailyCount) {
-                if i < questTemplates.count {
-                    let quest = Quest(userId: profile.userId, objective: questTemplates[i], type: .daily)
-                    modelContext.insert(quest)
-                    dailyQuests.append(quest)
-                }
+            // Rotate the template window by day so quest variety changes daily
+            // instead of always serving the same first three.
+            let dayOfYear = Calendar.current.ordinality(of: .day, in: .year, for: Date()) ?? 0
+            let active = Set(dailyQuests.map(\.objective))
+            var offset = 0
+            while dailyQuests.count < dailyQuestGoal && offset < questTemplates.count {
+                let objective = questTemplates[(dayOfYear + offset) % questTemplates.count]
+                offset += 1
+                guard !active.contains(objective) else { continue }
+                let quest = Quest(userId: profile.userId, objective: objective, type: .daily)
+                modelContext.insert(quest)
+                dailyQuests.append(quest)
             }
         }
 
@@ -193,81 +307,83 @@ final class GamificationService {
         }
     }
 
-    func completeQuest(_ quest: Quest) {
-        guard let profile = gamificationProfile else { return }
+    // MARK: - Badge Management
 
-        quest.isCompleted = true
-        quest.completedAt = Date()
+    func checkAndUnlockBadges(streakDays: Int? = nil) {
+        if let streakDays { lastKnownStreak = max(lastKnownStreak, streakDays) }
 
-        let xpReward = quest.objective.xpReward
-        addXP(xpReward)
-
-        completedQuestThisSession = quest
-        HapticFeedbackEngine.shared.triggerQuestCompletion()
+        // Unlocking a badge awards XP, which can level up, which can unlock the
+        // level badges — run passes until nothing new unlocks.
+        if badgeCheckInProgress {
+            needsBadgeRecheck = true
+            return
+        }
+        badgeCheckInProgress = true
+        repeat {
+            needsBadgeRecheck = false
+            runBadgeUnlockPass()
+        } while needsBadgeRecheck
+        badgeCheckInProgress = false
 
         saveChanges()
     }
 
-    // MARK: - Badge Management
+    private func runBadgeUnlockPass() {
+        guard let profile = gamificationProfile else { return }
 
-    func checkAndUnlockBadges(streakDays: Int? = nil, level: SleepLevel? = nil, xpTotal: Int? = nil) {
         for badge in badges where !badge.isUnlocked {
-            var shouldUnlock = false
+            guard shouldUnlock(badge.type, profile: profile) else { continue }
 
-            if let requiredStreak = streakDays {
-                shouldUnlock = shouldUnlock || (requiredStreak >= 1 && badge.type == .firstBedtime) ||
-                    (requiredStreak >= 7 && badge.type == .week1Streak) ||
-                    (requiredStreak >= 14 && badge.type == .week2Streak) ||
-                    (requiredStreak >= 30 && badge.type == .month1Streak) ||
-                    (requiredStreak >= 90 && badge.type == .month3Streak) ||
-                    (requiredStreak >= 180 && badge.type == .month6Streak) ||
-                    (requiredStreak >= 365 && badge.type == .year1Streak) ||
-                    (requiredStreak >= 7 && badge.type == .perfectWeek) ||
-                    (requiredStreak >= 100 && badge.type == .consistencyKing)
+            badge.isUnlocked = true
+            badge.unlockedAt = Date()
+            unlockedBadges.append(badge)
+            unlockedBadgeThisSession = badge
+            HapticFeedbackEngine.shared.triggerBadgeUnlock()
+
+            // Award a streak-freeze token at meaningful streak milestones so
+            // the user has a safety net to protect long streaks (capped at 3).
+            switch badge.type {
+            case .week1Streak, .week2Streak, .month1Streak, .month3Streak:
+                profile.streakFreezeTokens = min(3, profile.streakFreezeTokens + 1)
+            default:
+                break
             }
 
-            if let currentLevel = level {
-                shouldUnlock = shouldUnlock || (currentLevel == .restfulDreamer && badge.type == .level3) ||
-                    (currentLevel == .sleepChampion && badge.type == .level5)
+            // Ask for an App Store rating at a genuine high point — a
+            // meaningful streak badge. Throttled to once per app version.
+            switch badge.type {
+            case .week1Streak, .month1Streak, .consistencyKing:
+                RatingService.requestReviewAfterMilestone()
+            default:
+                break
             }
 
-            if shouldUnlock {
-                badge.isUnlocked = true
-                badge.unlockedAt = Date()
-                HapticFeedbackEngine.shared.triggerBadgeUnlock()
-                unlockedBadgeThisSession = badge
-                addXP(100)
-                unlockedBadges.append(badge)
-
-                // Award a streak-freeze token at meaningful streak milestones so
-                // the user has a safety net to protect long streaks (capped at 3).
-                switch badge.type {
-                case .week1Streak, .week2Streak, .month1Streak, .month3Streak:
-                    if let p = gamificationProfile {
-                        p.streakFreezeTokens = min(3, p.streakFreezeTokens + 1)
-                    }
-                default:
-                    break
-                }
-
-                // Ask for an App Store rating at a genuine high point — a
-                // meaningful streak badge. Throttled to once per app version.
-                switch badge.type {
-                case .week1Streak, .month1Streak, .consistencyKing:
-                    RatingService.requestReviewAfterMilestone()
-                default:
-                    break
-                }
-            }
+            addXP(100, reason: "Badge unlocked")
         }
+    }
 
-        saveChanges()
+    private func shouldUnlock(_ type: BadgeType, profile: GamificationProfile) -> Bool {
+        let streak = lastKnownStreak
+        switch type {
+        case .firstBedtime: return profile.hitNightCount >= 1 || streak >= 1
+        case .week1Streak: return streak >= 7
+        case .week2Streak: return streak >= 14
+        case .month1Streak: return streak >= 30
+        case .month3Streak: return streak >= 90
+        case .month6Streak: return streak >= 180
+        case .year1Streak: return streak >= 365
+        case .perfectWeek: return streak >= 7
+        case .level3: return profile.currentLevel.rawValue >= 3
+        case .level5: return profile.currentLevel.rawValue >= 5
+        case .allQuests: return profile.completedQuestCount >= 50
+        case .energyChampion: return profile.highEnergyDayCount >= 10
+        case .consistencyKing: return profile.hitNightCount >= 100
+        }
     }
 
     // MARK: - Persistence
 
     private func saveChanges() {
-        guard let modelContext else { return }
         do {
             try modelContext.save()
         } catch {

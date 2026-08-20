@@ -39,54 +39,51 @@ struct SleepLockProvider: TimelineProvider {
         )
         let entry = SleepLockEntry(date: Date(), data: data)
 
-        // Battery-friendly cadence: refresh tightly around the two moments that
-        // matter (the ~11 PM bedtime/streak-risk window and the ~7 AM morning-log
-        // window), and lazily every 4 hours otherwise. Hourly all-day refresh
-        // drained energy for a tile whose data only changes at those times.
+        // Battery-friendly cadence: hourly inside the two windows that matter
+        // (the ~11 PM bedtime/streak-risk window and the ~7 AM morning-log
+        // window), otherwise every 4 hours — but never past the start of the
+        // next dense window or midnight, so a refresh outside a window can't
+        // leapfrog it and leave the tile stale all evening.
         let calendar = Calendar.current
         let now = Date()
         let hour = calendar.component(.hour, from: now)
-        let refreshHours: Int = (hour == 22 || hour == 23 || hour == 6 || hour == 7) ? 1 : 4
-        let nextUpdate = calendar.date(byAdding: .hour, value: refreshHours, to: now)!
+        let denseHours: Set<Int> = [6, 7, 22, 23]
+
+        let nextUpdate: Date
+        if denseHours.contains(hour) {
+            nextUpdate = calendar.date(byAdding: .hour, value: 1, to: now)!
+        } else {
+            var candidates = [calendar.date(byAdding: .hour, value: 4, to: now)!]
+            if let nextMorning = calendar.nextDate(after: now, matching: DateComponents(hour: 6), matchingPolicy: .nextTime) {
+                candidates.append(nextMorning)
+            }
+            if let nextEvening = calendar.nextDate(after: now, matching: DateComponents(hour: 22), matchingPolicy: .nextTime) {
+                candidates.append(nextEvening)
+            }
+            if let nextMidnight = calendar.nextDate(after: now, matching: DateComponents(hour: 0), matchingPolicy: .nextTime) {
+                candidates.append(nextMidnight) // streak/"today" fields roll over
+            }
+            nextUpdate = candidates.min()!
+        }
         completion(Timeline(entries: [entry], policy: .after(nextUpdate)))
     }
 }
 
-// MARK: - Branded Static Tile
-//
-// NOTE: Live-data widgets require an App Group shared container. Until the
-// App Group `group.com.clawdbonzo.SleepLock` is registered (one interactive
-// Xcode/portal step), the widget renders this branded tile instead of reading
-// live streak/bedtime data. Re-enable the App Group capability + restore
-// SleepLockEntryView's family-aware data views to bring live data back.
-struct SleepLockBrandedView: View {
-    var body: some View {
-        VStack(spacing: 8) {
-            Image("BrandIcon")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 40, height: 40)
-                .clipShape(RoundedRectangle(cornerRadius: 10))
-            Text("SleepLock")
-                .font(.system(size: 16, weight: .bold, design: .rounded))
-                .foregroundStyle(.white)
-            Text("Lock in your best sleep")
-                .font(.system(size: 11, design: .rounded))
-                .foregroundStyle(.white.opacity(0.7))
-                .multilineTextAlignment(.center)
-        }
-        .padding()
-        .containerBackground(for: .widget) { Color(hex: "0A1428") }
-    }
-}
-
 // MARK: - Entry View
+// Family-aware live-data views. Requires the App Group
+// `group.com.clawdbonzo.SleepLock` (declared in both targets' entitlements and
+// registered in the developer portal) so SharedSnapshot can be read here.
 struct SleepLockEntryView: View {
+    @Environment(\.widgetFamily) private var family
     let entry: SleepLockEntry
 
     var body: some View {
-        // Static branded tile until the App Group is registered (see note above).
-        SleepLockBrandedView()
+        switch family {
+        case .systemMedium:
+            SleepLockMediumView(entry: entry)
+        default:
+            SleepLockSmallView(entry: entry)
+        }
     }
 }
 

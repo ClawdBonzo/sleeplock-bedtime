@@ -2,54 +2,50 @@ import SwiftUI
 import SwiftData
 
 struct GamificationDashboardView: View {
-    @Environment(\.modelContext) private var modelContext
-    @State private var gamificationService: GamificationService?
+    @Environment(GamificationService.self) private var gamificationService
 
     var body: some View {
         NavigationStack {
             ZStack {
                 SLTheme.Colors.backgroundPrimary.ignoresSafeArea()
 
-                if let service = gamificationService {
-                    ScrollView(showsIndicators: false) {
-                        VStack(spacing: SLTheme.Spacing.lg) {
-                            // Level Card
-                            if let profile = service.gamificationProfile {
-                                LevelProgressCard(profile: profile)
-                            }
-
-                            // Quick Stats
-                            quickStatsRow(service: service)
-
-                            // Daily Quests Section
-                            if !service.dailyQuests.isEmpty {
-                                questsSection(title: "Today's Quests", quests: service.dailyQuests, service: service)
-                            }
-
-                            // Weekly Quests Section
-                            if !service.weeklyQuests.isEmpty {
-                                questsSection(title: "Weekly Quests", quests: service.weeklyQuests, service: service)
-                            }
-
-                            // Badges Section
-                            badgesSection(service: service)
+                ScrollView(showsIndicators: false) {
+                    VStack(spacing: SLTheme.Spacing.lg) {
+                        // Level Card
+                        if let profile = gamificationService.gamificationProfile {
+                            LevelProgressCard(profile: profile)
                         }
-                        .padding(.horizontal, SLTheme.Spacing.md)
-                        .padding(.vertical, SLTheme.Spacing.lg)
+
+                        // Quick Stats
+                        quickStatsRow(service: gamificationService)
+
+                        // Daily Quests Section
+                        if !gamificationService.dailyQuests.isEmpty {
+                            questsSection(title: "Today's Quests", quests: gamificationService.dailyQuests)
+                        }
+
+                        // Weekly Quests Section
+                        if !gamificationService.weeklyQuests.isEmpty {
+                            questsSection(title: "Weekly Quests", quests: gamificationService.weeklyQuests)
+                        }
+
+                        // Badges Section
+                        badgesSection(service: gamificationService)
                     }
+                    .padding(.horizontal, SLTheme.Spacing.md)
+                    .padding(.vertical, SLTheme.Spacing.lg)
                 }
             }
             .navigationTitle("Challenges")
             .navigationBarTitleDisplayMode(.inline)
             .overlay {
-                if let service = gamificationService, service.showLevelUpAnimation {
-                    LevelUpAnimationView(level: service.lastLevelUpLevel ?? .nightOwl)
+                if gamificationService.showLevelUpAnimation {
+                    LevelUpAnimationView(level: gamificationService.lastLevelUpLevel ?? .nightOwl)
                 }
             }
             .onAppear {
-                if gamificationService == nil {
-                    gamificationService = GamificationService(modelContext: modelContext)
-                }
+                // Re-sync so day rollovers and logs from other tabs show up.
+                gamificationService.refresh()
             }
         }
     }
@@ -69,7 +65,7 @@ struct GamificationDashboardView: View {
                 sfSymbol: "scope",
                 symbolColor: SLTheme.Colors.primary,
                 label: "Quests",
-                value: "\(service.completedQuestCount)"
+                value: "\(service.gamificationProfile?.completedQuestCount ?? service.completedQuestCount)"
             )
 
             StatCard(
@@ -83,7 +79,7 @@ struct GamificationDashboardView: View {
 
     // MARK: - Quests Section
 
-    private func questsSection(title: LocalizedStringKey, quests: [Quest], service: GamificationService) -> some View {
+    private func questsSection(title: LocalizedStringKey, quests: [Quest]) -> some View {
         VStack(alignment: .leading, spacing: SLTheme.Spacing.md) {
             Label(title, systemImage: "checklist")
                 .font(SLTheme.Typography.headline)
@@ -91,7 +87,7 @@ struct GamificationDashboardView: View {
 
             VStack(spacing: SLTheme.Spacing.sm) {
                 ForEach(quests, id: \.id) { quest in
-                    QuestRowView(quest: quest, gamificationService: service)
+                    QuestRowView(quest: quest)
                 }
             }
         }
@@ -170,11 +166,11 @@ struct LevelProgressCard: View {
 
 // MARK: - Quest Row
 
+/// Quests progress automatically from real behavior (logging sleep, hitting
+/// bedtime, completing the routine) — there is deliberately no tap-to-claim
+/// button, so XP is always earned.
 struct QuestRowView: View {
     let quest: Quest
-    let gamificationService: GamificationService
-
-    @State private var isCompleting = false
 
     var body: some View {
         VStack(spacing: SLTheme.Spacing.xs) {
@@ -194,6 +190,12 @@ struct QuestRowView: View {
 
                         Spacer()
 
+                        if quest.targetProgress > 1 && !quest.isCompleted {
+                            Text("\(quest.progress)/\(quest.targetProgress)")
+                                .font(.system(size: 12, weight: .semibold, design: .rounded))
+                                .foregroundStyle(SLTheme.Colors.textSecondary)
+                        }
+
                         Text("+\(quest.objective.xpReward) XP")
                             .font(.system(size: 12, weight: .semibold, design: .rounded))
                             .foregroundStyle(SLTheme.Colors.energyGreen)
@@ -204,24 +206,10 @@ struct QuestRowView: View {
                         .frame(height: 4)
                 }
 
-                if !quest.isCompleted {
-                    Button {
-                        isCompleting = true
-                        gamificationService.completeQuest(quest)
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                            isCompleting = false
-                        }
-                    } label: {
-                        Image(systemName: "checkmark.circle.fill")
-                            .font(.system(size: 24))
-                            .foregroundStyle(SLTheme.Colors.primary)
-                    }
-                    .disabled(isCompleting)
-                } else {
-                    Image(systemName: "checkmark.circle.fill")
-                        .font(.system(size: 24))
-                        .foregroundStyle(SLTheme.Colors.energyGreen)
-                }
+                Image(systemName: quest.isCompleted ? "checkmark.circle.fill" : "circle.dashed")
+                    .font(.system(size: 24))
+                    .foregroundStyle(quest.isCompleted ? SLTheme.Colors.energyGreen : SLTheme.Colors.textTertiary)
+                    .accessibilityLabel(quest.isCompleted ? "Completed" : "In progress")
             }
             .padding(SLTheme.Spacing.md)
             .background(quest.isCompleted ? SLTheme.Colors.energyGreen.opacity(0.08) : SLTheme.Colors.backgroundTertiary)
@@ -313,6 +301,7 @@ struct StatCard: View {
 struct LevelUpAnimationView: View {
     let level: SleepLevel
 
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var scale: CGFloat = 0.1
     @State private var opacity: Double = 0
     @State private var rotation: Double = 0
@@ -352,6 +341,12 @@ struct LevelUpAnimationView: View {
             .opacity(opacity)
         }
         .onAppear {
+            if reduceMotion {
+                scale = 1.0
+                withAnimation(.easeIn(duration: 0.3)) { opacity = 1.0 }
+                return
+            }
+
             withAnimation(.spring(response: 0.6, dampingFraction: 0.6)) {
                 scale = 1.0
                 opacity = 1.0

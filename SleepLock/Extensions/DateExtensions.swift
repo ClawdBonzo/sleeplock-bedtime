@@ -1,5 +1,35 @@
 import Foundation
 
+/// Clock math for a single night of sleep. Bed/wake times are compared on a
+/// wrap-around "sleep clock" whose day starts at noon, so times after midnight
+/// (1:45 AM) correctly sort *after* evening times (10:30 PM).
+enum NightMath {
+    /// Minutes past 12:00 noon on the sleep clock: 22:30 → 630, 01:45 → 825.
+    static func sleepClockMinutes(_ date: Date) -> Int {
+        let comps = Calendar.current.dateComponents([.hour, .minute], from: date)
+        let raw = (comps.hour ?? 0) * 60 + (comps.minute ?? 0)
+        let noon = 12 * 60
+        return raw >= noon ? raw - noon : raw + noon
+    }
+
+    /// Whether an actual bedtime hits the target, allowing `graceMinutes` of
+    /// lateness. Going to bed early is always a hit — including a pre-midnight
+    /// bedtime against a post-midnight target.
+    static func hitsTarget(actualBedtime: Date, targetBedtime: Date, graceMinutes: Int = 15) -> Bool {
+        sleepClockMinutes(actualBedtime) <= sleepClockMinutes(targetBedtime) + graceMinutes
+    }
+
+    /// Minutes from bedtime to wake time. Manual logs store both as time-of-day
+    /// on the same reference day, so a negative interval means the wake time
+    /// belongs to the next morning — wrap it by 24h instead of clamping to 0.
+    static func durationMinutes(bedtime: Date, wakeTime: Date) -> Int {
+        let interval = wakeTime.timeIntervalSince(bedtime)
+        if interval > 0 { return Int(interval / 60) }
+        let wrapped = interval + 24 * 60 * 60
+        return wrapped > 0 ? Int(wrapped / 60) : 0
+    }
+}
+
 extension Date {
     var startOfDay: Date {
         Calendar.current.startOfDay(for: self)

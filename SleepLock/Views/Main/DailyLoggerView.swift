@@ -4,6 +4,8 @@ import SwiftData
 struct DailyLoggerView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(GamificationService.self) private var gamificationService
     @Query(sort: \UserProfile.createdAt) private var profiles: [UserProfile]
 
     @State private var actualBedtime = Calendar.current.date(from: DateComponents(hour: 22, minute: 30)) ?? Date()
@@ -11,20 +13,19 @@ struct DailyLoggerView: View {
     @State private var energyRating: Int = 3
     @State private var notes: String = ""
     @State private var showSuccess = false
-    @State private var gamificationService: GamificationService?
     @State private var isImportingHealth = false
     @State private var healthImportMessage: String?
+    /// Today's already-saved entry, when the user is editing rather than logging.
+    @State private var existingEntry: SleepLogEntry?
+    @State private var didPrefill = false
 
     private var profile: UserProfile? { profiles.first }
 
     private var hitTarget: Bool {
         guard let profile else { return false }
-        let targetComps = profile.targetBedtime.hourMinuteComponents
-        let actualComps = actualBedtime.hourMinuteComponents
-        let targetMinutes = targetComps.hour * 60 + targetComps.minute
-        let actualMinutes = actualComps.hour * 60 + actualComps.minute
-        // Within 15 minute grace period
-        return actualMinutes <= targetMinutes + 15
+        // Wrap-around clock math: post-midnight bedtimes are "later" than
+        // evening ones, and an early bedtime always hits (15-min grace for late).
+        return NightMath.hitsTarget(actualBedtime: actualBedtime, targetBedtime: profile.targetBedtime)
     }
 
     var body: some View {
@@ -37,8 +38,12 @@ struct DailyLoggerView: View {
                 } else {
                     logFormView
                 }
+
+                if gamificationService.showLevelUpAnimation {
+                    LevelUpAnimationView(level: gamificationService.lastLevelUpLevel ?? .nightOwl)
+                }
             }
-            .navigationTitle("Log Sleep")
+            .navigationTitle(existingEntry == nil ? "Log Sleep" : "Update Sleep Log")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -48,7 +53,7 @@ struct DailyLoggerView: View {
             }
             .toolbarBackground(SLTheme.Colors.backgroundPrimary, for: .navigationBar)
             .toolbarColorScheme(.dark, for: .navigationBar)
-            .onAppear { setupGamification() }
+            .onAppear { prefillIfNeeded() }
         }
     }
 
@@ -61,11 +66,11 @@ struct DailyLoggerView: View {
                     HStack {
                         Image(systemName: "calendar")
                             .foregroundStyle(SLTheme.Colors.primary)
-                        Text("Logging for last night")
+                        Text(existingEntry == nil ? "Logging for last night" : "Editing today's log")
                             .font(SLTheme.Typography.headline)
                             .foregroundStyle(.white)
                         Spacer()
-                        Text(Date().isToday ? "Today" : Date().monthDay)
+                        Text(Date().monthDay)
                             .font(SLTheme.Typography.subheadline)
                             .foregroundStyle(SLTheme.Colors.textSecondary)
                     }
@@ -113,6 +118,7 @@ struct DailyLoggerView: View {
                             .labelsHidden()
                             .frame(height: 100)
                             .frame(maxWidth: .infinity)
+                            .clipped()
                             .colorScheme(.dark)
 
                         if let profile {
@@ -139,6 +145,7 @@ struct DailyLoggerView: View {
                             .labelsHidden()
                             .frame(height: 100)
                             .frame(maxWidth: .infinity)
+                            .clipped()
                             .colorScheme(.dark)
                     }
                 }
@@ -152,28 +159,32 @@ struct DailyLoggerView: View {
 
                         HStack(spacing: SLTheme.Spacing.md) {
                             ForEach(EnergyLevel.allCases, id: \.rawValue) { level in
-                                VStack(spacing: SLTheme.Spacing.xxs) {
-                                    Image(systemName: level.emoji)
-                                        .font(.system(size: energyRating == level.rawValue ? 32 : 24, weight: .semibold))
-                                        .foregroundStyle(
-                                            energyRating == level.rawValue ?
-                                            level.color : SLTheme.Colors.textTertiary
-                                        )
-                                        .scaleEffect(energyRating == level.rawValue ? 1.1 : 1)
-
-                                    Text(level.label)
-                                        .font(.system(size: 9))
-                                        .foregroundStyle(
-                                            energyRating == level.rawValue ?
-                                            level.color : SLTheme.Colors.textTertiary
-                                        )
-                                }
-                                .frame(maxWidth: .infinity)
-                                .onTapGesture {
+                                Button {
                                     withAnimation(SLTheme.Animation.bouncy) {
                                         energyRating = level.rawValue
                                     }
+                                } label: {
+                                    VStack(spacing: SLTheme.Spacing.xxs) {
+                                        Image(systemName: level.emoji)
+                                            .font(.system(size: energyRating == level.rawValue ? 32 : 24, weight: .semibold))
+                                            .foregroundStyle(
+                                                energyRating == level.rawValue ?
+                                                level.color : SLTheme.Colors.textTertiary
+                                            )
+                                            .scaleEffect(energyRating == level.rawValue ? 1.1 : 1)
+
+                                        Text(level.label)
+                                            .font(.system(size: 9))
+                                            .foregroundStyle(
+                                                energyRating == level.rawValue ?
+                                                level.color : SLTheme.Colors.textTertiary
+                                            )
+                                    }
+                                    .frame(maxWidth: .infinity)
                                 }
+                                .buttonStyle(.plain)
+                                .accessibilityLabel(level.label)
+                                .accessibilityAddTraits(energyRating == level.rawValue ? .isSelected : [])
                             }
                         }
                     }
@@ -194,7 +205,7 @@ struct DailyLoggerView: View {
                     }
                 }
 
-                SLPrimaryButton("Save Sleep Log", icon: "checkmark") {
+                SLPrimaryButton(existingEntry == nil ? "Save Sleep Log" : "Update Sleep Log", icon: "checkmark") {
                     saveEntry()
                 }
                 .padding(.bottom, SLTheme.Spacing.xxl)
@@ -206,7 +217,7 @@ struct DailyLoggerView: View {
     // MARK: - Success View
     private var successView: some View {
         ZStack {
-            if hitTarget {
+            if hitTarget && !reduceMotion {
                 ConfettiBurst()
                     .allowsHitTesting(false)
             }
@@ -223,7 +234,7 @@ struct DailyLoggerView: View {
                 .foregroundStyle(hitTarget ? SLTheme.Colors.streakGold : SLTheme.Colors.primaryLight)
                 .shadow(color: (hitTarget ? SLTheme.Colors.streakGold : SLTheme.Colors.primary).opacity(0.4), radius: 20)
                 .scaleEffect(showSuccess ? 1 : 0.4)
-                .animation(.spring(response: 0.5, dampingFraction: 0.5), value: showSuccess)
+                .animation(reduceMotion ? nil : .spring(response: 0.5, dampingFraction: 0.5), value: showSuccess)
 
             VStack(spacing: SLTheme.Spacing.sm) {
                 Text(hitTarget ? "Streak Alive!" : "Logged!")
@@ -246,35 +257,92 @@ struct DailyLoggerView: View {
         }
     }
 
-    // MARK: - Save
-    private func saveEntry() {
-        let entry = SleepLogEntry(
-            date: Date(),
-            actualBedtime: actualBedtime,
-            actualWakeTime: actualWakeTime,
-            targetBedtime: profile?.targetBedtime ?? actualBedtime,
-            morningEnergyRating: energyRating,
-            notes: notes,
-            hitTarget: hitTarget
+    // MARK: - Prefill
+
+    /// Starts the pickers from the user's actual targets (most nights are a
+    /// confirmation, not data entry) — or from today's entry when editing it.
+    private func prefillIfNeeded() {
+        guard !didPrefill else { return }
+        didPrefill = true
+
+        existingEntry = fetchTodayEntry()
+        if let entry = existingEntry {
+            actualBedtime = entry.actualBedtime
+            actualWakeTime = entry.actualWakeTime
+            energyRating = entry.morningEnergyRating
+            notes = entry.notes
+        } else if let profile {
+            actualBedtime = profile.targetBedtime
+            actualWakeTime = profile.targetWakeTime
+        }
+    }
+
+    private func fetchTodayEntry() -> SleepLogEntry? {
+        let start = Date().startOfDay
+        let end = Calendar.current.date(byAdding: .day, value: 1, to: start) ?? start
+        var descriptor = FetchDescriptor<SleepLogEntry>(
+            predicate: #Predicate { $0.date >= start && $0.date < end },
+            sortBy: [SortDescriptor(\.date, order: .reverse)]
         )
-        modelContext.insert(entry)
+        descriptor.fetchLimit = 1
+        return (try? modelContext.fetch(descriptor))?.first
+    }
+
+    // MARK: - Save
+
+    /// One entry per night: a second save today edits the existing log instead
+    /// of inserting a duplicate, and XP/quests/badges award only on first log.
+    private func saveEntry() {
+        let isFirstLogOfNight = existingEntry == nil
+
+        if let entry = existingEntry {
+            entry.actualBedtime = actualBedtime
+            entry.actualWakeTime = actualWakeTime
+            entry.targetBedtime = profile?.targetBedtime ?? actualBedtime
+            entry.morningEnergyRating = energyRating
+            entry.notes = notes
+            entry.hitTarget = hitTarget
+            entry.recalculateDuration()
+        } else {
+            let entry = SleepLogEntry(
+                date: Date(),
+                actualBedtime: actualBedtime,
+                actualWakeTime: actualWakeTime,
+                targetBedtime: profile?.targetBedtime ?? actualBedtime,
+                morningEnergyRating: energyRating,
+                notes: notes,
+                hitTarget: hitTarget
+            )
+            modelContext.insert(entry)
+            existingEntry = entry
+        }
         try? modelContext.save()
 
         // Confirmation haptic
         HapticFeedbackEngine.shared.triggerLightTap()
 
-        // Award XP for logging
-        gamificationService?.addXP(25, reason: "Logged sleep")
+        let streak = currentStreakIncludingFreezes()
+        gamificationService.recordSleepLogged(
+            hitTarget: hitTarget,
+            energyRating: energyRating,
+            isFirstLogOfNight: isFirstLogOfNight,
+            currentStreak: streak
+        )
 
-        // Award bonus XP if hit target
-        if hitTarget {
-            gamificationService?.addXP(25, reason: "Hit bedtime target")
-            checkStreakMilestone()
+        if isFirstLogOfNight && hitTarget {
+            let milestones: Set<Int> = [7, 14, 30, 60, 100, 180, 365]
+            if milestones.contains(streak) {
+                HapticFeedbackEngine.shared.triggerStreakMilestone()
+            }
         }
 
-        // Award XP for high energy
-        if energyRating >= 4 {
-            gamificationService?.addXP(15, reason: "High energy score")
+        // Re-arm the lapsed-user reminder relative to this fresh log — but only
+        // when the user hasn't switched notifications off.
+        if profile?.notificationsEnabled == true {
+            NotificationService.shared.scheduleReengagementReminder(
+                userName: profile?.displayName ?? "",
+                currentStreak: streak
+            )
         }
 
         withAnimation(SLTheme.Animation.spring) {
@@ -282,40 +350,14 @@ struct DailyLoggerView: View {
         }
     }
 
-    private func checkStreakMilestone() {
-        let descriptor = FetchDescriptor<SleepLogEntry>(sortBy: [SortDescriptor(\.date, order: .reverse)])
-        guard let entries = try? modelContext.fetch(descriptor) else { return }
-
-        // Count current streak from the freshly saved entries
-        let calendar = Calendar.current
-        var streak = 0
-        var expectedDate = Date().startOfDay
-        for entry in entries {
-            let entryDay = entry.date.startOfDay
-            if calendar.isDate(entryDay, inSameDayAs: expectedDate) && entry.hitTarget {
-                streak += 1
-                expectedDate = calendar.date(byAdding: .day, value: -1, to: expectedDate) ?? expectedDate
-            } else {
-                break
-            }
-        }
-
-        // Drive the badge / streak-freeze / rating pipeline off the live streak.
-        gamificationService?.checkAndUnlockBadges(
-            streakDays: streak,
-            level: gamificationService?.gamificationProfile?.currentLevel
-        )
-
-        let milestones: Set<Int> = [7, 14, 30, 60, 100, 180, 365]
-        if milestones.contains(streak) {
-            HapticFeedbackEngine.shared.triggerStreakMilestone()
-        }
-
-        // Re-arm the lapsed-user reminder relative to this fresh log.
-        NotificationService.shared.scheduleReengagementReminder(
-            userName: profile?.displayName ?? "",
-            currentStreak: streak
-        )
+    /// The same freeze-aware streak the dashboard shows — so badges, milestones,
+    /// and notifications never disagree with the number on screen.
+    private func currentStreakIncludingFreezes() -> Int {
+        var descriptor = FetchDescriptor<SleepLogEntry>(sortBy: [SortDescriptor(\.date, order: .reverse)])
+        descriptor.fetchLimit = 730
+        guard let entries = try? modelContext.fetch(descriptor) else { return 0 }
+        let frozen = Set((try? modelContext.fetch(FetchDescriptor<GamificationProfile>()))?.first?.frozenDateKeys ?? [])
+        return StreakCalculator.currentStreak(entries: entries, frozenKeys: frozen)
     }
 
     @MainActor
@@ -336,12 +378,6 @@ struct DailyLoggerView: View {
             HapticFeedbackEngine.shared.triggerLightTap()
         } else {
             healthImportMessage = String(localized: "No sleep data found in Health")
-        }
-    }
-
-    private func setupGamification() {
-        if gamificationService == nil {
-            gamificationService = GamificationService(modelContext: modelContext)
         }
     }
 }

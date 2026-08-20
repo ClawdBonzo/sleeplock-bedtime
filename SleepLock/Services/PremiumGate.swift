@@ -160,8 +160,7 @@ struct ProLockedView: View {
         .fullScreenCover(isPresented: $showPaywall) {
             PaywallView(
                 userName: userName,
-                onContinue: { showPaywall = false },
-                onRestore: { showPaywall = false }
+                onContinue: { showPaywall = false }
             )
         }
     }

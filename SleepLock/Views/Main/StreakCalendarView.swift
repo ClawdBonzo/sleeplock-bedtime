@@ -7,6 +7,17 @@ struct StreakCalendarView: View {
 
     private var calendar: Calendar { Calendar.current }
 
+    /// Entries indexed by day-key so day cells resolve in O(1) instead of
+    /// scanning the whole history per cell. Latest entry per day wins.
+    private var entriesByDay: [String: SleepLogEntry] {
+        var index: [String: SleepLogEntry] = [:]
+        for entry in entries {
+            let key = GamificationProfile.dayKey(for: entry.date)
+            if index[key] == nil { index[key] = entry } // entries are date-desc
+        }
+        return index
+    }
+
     private var daysInMonth: [Date] {
         guard let range = calendar.range(of: .day, in: .month, for: selectedMonth) else { return [] }
         let components = calendar.dateComponents([.year, .month], from: selectedMonth)
@@ -19,13 +30,28 @@ struct StreakCalendarView: View {
 
     private var firstWeekdayOffset: Int {
         guard let firstDay = daysInMonth.first else { return 0 }
-        return (calendar.component(.weekday, from: firstDay) + 5) % 7 // Mon=0
+        return (calendar.component(.weekday, from: firstDay) - calendar.firstWeekday + 7) % 7
     }
 
-    private var monthTitle: String {
+    /// Locale-aware weekday headers, rotated to the calendar's first weekday.
+    private var weekdayHeaders: [String] {
+        let symbols = calendar.shortWeekdaySymbols
+        let first = calendar.firstWeekday - 1
+        return (0..<7).map { symbols[(first + $0) % 7] }
+    }
+
+    private var isCurrentMonth: Bool {
+        calendar.isDate(selectedMonth, equalTo: Date(), toGranularity: .month)
+    }
+
+    private static let monthTitleFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "MMMM yyyy"
-        return formatter.string(from: selectedMonth)
+        formatter.setLocalizedDateFormatFromTemplate("yyyyMMMM")
+        return formatter
+    }()
+
+    private var monthTitle: String {
+        Self.monthTitleFormatter.string(from: selectedMonth)
     }
 
     var body: some View {
@@ -39,6 +65,7 @@ struct StreakCalendarView: View {
                                 .foregroundStyle(SLTheme.Colors.textSecondary)
                                 .frame(width: 44, height: 44)
                         }
+                        .accessibilityLabel("Previous month")
 
                         Spacer()
 
@@ -50,15 +77,17 @@ struct StreakCalendarView: View {
 
                         Button { changeMonth(by: 1) } label: {
                             Image(systemName: "chevron.right")
-                                .foregroundStyle(SLTheme.Colors.textSecondary)
+                                .foregroundStyle(isCurrentMonth ? SLTheme.Colors.textTertiary.opacity(0.4) : SLTheme.Colors.textSecondary)
                                 .frame(width: 44, height: 44)
                         }
+                        .disabled(isCurrentMonth) // no browsing into empty future months
+                        .accessibilityLabel("Next month")
                     }
                     .padding(.horizontal, SLTheme.Spacing.sm)
 
                     // Day headers
                     HStack {
-                        ForEach(["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"], id: \.self) { day in
+                        ForEach(weekdayHeaders, id: \.self) { day in
                             Text(day)
                                 .font(SLTheme.Typography.caption)
                                 .foregroundStyle(SLTheme.Colors.textTertiary)
@@ -66,7 +95,8 @@ struct StreakCalendarView: View {
                         }
                     }
 
-                    // Calendar grid
+                    // Calendar grid — index computed once per render, not per cell
+                    let dayIndex = entriesByDay
                     LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 7), spacing: SLTheme.Spacing.xs) {
                         // Offset for first day
                         ForEach(0..<firstWeekdayOffset, id: \.self) { _ in
@@ -76,7 +106,7 @@ struct StreakCalendarView: View {
                         ForEach(daysInMonth, id: \.self) { date in
                             CalendarDayCell(
                                 date: date,
-                                entry: entryFor(date: date),
+                                entry: dayIndex[GamificationProfile.dayKey(for: date)],
                                 isToday: calendar.isDateInToday(date)
                             )
                         }
@@ -149,10 +179,6 @@ struct StreakCalendarView: View {
         }
     }
 
-    private func entryFor(date: Date) -> SleepLogEntry? {
-        entries.first { calendar.isDate($0.date, inSameDayAs: date) }
-    }
-
     private func changeMonth(by value: Int) {
         withAnimation {
             selectedMonth = calendar.date(byAdding: .month, value: value, to: selectedMonth) ?? selectedMonth
@@ -201,6 +227,22 @@ private struct CalendarDayCell: View {
                     .stroke(SLTheme.Colors.primary, lineWidth: 2)
                 : nil
         )
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(accessibilityText)
+    }
+
+    /// VoiceOver reads the hit/miss state that sighted users get from color.
+    private var accessibilityText: String {
+        var label = date.monthDay
+        if isToday { label += ", " + String(localized: "today") }
+        if let entry {
+            label += ", " + (entry.hitTarget
+                ? String(localized: "hit bedtime target")
+                : String(localized: "missed bedtime target"))
+        } else {
+            label += ", " + String(localized: "not logged")
+        }
+        return label
     }
 }
 

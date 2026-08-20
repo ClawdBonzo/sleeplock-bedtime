@@ -29,7 +29,7 @@ WHY SLEEPLOCK
 • Lock in your bedtime — a clear nightly commitment, not vague advice
 • Build unbreakable streaks — every on-target night keeps your streak alive
 • Wake up energized — rate your morning energy and watch it climb
-• Stay private — all your data is stored locally on your device. No account. No cloud.
+• Stay private — your sleep data is stored locally on your device. No account required.
 
 SLEEPLOCK PRO
 Upgrade to unlock the full experience:

@@ -4,17 +4,15 @@ import WidgetKit
 
 struct DashboardView: View {
     @Environment(\.modelContext) private var modelContext
+    @Environment(GamificationService.self) private var gamificationService
     @Query(sort: \UserProfile.createdAt) private var profiles: [UserProfile]
-    @Query(sort: \SleepLogEntry.date, order: .reverse) private var entries: [SleepLogEntry]
 
     @Bindable var streakService: SleepStreakService
 
     @State private var showLogger = false
-    @State private var gamificationService: GamificationService?
     @State private var deepLinkAnalytics = false
 
     private var profile: UserProfile? { profiles.first }
-    private var latestEntry: SleepLogEntry? { entries.first }
     private var isPremium: Bool { PurchaseService.shared.isPremium }
 
     var body: some View {
@@ -26,7 +24,7 @@ struct DashboardView: View {
                         greetingSection
 
                         // Gamification Level (if available)
-                        if let service = gamificationService, let profile = service.gamificationProfile {
+                        if let profile = gamificationService.gamificationProfile {
                             gamificationCard(profile: profile)
                         }
 
@@ -56,8 +54,8 @@ struct DashboardView: View {
                 .background(SLTheme.Colors.backgroundPrimary)
 
                 // Level Up Overlay
-                if let service = gamificationService, service.showLevelUpAnimation {
-                    LevelUpAnimationView(level: service.lastLevelUpLevel ?? .nightOwl)
+                if gamificationService.showLevelUpAnimation {
+                    LevelUpAnimationView(level: gamificationService.lastLevelUpLevel ?? .nightOwl)
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
@@ -72,16 +70,36 @@ struct DashboardView: View {
                 ProgressChartsView()
                     .proGated(.analytics, isPremium: isPremium, userName: profile?.displayName ?? "")
             }
-            .onAppear {
-                if gamificationService == nil {
-                    gamificationService = GamificationService(modelContext: modelContext)
+            .alert("Use a Streak Freeze?", isPresented: freezeOfferBinding) {
+                Button("Use Freeze") {
+                    streakService.acceptFreezeOffer()
+                    gamificationService.updateStreak(streakService.currentStreak)
+                    writeWidgetSnapshot()
                 }
+                Button("Let It Reset", role: .cancel) {
+                    streakService.declineFreezeOffer()
+                    writeWidgetSnapshot()
+                }
+            } message: {
+                Text("You missed yesterday. Spend 1 of your \(streakService.streakFreezeTokens) freeze tokens to keep your streak alive?")
+            }
+            .onAppear {
+                gamificationService.refresh()
+                gamificationService.updateStreak(streakService.currentStreak)
                 writeWidgetSnapshot()
                 #if DEBUG
                 if CommandLine.arguments.contains("-ShowAnalytics") { deepLinkAnalytics = true }
                 #endif
             }
         }
+    }
+
+    /// Bridges the service's pending-offer flag into an alert binding.
+    private var freezeOfferBinding: Binding<Bool> {
+        Binding(
+            get: { streakService.pendingFreezeOffer },
+            set: { if !$0 { streakService.pendingFreezeOffer = false } }
+        )
     }
 
     // MARK: - Gamification Card
@@ -289,7 +307,7 @@ struct DashboardView: View {
 
             SLStatPill(
                 icon: "calendar",
-                value: "\(entries.count)",
+                value: "\(streakService.totalNightsLogged)",
                 label: "Nights Logged",
                 color: SLTheme.Colors.secondary
             )
@@ -383,7 +401,7 @@ struct DashboardView: View {
             streakCount: streakService.currentStreak,
             bedtime: profile?.targetBedtime.shortTime ?? "10:30 PM",
             energyScore: Int(streakService.energyScore),
-            hitTargetToday: streakService.todayLogged
+            hitTargetToday: streakService.todayHitTarget
         ))
         WidgetCenter.shared.reloadAllTimelines()
     }

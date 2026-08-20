@@ -67,8 +67,12 @@ final class SleepLogEntry {
         self.notes = notes
         self.hitTarget = hitTarget
 
-        let duration = actualWakeTime.timeIntervalSince(actualBedtime)
-        self.sleepDurationMinutes = max(0, Int(duration / 60))
+        self.sleepDurationMinutes = NightMath.durationMinutes(bedtime: actualBedtime, wakeTime: actualWakeTime)
+    }
+
+    /// Re-derives duration after bed/wake edits (e.g. updating today's log).
+    func recalculateDuration() {
+        sleepDurationMinutes = NightMath.durationMinutes(bedtime: actualBedtime, wakeTime: actualWakeTime)
     }
 }
 

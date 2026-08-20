@@ -1,8 +1,11 @@
 import SwiftUI
 import SwiftData
+import StoreKit
+import WidgetKit
 
 struct SettingsView: View {
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.requestReview) private var requestReview
     @Query(sort: \UserProfile.createdAt) private var profiles: [UserProfile]
 
     @State private var showResetAlert = false
@@ -106,6 +109,7 @@ struct SettingsView: View {
                                             profile.targetBedtime = $0
                                             try? modelContext.save()
                                             updateNotifications(profile)
+                                            refreshWidgetBedtime(profile)
                                         }
                                     )
                                 )
@@ -234,8 +238,18 @@ struct SettingsView: View {
                                 .font(SLTheme.Typography.headline)
                                 .foregroundStyle(.white)
 
-                            SettingsLinkRow(icon: "star.fill", title: "Rate SleepLock", color: SLTheme.Colors.accent)
-                            SettingsLinkRow(icon: "square.and.arrow.up", title: "Share with Friends", color: SLTheme.Colors.secondary)
+                            Button {
+                                requestReview()
+                            } label: {
+                                SettingsRowLabel(icon: "star.fill", title: "Rate SleepLock", color: SLTheme.Colors.accent)
+                            }
+
+                            ShareLink(
+                                item: URL(string: "https://gwlabs.app")!,
+                                message: Text("I've been fixing my sleep with SleepLock — lock in your best sleep!")
+                            ) {
+                                SettingsRowLabel(icon: "square.and.arrow.up", title: "Share with Friends", color: SLTheme.Colors.secondary)
+                            }
                             SettingsLinkRow(icon: "doc.text.fill", title: "Privacy Policy", color: SLTheme.Colors.textSecondary, url: SLLegal.privacy)
                             SettingsLinkRow(icon: "doc.plaintext.fill", title: "Terms of Service", color: SLTheme.Colors.textSecondary, url: SLLegal.terms)
                         }
@@ -264,7 +278,7 @@ struct SettingsView: View {
                             .clipShape(RoundedRectangle(cornerRadius: 10))
                             .opacity(0.6)
 
-                        Text("SleepLock v1.0.0\nAll data stored locally on your device")
+                        Text("SleepLock v1.0.0\nYour sleep data is stored locally on your device")
                             .font(SLTheme.Typography.caption)
                             .foregroundStyle(SLTheme.Colors.textTertiary)
                             .multilineTextAlignment(.center)
@@ -288,8 +302,7 @@ struct SettingsView: View {
             .fullScreenCover(isPresented: $showPaywall) {
                 PaywallView(
                     userName: profile?.displayName ?? "",
-                    onContinue: { showPaywall = false },
-                    onRestore: { showPaywall = false }
+                    onContinue: { showPaywall = false }
                 )
             }
         }
@@ -301,7 +314,7 @@ struct SettingsView: View {
         defer { isConnectingHealth = false }
         let ok = await HealthKitService.shared.requestAuthorization()
         if ok {
-            if let sample = await HealthKitService.shared.fetchLastNightSleep() {
+            if await HealthKitService.shared.fetchLastNightSleep() != nil {
                 healthStatus = String(localized: "Connected — last night imported ✓")
             } else {
                 healthStatus = String(localized: "Connected to Apple Health ✓")
@@ -310,6 +323,15 @@ struct SettingsView: View {
         } else {
             healthStatus = String(localized: "Apple Health unavailable")
         }
+    }
+
+    /// Keeps the widget's bedtime current when it's changed here — otherwise it
+    /// shows the old time until the Dashboard next appears.
+    private func refreshWidgetBedtime(_ profile: UserProfile) {
+        guard var snapshot = SharedSnapshot.load() else { return }
+        snapshot.bedtime = profile.targetBedtime.shortTime
+        SharedSnapshot.save(snapshot)
+        WidgetCenter.shared.reloadAllTimelines()
     }
 
     private func updateNotifications(_ profile: UserProfile) {
@@ -361,6 +383,32 @@ private struct SettingsTimeRow: View {
             DatePicker("", selection: $time, displayedComponents: .hourAndMinute)
                 .labelsHidden()
                 .colorScheme(.dark)
+        }
+    }
+}
+
+// MARK: - Settings Row Label
+/// Shared visual for tappable About rows (used by Button and ShareLink alike).
+private struct SettingsRowLabel: View {
+    let icon: String
+    let title: LocalizedStringKey
+    let color: Color
+
+    var body: some View {
+        HStack(spacing: SLTheme.Spacing.sm) {
+            Image(systemName: icon)
+                .foregroundStyle(color)
+                .frame(width: 24)
+
+            Text(title)
+                .font(SLTheme.Typography.body)
+                .foregroundStyle(.white)
+
+            Spacer()
+
+            Image(systemName: "chevron.right")
+                .font(.system(size: 12))
+                .foregroundStyle(SLTheme.Colors.textTertiary)
         }
     }
 }

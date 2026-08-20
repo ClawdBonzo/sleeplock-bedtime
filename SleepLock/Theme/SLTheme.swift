@@ -17,7 +17,9 @@ enum SLTheme {
 
         static let textPrimary = Color.white
         static let textSecondary = Color(hex: "B0B0D0")
-        static let textTertiary = Color(hex: "6B6B8D")
+        // Lightened from 6B6B8D: the old value fell below WCAG 4.5:1 on the
+        // app's darkest backgrounds at caption sizes.
+        static let textTertiary = Color(hex: "8A8AAF")
 
         static let streakGold = Color(hex: "FFD700")
         static let energyGreen = Color(hex: "00E676")
@@ -56,18 +58,21 @@ enum SLTheme {
     }
 
     // MARK: - Typography
+    // Text-style-based so Dynamic Type (including accessibility sizes) scales
+    // every label. The rounded design is preserved. Display numerals (streak,
+    // energy, timer) stay fixed — they're decorative dashboard figures.
     enum Typography {
-        static let largeTitle = Font.system(size: 34, weight: .bold, design: .rounded)
-        static let title = Font.system(size: 28, weight: .bold, design: .rounded)
-        static let title2 = Font.system(size: 22, weight: .semibold, design: .rounded)
-        static let title3 = Font.system(size: 20, weight: .semibold, design: .rounded)
-        static let headline = Font.system(size: 17, weight: .semibold, design: .rounded)
-        static let body = Font.system(size: 17, weight: .regular, design: .rounded)
-        static let callout = Font.system(size: 16, weight: .regular, design: .rounded)
-        static let subheadline = Font.system(size: 15, weight: .regular, design: .rounded)
-        static let footnote = Font.system(size: 13, weight: .regular, design: .rounded)
-        static let caption = Font.system(size: 12, weight: .regular, design: .rounded)
-        static let captionBold = Font.system(size: 12, weight: .semibold, design: .rounded)
+        static let largeTitle = Font.system(.largeTitle, design: .rounded, weight: .bold)
+        static let title = Font.system(.title, design: .rounded, weight: .bold)
+        static let title2 = Font.system(.title2, design: .rounded, weight: .semibold)
+        static let title3 = Font.system(.title3, design: .rounded, weight: .semibold)
+        static let headline = Font.system(.headline, design: .rounded, weight: .semibold)
+        static let body = Font.system(.body, design: .rounded)
+        static let callout = Font.system(.callout, design: .rounded)
+        static let subheadline = Font.system(.subheadline, design: .rounded)
+        static let footnote = Font.system(.footnote, design: .rounded)
+        static let caption = Font.system(.caption, design: .rounded)
+        static let captionBold = Font.system(.caption, design: .rounded, weight: .semibold)
 
         static let streakNumber = Font.system(size: 64, weight: .bold, design: .rounded)
         static let energyScore = Font.system(size: 48, weight: .heavy, design: .rounded)

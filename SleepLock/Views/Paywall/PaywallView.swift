@@ -35,8 +35,8 @@ private nonisolated(unsafe) let allPlans: [PlanConfig] = [
         title: "Monthly",
         fallbackPrice: "$9.99",
         period: "/mo",
-        badge: "BEST VALUE",
-        badgeIsGold: true,
+        badge: "POPULAR",
+        badgeIsGold: false,
         savings: nil,
         hasTrial: true,
         isLifetime: false
@@ -47,8 +47,8 @@ private nonisolated(unsafe) let allPlans: [PlanConfig] = [
         title: "Yearly",
         fallbackPrice: "$49.99",
         period: "/yr",
-        badge: nil,
-        badgeIsGold: false,
+        badge: "BEST VALUE",
+        badgeIsGold: true,
         savings: "Save 58%",
         hasTrial: true,
         isLifetime: false
@@ -72,10 +72,9 @@ private nonisolated(unsafe) let allPlans: [PlanConfig] = [
 struct PaywallView: View {
     let userName: String
     let onContinue: () -> Void
-    let onRestore: () -> Void
     var allowDismiss: Bool = true
 
-    @State private var selectedIndex = 1        // Monthly pre-selected
+    @State private var selectedIndex = 2        // Yearly (best value) pre-selected
     @State private var rcPackages: [String: Package] = [:]
     @State private var isPurchasing = false
     @State private var errorMessage: String?
@@ -114,7 +113,7 @@ struct PaywallView: View {
                 HStack {
                     Spacer()
                     if allowDismiss {
-                        Button(action: onContinue) {
+                        Button(action: finish) {
                             Image(systemName: "xmark.circle.fill")
                                 .font(.system(size: 26))
                                 .foregroundStyle(SLTheme.Colors.textTertiary)
@@ -183,7 +182,7 @@ struct PaywallView: View {
                         let livePrice = rcPackages[plan.rcKey]?.localizedPriceString
                         PaywallPlanRow(
                             plan: plan,
-                            displayPrice: livePrice ?? plan.fallbackPrice,
+                            displayPrice: livePrice ?? placeholderPrice(for: plan),
                             isSelected: selectedIndex == index,
                             onTap: {
                                 withAnimation(.spring(response: 0.25, dampingFraction: 0.7)) {
@@ -259,11 +258,11 @@ struct PaywallView: View {
                     .font(.system(size: 11))
                     .foregroundStyle(SLTheme.Colors.textTertiary)
 
-                    // Maybe Later — only on hard paywall, appears after 3s delay
+                    // Maybe Later — only on hard paywall, appears after a short delay
                     if !allowDismiss {
-                        Button("Maybe Later") { onContinue() }
-                            .font(.system(size: 12))
-                            .foregroundStyle(SLTheme.Colors.textTertiary.opacity(0.5))
+                        Button("Maybe Later") { finish() }
+                            .font(.system(size: 13))
+                            .foregroundStyle(SLTheme.Colors.textSecondary)
                             .opacity(showMaybeLater ? 1 : 0)
                             .animation(.easeIn(duration: 0.4), value: showMaybeLater)
                     }
@@ -280,11 +279,33 @@ struct PaywallView: View {
                 try? await Task.sleep(for: .seconds(0.05))
                 appeared = true
                 if !allowDismiss {
-                    try? await Task.sleep(for: .seconds(3.0))
+                    try? await Task.sleep(for: .seconds(1.5))
                     showMaybeLater = true
                 }
             }
         }
+    }
+
+    // MARK: - Dismissal
+
+    /// Single exit point: remembers that the launch hard-paywall was shown so
+    /// RootView doesn't immediately present a second copy after onboarding.
+    private func finish() {
+        if !allowDismiss {
+            PurchaseService.shared.hasSeenLaunchPaywallThisSession = true
+        }
+        onContinue()
+    }
+
+    /// Live prices come from RevenueCat. Until they load we show a neutral
+    /// placeholder rather than hardcoded USD strings that may not match the
+    /// user's storefront currency (DEBUG keeps the fallback for previews).
+    private func placeholderPrice(for plan: PlanConfig) -> String {
+        #if DEBUG
+        return plan.fallbackPrice
+        #else
+        return "—"
+        #endif
     }
 
     // MARK: - CTA Background
@@ -333,18 +354,23 @@ struct PaywallView: View {
         if let pkg = rcPackages[plan.rcKey] {
             isPurchasing = true
             errorMessage = nil
-            let success = await PurchaseService.shared.purchase(package: pkg)
+            let outcome = await PurchaseService.shared.purchase(package: pkg)
             isPurchasing = false
-            if success {
-                onContinue()
-            } else {
+            switch outcome {
+            case .success:
+                finish()
+            case .cancelled:
+                break // User dismissed the payment sheet — not an error.
+            case .entitlementInactive:
+                errorMessage = String(localized: "Your purchase went through but Pro didn't activate. Tap Restore, and contact support if it persists.")
+            case .failed:
                 errorMessage = String(localized: "Purchase failed. Please try again.")
             }
         } else {
             #if DEBUG
             // Sandbox/preview convenience only — never grant access without a
             // real purchase in Release builds.
-            onContinue()
+            finish()
             #else
             errorMessage = String(localized: "Plans are loading. Please check your connection and try again.")
             #endif
@@ -356,12 +382,15 @@ struct PaywallView: View {
     private func restorePurchases() async {
         isPurchasing = true
         errorMessage = nil
-        let restored = await PurchaseService.shared.restore()
+        let outcome = await PurchaseService.shared.restore()
         isPurchasing = false
-        if restored {
-            onContinue()
-        } else {
+        switch outcome {
+        case .restored:
+            finish()
+        case .nothingToRestore:
             errorMessage = String(localized: "No active subscription found.")
+        case .failed:
+            errorMessage = String(localized: "Couldn't reach the App Store. Check your connection and try again.")
         }
     }
 }

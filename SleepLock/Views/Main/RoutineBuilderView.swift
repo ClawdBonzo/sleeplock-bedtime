@@ -3,13 +3,21 @@ import SwiftData
 
 struct RoutineBuilderView: View {
     @Environment(\.modelContext) private var modelContext
+    @Environment(GamificationService.self) private var gamificationService
     @Query(sort: \RoutineStep.sortOrder) private var steps: [RoutineStep]
     @Query(sort: \UserProfile.createdAt) private var profiles: [UserProfile]
 
     @State private var showAddStep = false
     @State private var editingStep: RoutineStep?
+    @State private var completedTonight = false
 
     private var profile: UserProfile? { profiles.first }
+
+    private var routineDoneToday: Bool {
+        completedTonight || (gamificationService.gamificationProfile?.lastRoutineCompletedDay.map {
+            Calendar.current.isDateInToday($0)
+        } ?? false)
+    }
 
     private var totalMinutes: Int {
         steps.filter(\.isEnabled).reduce(0) { $0 + $1.durationMinutes }
@@ -70,9 +78,7 @@ struct RoutineBuilderView: View {
                                     editingStep = step
                                 },
                                 onDelete: {
-                                    modelContext.delete(step)
-                                    try? modelContext.save()
-                                    reorderSteps()
+                                    deleteStep(step)
                                 }
                             )
                         }
@@ -96,6 +102,31 @@ struct RoutineBuilderView: View {
                                 .stroke(SLTheme.Colors.primary.opacity(0.3), style: StrokeStyle(lineWidth: 1, dash: [6]))
                         )
                     }
+
+                    // Mark tonight's routine done — feeds wind-down/routine quests.
+                    Button {
+                        if gamificationService.recordRoutineCompleted() {
+                            completedTonight = true
+                            HapticFeedbackEngine.shared.triggerLightTap()
+                        }
+                    } label: {
+                        HStack(spacing: SLTheme.Spacing.sm) {
+                            Image(systemName: routineDoneToday ? "checkmark.seal.fill" : "moon.zzz.fill")
+                                .font(.system(size: 20))
+                            Text(routineDoneToday ? "Routine Complete Tonight" : "Mark Routine Complete")
+                                .font(SLTheme.Typography.headline)
+                        }
+                        .foregroundStyle(routineDoneToday ? SLTheme.Colors.energyGreen : .white)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, SLTheme.Spacing.md)
+                        .background(
+                            routineDoneToday
+                                ? SLTheme.Colors.energyGreen.opacity(0.12)
+                                : SLTheme.Colors.primary.opacity(0.85)
+                        )
+                        .clipShape(RoundedRectangle(cornerRadius: SLTheme.Radius.lg))
+                    }
+                    .disabled(routineDoneToday)
 
                     // Tips
                     SLCard {
@@ -142,9 +173,13 @@ struct RoutineBuilderView: View {
         }
     }
 
-    private func reorderSteps() {
-        for (index, step) in steps.enumerated() {
-            step.sortOrder = index
+    private func deleteStep(_ step: RoutineStep) {
+        // Reindex against the remaining steps — the @Query projection still
+        // contains the deleted model inside this callback.
+        let remaining = steps.filter { $0.persistentModelID != step.persistentModelID }
+        modelContext.delete(step)
+        for (index, other) in remaining.enumerated() {
+            other.sortOrder = index
         }
         try? modelContext.save()
     }
@@ -211,6 +246,7 @@ private struct RoutineStepRow: View {
                         .foregroundStyle(SLTheme.Colors.textTertiary)
                         .frame(width: 32, height: 32)
                 }
+                .accessibilityLabel("Step options")
             }
             .padding(.vertical, SLTheme.Spacing.sm)
             .padding(.horizontal, SLTheme.Spacing.md)

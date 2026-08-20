@@ -25,35 +25,41 @@ struct OnboardingContainerView: View {
                         .padding(.top, SLTheme.Spacing.sm)
                 }
 
-                TabView(selection: $currentStep) {
-                    SplashScreen(onStart: { withAnimation { currentStep = 1 } })
-                        .tag(0)
-
-                    NameEntryScreen(name: $profile.name, onNext: advanceStep)
-                        .tag(1)
-
-                    SleepHabitsScreen(selectedHabit: $profile.sleepHabit, onNext: advanceStep)
-                        .tag(2)
-
-                    BedtimePickerScreen(
-                        bedtime: $profile.bedtime,
-                        wakeTime: $profile.wakeTime,
-                        onNext: advanceStep
-                    )
-                    .tag(3)
-
-                    BlockersScreen(selectedBlockers: $profile.blockers, onNext: advanceStep)
-                        .tag(4)
-
-                    CraftingRoutineScreen(
-                        name: profile.name,
-                        onComplete: {
-                            showPaywall = true
-                        }
-                    )
-                    .tag(5)
+                // Deliberately not a paging TabView: swiping would bypass each
+                // step's validation (empty name, etc.), and page-style TabViews
+                // pre-load neighbors — starting CraftingRoutineScreen's timers
+                // and the splash's repeat-forever animations early. Only one
+                // screen exists at a time; `advanceStep` is the only way forward.
+                ZStack {
+                    switch currentStep {
+                    case 0:
+                        SplashScreen(onStart: advanceStep)
+                    case 1:
+                        NameEntryScreen(name: $profile.name, onNext: advanceStep)
+                    case 2:
+                        SleepHabitsScreen(selectedHabit: $profile.sleepHabit, onNext: advanceStep)
+                    case 3:
+                        BedtimePickerScreen(
+                            bedtime: $profile.bedtime,
+                            wakeTime: $profile.wakeTime,
+                            onNext: advanceStep
+                        )
+                    case 4:
+                        BlockersScreen(selectedBlockers: $profile.blockers, onNext: advanceStep)
+                    default:
+                        CraftingRoutineScreen(
+                            name: profile.name,
+                            onComplete: {
+                                showPaywall = true
+                            }
+                        )
+                    }
                 }
-                .tabViewStyle(.page(indexDisplayMode: .never))
+                .id(currentStep)
+                .transition(.asymmetric(
+                    insertion: .move(edge: .trailing).combined(with: .opacity),
+                    removal: .move(edge: .leading).combined(with: .opacity)
+                ))
                 .animation(.easeInOut(duration: 0.4), value: currentStep)
             }
         }
@@ -68,10 +74,6 @@ struct OnboardingContainerView: View {
             PaywallView(
                 userName: profile.name,
                 onContinue: {
-                    saveProfile()
-                    onComplete()
-                },
-                onRestore: {
                     saveProfile()
                     onComplete()
                 },

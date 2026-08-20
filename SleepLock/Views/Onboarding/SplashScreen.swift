@@ -3,6 +3,7 @@ import SwiftUI
 struct SplashScreen: View {
     let onStart: () -> Void
 
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var pulse = false
     @State private var iconScale: CGFloat = 0.5
     @State private var iconOpacity: Double = 0
@@ -28,7 +29,10 @@ struct SplashScreen: View {
             )
             .ignoresSafeArea()
             .scaleEffect(pulse ? 1.15 : 1.0)
-            .animation(.easeInOut(duration: 3).repeatForever(autoreverses: true), value: pulse)
+            .animation(
+                reduceMotion ? nil : .easeInOut(duration: 3).repeatForever(autoreverses: true),
+                value: pulse
+            )
 
             VStack(spacing: 0) {
                 Spacer()
@@ -60,7 +64,7 @@ struct SplashScreen: View {
                         .opacity(iconOpacity)
 
                     // Orbiting dot
-                    if ring1Opacity > 0.5 {
+                    if ring1Opacity > 0.5 && !reduceMotion {
                         Circle()
                             .fill(SLTheme.Colors.accent)
                             .frame(width: 8, height: 8)

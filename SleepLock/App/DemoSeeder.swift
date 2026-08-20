@@ -102,8 +102,10 @@ enum DemoSeeder {
             .level3,
             .energyChampion
         ]
-        for type in earnedBadgeTypes {
+        for (index, type) in earnedBadgeTypes.enumerated() {
             let badge = Badge(userId: gp.userId, type: type)
+            badge.isUnlocked = true
+            badge.unlockedAt = cal.date(byAdding: .day, value: -(14 - index * 2), to: now)
             context.insert(badge)
         }
 

@@ -72,8 +72,11 @@ final class GamificationProfile {
 
     var xpInCurrentLevel: Int
 
+    /// XP needed to advance from the current level to the next. `xpRequired`
+    /// values are cumulative totals, so the per-level cost is the delta.
     var xpToNextLevel: Int {
-        currentLevel.nextLevel?.xpRequired ?? 0
+        guard let next = currentLevel.nextLevel else { return 0 }
+        return next.xpRequired - currentLevel.xpRequired
     }
 
     var progressToNextLevel: Double {
@@ -94,6 +97,16 @@ final class GamificationProfile {
     /// Last calendar day we evaluated auto-freeze, so we consume at most one
     /// token per day regardless of how often the streak is recalculated.
     var lastStreakEvalDay: Date?
+
+    // MARK: Lifetime counters (badge progress)
+    /// Quests completed all-time — drives the "Quest Conqueror" badge.
+    var completedQuestCount: Int = 0
+    /// Days logged with a top energy rating — drives the "Energy Champion" badge.
+    var highEnergyDayCount: Int = 0
+    /// Nights that hit the bedtime target all-time — drives "Consistency King".
+    var hitNightCount: Int = 0
+    /// Last day the wind-down routine was marked complete (one credit per day).
+    var lastRoutineCompletedDay: Date?
 
     init(userId: UUID) {
         self.id = UUID()
@@ -117,16 +130,27 @@ final class GamificationProfile {
 
     func addXP(_ amount: Int) {
         totalXP += amount
-        xpInCurrentLevel += amount
 
         while let nextLevel = currentLevel.nextLevel,
-              xpInCurrentLevel >= nextLevel.xpRequired {
-            xpInCurrentLevel -= nextLevel.xpRequired
+              totalXP >= nextLevel.xpRequired {
             currentLevel = nextLevel
             levelUpCount += 1
         }
 
+        xpInCurrentLevel = totalXP - currentLevel.xpRequired
         lastXPGainDate = Date()
+    }
+
+    /// Rebuilds `currentLevel`/`xpInCurrentLevel` from `totalXP`. Run once at
+    /// load to repair profiles written by the old math, which treated the
+    /// cumulative thresholds as per-level costs.
+    func reconcileLevelFromTotalXP() {
+        var level = SleepLevel.nightOwl
+        while let next = level.nextLevel, totalXP >= next.xpRequired {
+            level = next
+        }
+        currentLevel = level
+        xpInCurrentLevel = totalXP - level.xpRequired
     }
 }
 

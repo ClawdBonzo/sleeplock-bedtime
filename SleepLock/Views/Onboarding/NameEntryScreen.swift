@@ -149,8 +149,10 @@ struct NameEntryScreen: View {
         .onAppear {
             appeared = true
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) { isFocused = true }
-            withAnimation(.easeInOut(duration: 2.5).repeatForever(autoreverses: true)) {
-                floatOffset = -8
+            if !UIAccessibility.isReduceMotionEnabled {
+                withAnimation(.easeInOut(duration: 2.5).repeatForever(autoreverses: true)) {
+                    floatOffset = -8
+                }
             }
         }
     }
