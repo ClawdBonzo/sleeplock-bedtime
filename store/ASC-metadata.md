@@ -42,6 +42,9 @@ Free forever: nightly logging, your current streak, and your daily dashboard.
 
 Start tonight. Lock in your best sleep.
 
+Terms of Use (EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
+Privacy Policy: https://gwlabs.app/privacy
+
 ---
 
 ## Japanese (ja)
@@ -72,6 +75,9 @@ SleepLock Pro
 無料でずっと使える：毎晩の記録、現在の連続記録、毎日のダッシュボード。
 
 今夜から始めよう。最高の睡眠を習慣に。
+
+利用規約（EULA）: https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
+プライバシーポリシー: https://gwlabs.app/privacy
 
 ---
 
@@ -104,6 +110,9 @@ SleepLock Pro
 
 오늘 밤부터 시작하세요. 최고의 수면을 잠그세요.
 
+이용 약관(EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
+개인정보 처리방침: https://gwlabs.app/privacy
+
 ---
 
 ## German (de)
@@ -134,6 +143,9 @@ Schalte mit dem Upgrade alles frei:
 Für immer kostenlos: nächtliches Erfassen, deine aktuelle Serie und dein Dashboard.
 
 Fang heute Abend an. Sichere dir deinen besten Schlaf.
+
+Nutzungsbedingungen (EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
+Datenschutzrichtlinie: https://gwlabs.app/privacy
 
 ---
 
@@ -166,6 +178,9 @@ Voor altijd gratis: nachtelijk loggen, je huidige reeks en je dagelijkse dashboa
 
 Begin vanavond. Leg je beste slaap vast.
 
+Gebruiksvoorwaarden (EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
+Privacybeleid: https://gwlabs.app/privacy
+
 ---
 
 ## Swedish (sv)
@@ -196,6 +211,9 @@ Lås upp hela upplevelsen med uppgraderingen:
 Gratis för alltid: nattlig loggning, din nuvarande svit och din dagliga översikt.
 
 Börja i kväll. Lås in din bästa sömn.
+
+Användarvillkor (EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
+Integritetspolicy: https://gwlabs.app/privacy
 
 ---
 
