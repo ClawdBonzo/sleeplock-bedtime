@@ -330,7 +330,7 @@ struct DailyLoggerView: View {
         // Confirmation haptic
         HapticFeedbackEngine.shared.triggerLightTap()
 
-        let streak = currentStreakIncludingFreezes()
+        let (streak, nightsLogged) = streakAndNightsLogged()
         gamificationService.recordSleepLogged(
             hitTarget: hitTarget,
             energyRating: energyRating,
@@ -343,6 +343,11 @@ struct DailyLoggerView: View {
             if milestones.contains(streak) {
                 HapticFeedbackEngine.shared.triggerStreakMilestone()
             }
+        }
+        if isFirstLogOfNight {
+            // Ask for a rating at an early high point (3-night streak or 5th
+            // night logged) — throttled inside RatingService.
+            RatingService.requestReviewIfEarlyWin(currentStreak: streak, nightsLogged: nightsLogged)
         }
 
         // Re-arm the lapsed-user reminder relative to this fresh log — but only
@@ -360,13 +365,15 @@ struct DailyLoggerView: View {
     }
 
     /// The same freeze-aware streak the dashboard shows — so badges, milestones,
-    /// and notifications never disagree with the number on screen.
-    private func currentStreakIncludingFreezes() -> Int {
+    /// and notifications never disagree with the number on screen — plus the
+    /// distinct-night count used for early rating prompts.
+    private func streakAndNightsLogged() -> (streak: Int, nightsLogged: Int) {
         var descriptor = FetchDescriptor<SleepLogEntry>(sortBy: [SortDescriptor(\.date, order: .reverse)])
         descriptor.fetchLimit = 730
-        guard let entries = try? modelContext.fetch(descriptor) else { return 0 }
+        guard let entries = try? modelContext.fetch(descriptor) else { return (0, 0) }
         let frozen = Set((try? modelContext.fetch(FetchDescriptor<GamificationProfile>()))?.first?.frozenDateKeys ?? [])
-        return StreakCalculator.currentStreak(entries: entries, frozenKeys: frozen)
+        let nights = Set(entries.map { GamificationProfile.dayKey(for: $0.date) }).count
+        return (StreakCalculator.currentStreak(entries: entries, frozenKeys: frozen), nights)
     }
 
     @MainActor

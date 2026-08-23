@@ -88,10 +88,21 @@ struct DashboardView: View {
                 gamificationService.updateStreak(streakService.currentStreak)
                 writeWidgetSnapshot()
                 #if DEBUG
-                if CommandLine.arguments.contains("-ShowAnalytics") { deepLinkAnalytics = true }
+                if CommandLine.arguments.contains("-ShowAnalytics") {
+                    // Let the NavigationStack finish mounting before pushing.
+                    Task { @MainActor in
+                        try? await Task.sleep(for: .seconds(0.8))
+                        deepLinkAnalytics = true
+                    }
+                }
                 #endif
             }
         }
+    }
+
+    /// Localizable plural for the freeze-token pill.
+    private var freezeLabel: LocalizedStringKey {
+        streakService.streakFreezeTokens == 1 ? "1 freeze" : "\(streakService.streakFreezeTokens) freezes"
     }
 
     /// Bridges the service's pending-offer flag into an alert binding.
@@ -194,7 +205,7 @@ struct DashboardView: View {
                         HStack(spacing: 3) {
                             Image(systemName: "snowflake")
                                 .font(.system(size: 11, weight: .semibold))
-                            Text("\(streakService.streakFreezeTokens) freeze\(streakService.streakFreezeTokens == 1 ? "" : "s")")
+                            Text(freezeLabel)
                                 .font(SLTheme.Typography.caption)
                         }
                         .foregroundStyle(Color(hex: "5AC8FA"))

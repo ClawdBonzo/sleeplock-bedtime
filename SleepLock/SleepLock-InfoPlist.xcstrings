@@ -1,90 +1,138 @@
 {
-  "sourceLanguage" : "en",
-  "strings" : {
-    "CFBundleDisplayName" : {
-      "comment" : "Bundle display name",
-      "extractionState" : "extracted_with_value",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "SleepLock"
+  "sourceLanguage": "en",
+  "strings": {
+    "CFBundleDisplayName": {
+      "comment": "Bundle display name",
+      "extractionState": "extracted_with_value",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SleepLock"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "SleepLock"
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "SleepLock"
           }
         },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "SleepLock"
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SleepLock"
           }
         },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "SleepLock"
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SleepLock"
           }
         },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "SleepLock"
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SleepLock"
           }
         },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "SleepLock"
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SleepLock"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SleepLock"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SleepLock"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SleepLock"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SleepLock"
           }
         }
       }
     },
-    "CFBundleName" : {
-      "comment" : "Bundle name",
-      "extractionState" : "extracted_with_value",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "SleepLock"
+    "CFBundleName": {
+      "comment": "Bundle name",
+      "extractionState": "extracted_with_value",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SleepLock"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "SleepLock"
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "SleepLock"
           }
         },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "SleepLock"
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SleepLock"
           }
         },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "SleepLock"
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SleepLock"
           }
         },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "SleepLock"
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SleepLock"
           }
         },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "SleepLock"
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SleepLock"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SleepLock"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SleepLock"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SleepLock"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SleepLock"
           }
         }
       }
     }
   },
-  "version" : "1.2"
+  "version": "1.2"
 }

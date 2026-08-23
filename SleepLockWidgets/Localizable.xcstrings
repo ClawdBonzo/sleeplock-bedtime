@@ -1,278 +1,470 @@
 {
-  "sourceLanguage" : "en",
-  "strings" : {
-    "%lld" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%lld"
+  "sourceLanguage": "en",
+  "strings": {
+    "%lld": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld"
           }
         },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%lld"
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld"
           }
         },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%lld"
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld"
           }
         },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%lld"
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld"
           }
         },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%lld"
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld"
           }
         }
       }
     },
-    "Energy: %lld/100" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Energie: %lld/100"
+    "Energy: %lld/100": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Energie: %lld/100"
           }
         },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "エネルギー: %lld/100"
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Energía: %lld/100"
           }
         },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "에너지: %lld/100"
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Énergie : %lld/100"
           }
         },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Energie: %lld/100"
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Energia: %lld/100"
           }
         },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Energi: %lld/100"
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "エネルギー: %lld/100"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "에너지: %lld/100"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Energie: %lld/100"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Energia: %lld/100"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Energi: %lld/100"
           }
         }
       }
     },
-    "night streak" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nächte-Serie"
+    "SleepLock": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SleepLock"
           }
         },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "連続記録"
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SleepLock"
           }
         },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "연속 기록"
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SleepLock"
           }
         },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "nachtreeks"
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SleepLock"
           }
         },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "nattsvit"
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SleepLock"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SleepLock"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SleepLock"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SleepLock"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SleepLock"
           }
         }
       }
     },
-    "SleepLock" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "SleepLock"
+    "SleepLock Pro": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SleepLock Pro"
           }
         },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "SleepLock"
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SleepLock Pro"
           }
         },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "SleepLock"
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SleepLock Pro"
           }
         },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "SleepLock"
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SleepLock Pro"
           }
         },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "SleepLock"
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SleepLock Pro"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SleepLock Pro"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SleepLock Pro"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SleepLock Pro"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SleepLock Pro"
           }
         }
       }
     },
-    "SleepLock Pro" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "SleepLock Pro"
+    "Tonight": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Heute Nacht"
           }
         },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "SleepLock Pro"
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esta noche"
           }
         },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "SleepLock Pro"
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ce soir"
           }
         },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "SleepLock Pro"
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stasera"
           }
         },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "SleepLock Pro"
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "今夜"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "오늘 밤"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vanavond"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hoje à Noite"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "I kväll"
           }
         }
       }
     },
-    "Tonight" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Heute Nacht"
+    "Track your sleep streak and bedtime at a glance.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sieh Serie und Schlafenszeit auf einen Blick."
           }
         },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "今夜"
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Consulta tu racha de sueño y hora de dormir de un vistazo."
           }
         },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "오늘 밤"
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Suis ta série de sommeil et ton heure de coucher en un coup d'œil."
           }
         },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vanavond"
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tieni traccia della tua serie e dell'orario di andare a letto a colpo d'occhio."
           }
         },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "I kväll"
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "睡眠の連続記録と就寝時間を一目で確認。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "수면 연속 기록과 취침 시간을 한눈에."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zie je slaapreeks en bedtijd in één oogopslag."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Acompanhe sua sequência de sono e hora de dormir em um só lugar."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se din sömnsvit och läggdags på en gång."
           }
         }
       }
     },
-    "Track your sleep streak and bedtime at a glance." : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sieh Serie und Schlafenszeit auf einen Blick."
+    "Unlock widgets in the app": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Widgets in der App freischalten"
           }
         },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "睡眠の連続記録と就寝時間を一目で確認。"
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desbloquea widgets en la app"
           }
         },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "수면 연속 기록과 취침 시간을 한눈에."
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Débloquer les widgets dans l'app"
           }
         },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Zie je slaapreeks en bedtijd in één oogopslag."
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sblocca i widget nell'app"
           }
         },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Se din sömnsvit och läggdags på en gång."
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "アプリでウィジェットを解除"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "앱에서 위젯 잠금 해제"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ontgrendel widgets in de app"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desbloqueie widgets no app"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lås upp widgets i appen"
           }
         }
       }
     },
-    "Unlock widgets in the app" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Widgets in der App freischalten"
+    "night streak": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nächte-Serie"
           }
         },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "アプリでウィジェットを解除"
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "racha de noches"
           }
         },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "앱에서 위젯 잠금 해제"
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "série de nuits"
           }
         },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ontgrendel widgets in de app"
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "serie di notti"
           }
         },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Lås upp widgets i appen"
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "連続記録"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "연속 기록"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "nachtreeks"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "sequência de noites"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "nattsvit"
           }
         }
       }
     }
   },
-  "version" : "1.0"
+  "version": "1.0"
 }

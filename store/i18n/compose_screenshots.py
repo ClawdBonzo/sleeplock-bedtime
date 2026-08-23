@@ -31,16 +31,16 @@ OUTNAME = {
 }
 
 HEAD = {
- "01-bedtime": {"en":"LOCK IN YOUR BEDTIME","ja":"就寝時間をロックイン","ko":"취침 시간을 잠그세요","de":"SCHLAFENSZEIT FIXIEREN","nl":"LEG JE BEDTIJD VAST","sv":"LÅS IN DIN LÄGGDAGS"},
- "02-streaks": {"en":"BUILD UNBREAKABLE STREAKS","ja":"連続記録を伸ばそう","ko":"끊기지 않는 연속 기록","de":"UNZERBRECHLICHE SERIEN","nl":"BOUW ONBREEKBARE REEKSEN","sv":"BYGG OBRYTBARA SVITAR"},
- "03-levelup": {"en":"LEVEL UP YOUR SLEEP","ja":"睡眠をレベルアップ","ko":"수면을 레벨 업하세요","de":"LEVEL UP FÜR DEINEN SCHLAF","nl":"LEVEL JE SLAAP OMHOOG","sv":"NIVÅHÖJ DIN SÖMN"},
- "04-analytics": {"en":"SEE YOUR SLEEP TRENDS","ja":"睡眠の傾向を可視化","ko":"수면 추이를 확인하세요","de":"SIEH DEINE SCHLAF-TRENDS","nl":"ZIE JE SLAAPTRENDS","sv":"SE DINA SÖMNTRENDER"},
+ "01-bedtime": {"es":"FIJA TU HORA DE DORMIR","pt-BR":"TRAVE SUA HORA DE DORMIR","fr":"VERROUILLE TON COUCHER","it":"BLOCCA L'ORA DI DORMIRE","en":"LOCK IN YOUR BEDTIME","ja":"就寝時間をロックイン","ko":"취침 시간을 잠그세요","de":"SCHLAFENSZEIT FIXIEREN","nl":"LEG JE BEDTIJD VAST","sv":"LÅS IN DIN LÄGGDAGS"},
+ "02-streaks": {"es":"RACHAS IMBATIBLES","pt-BR":"SEQUÊNCIAS IMBATÍVEIS","fr":"DES SÉRIES IMBATTABLES","it":"SERIE IMBATTIBILI","en":"BUILD UNBREAKABLE STREAKS","ja":"連続記録を伸ばそう","ko":"끊기지 않는 연속 기록","de":"UNZERBRECHLICHE SERIEN","nl":"BOUW ONBREEKBARE REEKSEN","sv":"BYGG OBRYTBARA SVITAR"},
+ "03-levelup": {"es":"SUBE DE NIVEL TU SUEÑO","pt-BR":"SUBA DE NÍVEL NO SONO","fr":"PASSE AU NIVEAU SUPÉRIEUR","it":"SALI DI LIVELLO NEL SONNO","en":"LEVEL UP YOUR SLEEP","ja":"睡眠をレベルアップ","ko":"수면을 레벨 업하세요","de":"LEVEL UP FÜR DEINEN SCHLAF","nl":"LEVEL JE SLAAP OMHOOG","sv":"NIVÅHÖJ DIN SÖMN"},
+ "04-analytics": {"es":"MIRA TUS TENDENCIAS","pt-BR":"VEJA SUAS TENDÊNCIAS","fr":"VOIS TES TENDANCES","it":"SCOPRI LE TUE TENDENZE","en":"SEE YOUR SLEEP TRENDS","ja":"睡眠の傾向を可視化","ko":"수면 추이를 확인하세요","de":"SIEH DEINE SCHLAF-TRENDS","nl":"ZIE JE SLAAPTRENDS","sv":"SE DINA SÖMNTRENDER"},
 }
 SUB = {
- "01-bedtime": {"en":"A bedtime you actually keep","ja":"続けられる就寝時間を","ko":"지킬 수 있는 취침 시간","de":"Eine Schlafenszeit, die du hältst","nl":"Een bedtijd die je volhoudt","sv":"En läggdags du faktiskt håller"},
- "02-streaks": {"en":"Every on-target night counts","ja":"目標を守った夜が記録に","ko":"목표를 지킨 밤이 기록으로","de":"Jede pünktliche Nacht zählt","nl":"Elke nacht op tijd telt","sv":"Varje natt i tid räknas"},
- "03-levelup": {"en":"Earn XP, levels & badges","ja":"XP・レベル・バッジを獲得","ko":"XP·레벨·배지를 획득","de":"Sammle XP, Level & Abzeichen","nl":"Verdien XP, levels & badges","sv":"Tjäna XP, nivåer & märken"},
- "04-analytics": {"en":"Consistency, energy & duration","ja":"一貫性・エネルギー・睡眠時間","ko":"일관성·에너지·수면 시간","de":"Konstanz, Energie & Dauer","nl":"Consistentie, energie & duur","sv":"Konsekvens, energi & längd"},
+ "01-bedtime": {"es":"Una hora de dormir que de verdad cumples","pt-BR":"Uma hora de dormir que você cumpre","fr":"Une heure du coucher que tu tiens","it":"Un orario che rispetti davvero","en":"A bedtime you actually keep","ja":"続けられる就寝時間を","ko":"지킬 수 있는 취침 시간","de":"Eine Schlafenszeit, die du hältst","nl":"Een bedtijd die je volhoudt","sv":"En läggdags du faktiskt håller"},
+ "02-streaks": {"es":"Cada noche a tiempo cuenta","pt-BR":"Cada noite no horário conta","fr":"Chaque soir à l'heure compte","it":"Ogni sera in orario conta","en":"Every on-target night counts","ja":"目標を守った夜が記録に","ko":"목표를 지킨 밤이 기록으로","de":"Jede pünktliche Nacht zählt","nl":"Elke nacht op tijd telt","sv":"Varje natt i tid räknas"},
+ "03-levelup": {"es":"Gana XP, niveles e insignias","pt-BR":"Ganhe XP, níveis e conquistas","fr":"Gagne XP, niveaux et badges","it":"Guadagna XP, livelli e badge","en":"Earn XP, levels & badges","ja":"XP・レベル・バッジを獲得","ko":"XP·레벨·배지를 획득","de":"Sammle XP, Level & Abzeichen","nl":"Verdien XP, levels & badges","sv":"Tjäna XP, nivåer & märken"},
+ "04-analytics": {"es":"Constancia, energía y duración","pt-BR":"Consistência, energia e duração","fr":"Régularité, énergie et durée","it":"Regolarità, energia e durata","en":"Consistency, energy & duration","ja":"一貫性・エネルギー・睡眠時間","ko":"일관성·에너지·수면 시간","de":"Konstanz, Energie & Dauer","nl":"Consistentie, energie & duur","sv":"Konsekvens, energi & längd"},
 }
 
 BG_TOP = (26, 22, 62)      # #1A163E

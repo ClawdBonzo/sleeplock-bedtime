@@ -38,6 +38,8 @@ struct GamificationDashboardView: View {
             }
             .navigationTitle("Challenges")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbarBackground(SLTheme.Colors.backgroundPrimary, for: .navigationBar)
+            .toolbarColorScheme(.dark, for: .navigationBar)
             .overlay {
                 if gamificationService.showLevelUpAnimation {
                     LevelUpAnimationView(level: gamificationService.lastLevelUpLevel ?? .nightOwl)

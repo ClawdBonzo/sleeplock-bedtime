@@ -1,11 +1,10 @@
 import SwiftUI
 import SwiftData
-import StoreKit
 import WidgetKit
 
 struct SettingsView: View {
     @Environment(\.modelContext) private var modelContext
-    @Environment(\.requestReview) private var requestReview
+    @Environment(\.openURL) private var openURL
     @Query(sort: \UserProfile.createdAt) private var profiles: [UserProfile]
 
     @State private var showResetAlert = false
@@ -239,13 +238,13 @@ struct SettingsView: View {
                                 .foregroundStyle(.white)
 
                             Button {
-                                requestReview()
+                                openURL(SLLegal.writeReview)
                             } label: {
                                 SettingsRowLabel(icon: "star.fill", title: "Rate SleepLock", color: SLTheme.Colors.accent)
                             }
 
                             ShareLink(
-                                item: URL(string: "https://gwlabs.app")!,
+                                item: SLLegal.appStore,
                                 message: Text("I've been fixing my sleep with SleepLock — lock in your best sleep!")
                             ) {
                                 SettingsRowLabel(icon: "square.and.arrow.up", title: "Share with Friends", color: SLTheme.Colors.secondary)

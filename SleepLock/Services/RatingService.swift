@@ -15,11 +15,26 @@ enum RatingService {
         Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0"
     }
 
-    /// Call after a celebratory event. No-ops if we already asked on this version.
+    private static let lastPromptedDateKey = "rating.lastPromptedDate"
+    /// Minimum gap between prompts even across versions (Apple caps at 3/yr).
+    private static let minDaysBetweenPrompts: TimeInterval = 60 * 60 * 24 * 30
+
+    /// Early "win" moments that happen within a user's first week — the
+    /// 7/30-day badges are too late for most users to ever see a prompt.
+    static func requestReviewIfEarlyWin(currentStreak: Int, nightsLogged: Int) {
+        if currentStreak == 3 || nightsLogged == 5 {
+            requestReviewAfterMilestone()
+        }
+    }
+
+    /// Call after a celebratory event. No-ops if we already asked on this
+    /// version or within the last 30 days.
     static func requestReviewAfterMilestone() {
         let defaults = UserDefaults.standard
         let lastVersion = defaults.string(forKey: lastPromptedVersionKey)
         guard lastVersion != currentVersion else { return }
+        if let last = defaults.object(forKey: lastPromptedDateKey) as? Date,
+           Date().timeIntervalSince(last) < minDaysBetweenPrompts { return }
 
         guard let scene = UIApplication.shared.connectedScenes
             .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene
@@ -30,6 +45,7 @@ enum RatingService {
             try? await Task.sleep(for: .seconds(1.2))
             AppStore.requestReview(in: scene)
             defaults.set(currentVersion, forKey: lastPromptedVersionKey)
+            defaults.set(Date(), forKey: lastPromptedDateKey)
         }
     }
 }

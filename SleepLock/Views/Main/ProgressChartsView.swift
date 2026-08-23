@@ -104,6 +104,7 @@ struct ProgressChartsView: View {
                                     }
                                 }
                                 .frame(height: 200)
+                                .clipped()
                             }
                         }
                     }
@@ -150,6 +151,7 @@ struct ProgressChartsView: View {
                                     }
                                 }
                                 .frame(height: 180)
+                                .clipped()
                             }
                         }
                     }
@@ -205,6 +207,7 @@ struct ProgressChartsView: View {
                                     }
                                 }
                                 .frame(height: 180)
+                                .clipped()
                             }
                         }
                     }

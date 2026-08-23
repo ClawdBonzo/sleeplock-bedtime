@@ -11,6 +11,12 @@ import SwiftUI
 enum SLLegal {
     static let terms = URL(string: "https://gwlabs.app/terms")!
     static let privacy = URL(string: "https://gwlabs.app/privacy")!
+    /// App Store product page (App ID 6761796877) — used for Share.
+    static let appStore = URL(string: "https://apps.apple.com/app/id6761796877")!
+    /// Deep link straight to the review composer — unlike `requestReview`
+    /// this is never throttled, so it's the right target for an explicit
+    /// "Rate SleepLock" button.
+    static let writeReview = URL(string: "https://apps.apple.com/app/id6761796877?action=write-review")!
 }
 
 // MARK: - Pro Feature Definition
