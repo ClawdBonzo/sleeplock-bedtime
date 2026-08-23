@@ -7,21 +7,8 @@ struct RootView: View {
     @State private var streakService = SleepStreakService()
     @State private var gamificationService: GamificationService?
     @State private var showOnboarding: Bool?
-    // Tracks if user tapped "Maybe Later" this session — resets on next launch
-    @State private var hasTemporarilyDismissedPaywall: Bool = {
-        #if DEBUG
-        return CommandLine.arguments.contains("-SkipLaunchPaywall")
-        #else
-        return false
-        #endif
-    }()
-
     private var hasCompletedOnboarding: Bool {
         profiles.first?.onboardingCompleted ?? false
-    }
-
-    private var isPremium: Bool {
-        PurchaseService.shared.isPremium
     }
 
     var body: some View {
@@ -34,19 +21,9 @@ struct RootView: View {
                         }
                     }
                     .environment(gamificationService)
-                } else if !isPremium && !hasTemporarilyDismissedPaywall
-                            && !PurchaseService.shared.hasSeenLaunchPaywallThisSession {
-                    // Hard paywall gate — shown once per launch until subscribed.
-                    // (The onboarding flow shows its own copy; hasSeenLaunchPaywall
-                    // ThisSession prevents a back-to-back second paywall.)
-                    PaywallView(
-                        userName: profiles.first?.displayName ?? "",
-                        onContinue: {
-                            withAnimation { hasTemporarilyDismissedPaywall = true }
-                        },
-                        allowDismiss: false
-                    )
                 } else {
+                    // No launch paywall: the upgrade ask happens after the first
+                    // logged night (DashboardView), once there's value to pay for.
                     MainTabView(streakService: streakService)
                         .environment(gamificationService)
                 }

@@ -5,7 +5,6 @@ struct OnboardingContainerView: View {
     @Environment(\.modelContext) private var modelContext
     @State private var currentStep = 0
     @State private var profile = OnboardingProfile()
-    @State private var showPaywall = false
 
     let onComplete: () -> Void
 
@@ -50,7 +49,8 @@ struct OnboardingContainerView: View {
                         CraftingRoutineScreen(
                             name: profile.name,
                             onComplete: {
-                                showPaywall = true
+                                saveProfile()
+                                onComplete()
                             }
                         )
                     }
@@ -68,16 +68,6 @@ struct OnboardingContainerView: View {
             UIApplication.shared.sendAction(
                 #selector(UIResponder.resignFirstResponder),
                 to: nil, from: nil, for: nil
-            )
-        }
-        .fullScreenCover(isPresented: $showPaywall) {
-            PaywallView(
-                userName: profile.name,
-                onContinue: {
-                    saveProfile()
-                    onComplete()
-                },
-                allowDismiss: false
             )
         }
     }

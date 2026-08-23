@@ -11,6 +11,10 @@ struct DashboardView: View {
 
     @State private var showLogger = false
     @State private var deepLinkAnalytics = false
+    @State private var showPostLogPaywall = false
+    /// The upgrade ask is made once, right after the first logged night —
+    /// the "Streak Alive!" high point — never at launch or during onboarding.
+    @AppStorage("paywall.offeredAfterFirstLog") private var offeredPaywallAfterFirstLog = false
 
     private var profile: UserProfile? { profiles.first }
     private var isPremium: Bool { PurchaseService.shared.isPremium }
@@ -64,7 +68,17 @@ struct DashboardView: View {
                     .onDisappear {
                         streakService.recalculate()
                         writeWidgetSnapshot()
+                        if streakService.todayLogged && !isPremium && !offeredPaywallAfterFirstLog {
+                            offeredPaywallAfterFirstLog = true
+                            showPostLogPaywall = true
+                        }
                     }
+            }
+            .fullScreenCover(isPresented: $showPostLogPaywall) {
+                PaywallView(
+                    userName: profile?.displayName ?? "",
+                    onContinue: { showPostLogPaywall = false }
+                )
             }
             .navigationDestination(isPresented: $deepLinkAnalytics) {
                 ProgressChartsView()
