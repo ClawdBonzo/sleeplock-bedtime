@@ -9,7 +9,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 META = json.load(open(os.path.join(ROOT, "store", "asc_meta_1_2.json")))
 SHOTS = os.path.join(ROOT, "screenshots", "appstore")
 KEY = open(os.path.expanduser("~/.appstoreconnect/private_keys/AuthKey_K34HFNJTXH.p8")).read()
-APP = "6761796877"; BUILD_NO = "12"; VERSION = "1.2"
+APP = "6761796877"; BUILD_NO = "13"; VERSION = "1.2"
 LANG_FOR = {"en-US":"en","en-GB":"en","en-AU":"en","en-CA":"en","es-MX":"es","es-ES":"es","pt-BR":"pt-BR","fr-FR":"fr","it":"it","de-DE":"de","nl-NL":"nl","ja":"ja","ko":"ko","sv":"sv"}
 FRAMES = ["01-LOCK-IN-YOUR-BEDTIME","02-BUILD-UNBREAKABLE-STREAKS","03-LEVEL-UP-YOUR-SLEEP","04-SEE-YOUR-SLEEP-TRENDS"]
 
@@ -82,6 +82,7 @@ st, r = call("GET", f"/v1/appStoreVersions/{vid}/appStoreVersionLocalizations?li
 vloc = {l["attributes"]["locale"]: l["id"] for l in r["data"]}
 for loc, m in META.items():
     attrs = {k: m[k] for k in ("keywords","promotionalText","description","whatsNew") if k in m}
+    attrs["supportUrl"] = "https://gwlabs.app/support"; attrs["marketingUrl"] = "https://gwlabs.app"
     if loc in vloc:
         st, r2 = call("PATCH", f"/v1/appStoreVersionLocalizations/{vloc[loc]}", {"data":{"type":"appStoreVersionLocalizations","id":vloc[loc],"attributes":attrs}})
     else:
