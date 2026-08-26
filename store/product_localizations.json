@@ -1,0 +1,54 @@
+{
+  "_comment": "Localized IAP/subscription display names (≤30 chars) and descriptions. localize_products.py applies whatever is missing — STANDING RULE: every new App Store locale gets product localizations too.",
+  "group": {"name": "SleepLock Pro"},
+  "products": {
+    "sleeplock_pro_weekly": {
+      "ja":   {"name": "SleepLock Pro 週額",         "description": "全機能を利用可能。週ごとの請求。"},
+      "ko":   {"name": "SleepLock Pro 주간",         "description": "모든 기능 이용, 주 단위 결제."},
+      "de-DE":{"name": "SleepLock Pro Wöchentlich",  "description": "Voller Zugriff, wöchentlich abgerechnet."},
+      "nl-NL":{"name": "SleepLock Pro Wekelijks",    "description": "Volledige toegang, per week betaald."},
+      "sv":   {"name": "SleepLock Pro Vecka",        "description": "Full tillgång, betalas varje vecka."},
+      "es-MX":{"name": "SleepLock Pro Semanal",      "description": "Acceso completo, cobro semanal."},
+      "es-ES":{"name": "SleepLock Pro Semanal",      "description": "Acceso completo, cobro semanal."},
+      "pt-BR":{"name": "SleepLock Pro Semanal",      "description": "Acesso total, cobrança semanal."},
+      "fr-FR":{"name": "SleepLock Pro Hebdo",        "description": "Accès complet, facturé chaque semaine."},
+      "it":   {"name": "SleepLock Pro Settimanale",  "description": "Accesso completo, addebito settimanale."}
+    },
+    "sleeplock_pro_monthly": {
+      "ja":   {"name": "SleepLock Pro 月額",         "description": "全機能を利用可能。月ごとの請求。"},
+      "ko":   {"name": "SleepLock Pro 월간",         "description": "모든 기능 이용, 월 단위 결제."},
+      "de-DE":{"name": "SleepLock Pro Monatlich",    "description": "Voller Zugriff, monatlich abgerechnet."},
+      "nl-NL":{"name": "SleepLock Pro Maandelijks",  "description": "Volledige toegang, per maand betaald."},
+      "sv":   {"name": "SleepLock Pro Månad",        "description": "Full tillgång, betalas varje månad."},
+      "es-MX":{"name": "SleepLock Pro Mensual",      "description": "Acceso completo, cobro mensual."},
+      "es-ES":{"name": "SleepLock Pro Mensual",      "description": "Acceso completo, cobro mensual."},
+      "pt-BR":{"name": "SleepLock Pro Mensal",       "description": "Acesso total, cobrança mensal."},
+      "fr-FR":{"name": "SleepLock Pro Mensuel",      "description": "Accès complet, facturé chaque mois."},
+      "it":   {"name": "SleepLock Pro Mensile",      "description": "Accesso completo, addebito mensile."}
+    },
+    "sleeplock_pro_yearly": {
+      "ja":   {"name": "SleepLock Pro 年額",         "description": "全機能を利用可能。年ごとの請求。"},
+      "ko":   {"name": "SleepLock Pro 연간",         "description": "모든 기능 이용, 연 단위 결제."},
+      "de-DE":{"name": "SleepLock Pro Jährlich",     "description": "Voller Zugriff, jährlich abgerechnet."},
+      "nl-NL":{"name": "SleepLock Pro Jaarlijks",    "description": "Volledige toegang, per jaar betaald."},
+      "sv":   {"name": "SleepLock Pro Årlig",        "description": "Full tillgång, betalas varje år."},
+      "es-MX":{"name": "SleepLock Pro Anual",        "description": "Acceso completo, cobro anual."},
+      "es-ES":{"name": "SleepLock Pro Anual",        "description": "Acceso completo, cobro anual."},
+      "pt-BR":{"name": "SleepLock Pro Anual",        "description": "Acesso total, cobrança anual."},
+      "fr-FR":{"name": "SleepLock Pro Annuel",       "description": "Accès complet, facturé chaque année."},
+      "it":   {"name": "SleepLock Pro Annuale",      "description": "Accesso completo, addebito annuale."}
+    },
+    "sleeplock_pro_lifetime": {
+      "ja":   {"name": "SleepLock Pro 買い切り",     "description": "全機能を永久に利用可能。1回限りの購入。"},
+      "ko":   {"name": "SleepLock Pro 평생",         "description": "모든 기능 평생 이용. 1회 구매."},
+      "de-DE":{"name": "SleepLock Pro Lebenslang",   "description": "Lebenslanger Zugriff. Einmaliger Kauf."},
+      "nl-NL":{"name": "SleepLock Pro Levenslang",   "description": "Levenslange toegang. Eenmalige aankoop."},
+      "sv":   {"name": "SleepLock Pro Livstid",      "description": "Livstidsåtkomst. Engångsköp."},
+      "es-MX":{"name": "SleepLock Pro De por vida",  "description": "Acceso de por vida. Pago único."},
+      "es-ES":{"name": "SleepLock Pro De por vida",  "description": "Acceso de por vida. Pago único."},
+      "pt-BR":{"name": "SleepLock Pro Vitalício",    "description": "Acesso vitalício. Pagamento único."},
+      "fr-FR":{"name": "SleepLock Pro À vie",        "description": "Accès à vie. Achat unique."},
+      "it":   {"name": "SleepLock Pro A vita",       "description": "Accesso a vita. Acquisto unico."}
+    }
+  }
+}
