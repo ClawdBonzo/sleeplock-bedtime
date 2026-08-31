@@ -1,0 +1,2228 @@
+{
+ "snapshot_date": "2026-08-31",
+ "coverage_through": "2026-08-30",
+ "baseline_note": "First snapshot in this dir. Prior baseline = Aug 21/22 2026 in-session pull (growth dashboard): lifetime impressions 581, page views 73, ASC first-time downloads 23, AF downloads 24, ratings 0 everywhere, US unranked all keywords, trials 0, revenue $0.",
+ "acquisition": {
+  "week": {
+   "first_time_downloads": 5,
+   "redownloads": 0,
+   "updates": 3,
+   "by_country": {
+    "DZ": 1,
+    "IT": 1,
+    "US": 2,
+    "VN": 1
+   }
+  },
+  "prev_week_first_time": 2,
+  "lifetime": {
+   "first_time_downloads": 30,
+   "countries": 16,
+   "by_country": {
+    "US": 10,
+    "NL": 3,
+    "VN": 3,
+    "JP": 2,
+    "BE": 1,
+    "DZ": 1,
+    "ES": 1,
+    "FR": 1,
+    "GB": 1,
+    "IT": 1,
+    "KE": 1,
+    "MN": 1,
+    "PA": 1,
+    "RU": 1,
+    "SG": 1,
+    "UA": 1
+   }
+  },
+  "asc_lifetime_counters_asof_0830": {
+   "impressions": 967,
+   "product_page_views": 106,
+   "first_time_downloads": 28,
+   "updates": 3,
+   "note": "ASC Analytics overview counters are lifetime and Apple-bucketed; do not mix with Appfigures/Sales numbers. Deltas vs Aug21: +386 impressions, +33 views, +5 downloads."
+  },
+  "source_type_detail": "unavailable this week — ONGOING analyticsReportRequest 41455f71 created 2026-08-31; instances expected in ~2 days"
+ },
+ "monetization": {
+  "trials_started_lifetime": 0,
+  "active_subs": 0,
+  "mrr": 0,
+  "revenue_lifetime": 0,
+  "revenuecat_28d": {
+   "new_customers": 21,
+   "active_customers": 23
+  },
+  "reconciliation": "RC, Appfigures and ASC all agree: $0 / 0 trials. No discrepancy.",
+  "products": "all APPROVED; 40 localized product localizations (10 langs x 4 products) APPROVED this week"
+ },
+ "retention": "ASC retention/crash reports: Opt-in Only, Not Enough Data (expected at this volume). RC 28d active 23 vs 14 on Aug 22.",
+ "quality": {
+  "ratings": {
+   "us": {
+    "count": 3,
+    "avg": 5
+   }
+  },
+  "written_reviews": [
+   {
+    "territory": "USA",
+    "rating": 5,
+    "title": "Life changing"
+   },
+   {
+    "territory": "USA",
+    "rating": 5,
+    "title": "Sleep improves"
+   }
+  ],
+  "review_themes": {
+   "bugs": [],
+   "features": [],
+   "confusion": []
+  },
+  "crash_data": "none reported (opt-in only, low volume)"
+ },
+ "ranks": {
+  "us": {
+   "sleep tracker": {
+    "pos": null,
+    "top3": [
+     [
+      "SleepWatch - Top Sleep Track",
+      328451
+     ],
+     [
+      "Sleep Cycle - Tracker & Soun",
+      28618
+     ],
+     [
+      "ShutEye®: Sleep Tracker, Sou",
+      349297
+     ]
+    ]
+   },
+   "bedtime": {
+    "pos": null,
+    "top3": [
+     [
+      "Sleep Cycle Bedtime Calculat",
+      288
+     ],
+     [
+      "BetterSleep: Relax and Sleep",
+      390677
+     ],
+     [
+      "Bedtime Fan: White Noise Bab",
+      201008
+     ]
+    ]
+   },
+   "sleep habit tracker": {
+    "pos": null,
+    "top3": [
+     [
+      "Habit Hub: Routine Tracker",
+      8084
+     ],
+     [
+      "Sleep Habits Tracker",
+      0
+     ],
+     [
+      "HabbyApp - Kids Habit Tracke",
+      3
+     ]
+    ]
+   },
+   "sleep routine": {
+    "pos": 118,
+    "top3": [
+     [
+      "Sleep Routine: Tracker&Alarm",
+      25
+     ],
+     [
+      "Sleep Cycle - Tracker & Soun",
+      28647
+     ],
+     [
+      "Routine Planner, Habit Track",
+      17737
+     ]
+    ]
+   },
+   "bedtime reminder": {
+    "pos": 15,
+    "top3": [
+     [
+      "Bedtime Habits",
+      0
+     ],
+     [
+      "Bedtime Reminder: Sleep Now",
+      0
+     ],
+     [
+      "Bedtime reminders Sleep Bett",
+      1
+     ]
+    ]
+   },
+   "sleep streak": {
+    "pos": 63,
+    "top3": [
+     [
+      "Habit Tracker: Sleep Streak",
+      0
+     ],
+     [
+      "RISE: Sleep Tracker",
+      66949
+     ],
+     [
+      "Gentler Streak Workout Track",
+      8805
+     ]
+    ]
+   },
+   "sleep schedule": {
+    "pos": null,
+    "top3": [
+     [
+      "RISE: Sleep Tracker",
+      66949
+     ],
+     [
+      "Sleep Cycle - Tracker & Soun",
+      28647
+     ],
+     [
+      "Sleepwave: Alarm & Tracker",
+      6538
+     ]
+    ]
+   },
+   "wind down": {
+    "pos": 135,
+    "top3": [
+     [
+      "Wind Down: Mental Reset",
+      13
+     ],
+     [
+      "Wind Down: Sleep Ritual",
+      1
+     ],
+     [
+      "Wind Down Sleep Ritual: Hosh",
+      0
+     ]
+    ]
+   }
+  },
+  "gb": {
+   "sleep tracker": {
+    "pos": null,
+    "top3": [
+     [
+      "ShutEye: Sleep Tracker, Soun",
+      33502
+     ],
+     [
+      "Sleep Cycle - Tracker & Soun",
+      7284
+     ],
+     [
+      "Sleep Tracker – Sounds & Ala",
+      3919
+     ]
+    ]
+   },
+   "bedtime": {
+    "pos": null,
+    "top3": [
+     [
+      "Sleep Cycle Wake Up Calculat",
+      34
+     ],
+     [
+      "Sleepiest: Sleep Meditation",
+      9319
+     ],
+     [
+      "Sleep Cycle - Tracker & Soun",
+      7275
+     ]
+    ]
+   },
+   "sleep habit tracker": {
+    "pos": null,
+    "top3": [
+     [
+      "SleepWatch - Top Sleep Track",
+      59059
+     ],
+     [
+      "Sleep Monitor: Sleep Tracker",
+      2707
+     ],
+     [
+      "Noxogy Sleep Tracker",
+      7149
+     ]
+    ]
+   },
+   "sleep routine": {
+    "pos": null,
+    "top3": [
+     [
+      "Sleep Routine: Tracker&Alarm",
+      4
+     ],
+     [
+      "Sleep Tracker – Rise",
+      7278
+     ],
+     [
+      "Lune: Bedtime Sleep Routine",
+      25
+     ]
+    ]
+   },
+   "bedtime reminder": {
+    "pos": 54,
+    "top3": [
+     [
+      "Bedtime Reminder: Sleep Now",
+      0
+     ],
+     [
+      "Bedtime reminders Sleep Bett",
+      0
+     ],
+     [
+      "MRALA - Bedtime Reminder",
+      0
+     ]
+    ]
+   },
+   "sleep streak": {
+    "pos": null,
+    "top3": [
+     [
+      "Habit Tracker: Sleep Streak",
+      4
+     ],
+     [
+      "Sleep Tracker – Rise",
+      7278
+     ],
+     [
+      "Sleep Monitor: Sleep Tracker",
+      2707
+     ]
+    ]
+   },
+   "sleep schedule": {
+    "pos": null,
+    "top3": [
+     [
+      "Sleep Cycle - Tracker & Soun",
+      7284
+     ],
+     [
+      "Phase - Sleep Schedule Reset",
+      2
+     ],
+     [
+      "Sleep Tracker – Rise",
+      7278
+     ]
+    ]
+   },
+   "wind down": {
+    "pos": null,
+    "top3": [
+     [
+      "Wind Down: Sleep Ritual",
+      0
+     ],
+     [
+      "Night Routine: Wind Down",
+      2
+     ],
+     [
+      "One Year: Daily Journal",
+      60
+     ]
+    ]
+   }
+  },
+  "ca": {
+   "sleep tracker": {
+    "pos": null,
+    "top3": [
+     [
+      "ShutEye: Sleep Tracker, Soun",
+      30161
+     ],
+     [
+      "Sleep Cycle - Sleep Tracker",
+      3815
+     ],
+     [
+      "Sleep Tracker - Sleep Record",
+      2209
+     ]
+    ]
+   },
+   "bedtime": {
+    "pos": null,
+    "top3": [
+     [
+      "Bedtime Fan White Noise Baby",
+      8497
+     ],
+     [
+      "BetterSleep: Relax and Sleep",
+      33748
+     ],
+     [
+      "Bedtime: Sleep Tracker",
+      25
+     ]
+    ]
+   },
+   "sleep habit tracker": {
+    "pos": null,
+    "top3": [
+     [
+      "Rise: Energy & Sleep Tracker",
+      6758
+     ],
+     [
+      "Sleep Habits Tracker",
+      1
+     ],
+     [
+      "Kids Routine App - HabbyApp",
+      0
+     ]
+    ]
+   },
+   "sleep routine": {
+    "pos": null,
+    "top3": [
+     [
+      "Stoon – Sleep Routine",
+      0
+     ],
+     [
+      "Sleep Routine: Tracker&Alarm",
+      0
+     ],
+     [
+      "Pillow: Sleep Tracker",
+      13041
+     ]
+    ]
+   },
+   "bedtime reminder": {
+    "pos": null,
+    "top3": [
+     [
+      "Bedtime reminders Sleep Bett",
+      0
+     ],
+     [
+      "Bedtime Reminder: Sleep Now",
+      0
+     ],
+     [
+      "MRALA - Bedtime Reminder",
+      0
+     ]
+    ]
+   },
+   "sleep streak": {
+    "pos": null,
+    "top3": [
+     [
+      "Habit Tracker: Sleep Streak",
+      1
+     ],
+     [
+      "Sleepiest: Sleep Meditation",
+      3393
+     ],
+     [
+      "Sleep Tracker - Sleep Record",
+      2209
+     ]
+    ]
+   },
+   "sleep schedule": {
+    "pos": null,
+    "top3": [
+     [
+      "Sleep Cycle - Sleep Tracker",
+      3815
+     ],
+     [
+      "Sleep Cycle Fix - ChronoRese",
+      0
+     ],
+     [
+      "Rise: Energy & Sleep Tracker",
+      6758
+     ]
+    ]
+   },
+   "wind down": {
+    "pos": null,
+    "top3": [
+     [
+      "Night Routine: Wind Down",
+      0
+     ],
+     [
+      "Wind Down: Sleep Ritual",
+      0
+     ],
+     [
+      "Wind Down: Bedtime Routine",
+      0
+     ]
+    ]
+   }
+  },
+  "au": {
+   "sleep tracker": {
+    "pos": null,
+    "top3": [
+     [
+      "Sleep Cycle - Sleep Tracker",
+      3630
+     ],
+     [
+      "ShutEye: Sleep Tracker, Soun",
+      16008
+     ],
+     [
+      "SleepWatch - Top Sleep Track",
+      22068
+     ]
+    ]
+   },
+   "bedtime": {
+    "pos": null,
+    "top3": [
+     [
+      "Sleep Cycle Bedtime Calculat",
+      18
+     ],
+     [
+      "Bedtime: Sleep Tracker",
+      26
+     ],
+     [
+      "BetterSleep: Relax and Sleep",
+      19517
+     ]
+    ]
+   },
+   "sleep habit tracker": {
+    "pos": null,
+    "top3": [
+     [
+      "Rise: Energy & Sleep Tracker",
+      3673
+     ],
+     [
+      "Parent Routine Help - HabbyA",
+      0
+     ],
+     [
+      "SleepWatch - Top Sleep Track",
+      22068
+     ]
+    ]
+   },
+   "sleep routine": {
+    "pos": null,
+    "top3": [
+     [
+      "Sleep Routine: Tracker&Alarm",
+      6
+     ],
+     [
+      "Lune: Bedtime Sleep Routine",
+      8
+     ],
+     [
+      "Sleep Cycle - Sleep Tracker",
+      3630
+     ]
+    ]
+   },
+   "bedtime reminder": {
+    "pos": null,
+    "top3": [
+     [
+      "Go To Sleep - Bed Time Track",
+      5
+     ],
+     [
+      "Sleep Time+ Cycle Alarm Cloc",
+      193
+     ],
+     [
+      "Bedtime Reminder: Sleep Now",
+      0
+     ]
+    ]
+   },
+   "sleep streak": {
+    "pos": null,
+    "top3": [
+     [
+      "Habit Tracker: Sleep Streak",
+      0
+     ],
+     [
+      "Rise: Energy & Sleep Tracker",
+      3673
+     ],
+     [
+      "Sleep Cycle - Sleep Tracker",
+      3630
+     ]
+    ]
+   },
+   "sleep schedule": {
+    "pos": null,
+    "top3": [
+     [
+      "Sleep Cycle - Sleep Tracker",
+      3630
+     ],
+     [
+      "Rise: Energy & Sleep Tracker",
+      3673
+     ],
+     [
+      "SleepWatch - Top Sleep Track",
+      22068
+     ]
+    ]
+   },
+   "wind down": {
+    "pos": null,
+    "top3": [
+     [
+      "Wind Down Sleep Ritual: Hosh",
+      0
+     ],
+     [
+      "Wind Down: Sleep Ritual",
+      0
+     ],
+     [
+      "One Year: Daily Journal",
+      48
+     ]
+    ]
+   }
+  },
+  "sg": {
+   "sleep tracker": {
+    "pos": null,
+    "top3": [
+     [
+      "SleepWatch - Top Sleep Track",
+      2113
+     ],
+     [
+      "Sleep Cycle - Tracker & Soun",
+      282
+     ],
+     [
+      "ShutEye: Sleep Tracker, Soun",
+      1379
+     ]
+    ]
+   },
+   "bedtime": {
+    "pos": null,
+    "top3": [
+     [
+      "Sleep Cycle Wake Up Calculat",
+      1
+     ],
+     [
+      "Little Stories: Bedtime Book",
+      830
+     ],
+     [
+      "Bedtime Stories Collection",
+      339
+     ]
+    ]
+   },
+   "sleep habit tracker": {
+    "pos": null,
+    "top3": [
+     [
+      "Baby Tracker - Newborn Log",
+      3746
+     ],
+     [
+      "LifeWheel Habit Goal Tracker",
+      2
+     ],
+     [
+      "Sleep Habits: Supersleep",
+      0
+     ]
+    ]
+   },
+   "sleep routine": {
+    "pos": null,
+    "top3": [
+     [
+      "Sleep Cycle - Tracker & Soun",
+      282
+     ],
+     [
+      "Sleep Routine: Tracker&Alarm",
+      0
+     ],
+     [
+      "Lune: Bedtime Sleep Routine",
+      0
+     ]
+    ]
+   },
+   "bedtime reminder": {
+    "pos": null,
+    "top3": [
+     [
+      "Sleepr : Bedtime Reminder",
+      0
+     ],
+     [
+      "MRALA - Bedtime Reminder",
+      0
+     ],
+     [
+      "Sleep Time+ Cycle Alarm Cloc",
+      35
+     ]
+    ]
+   },
+   "sleep streak": {
+    "pos": 65,
+    "top3": [
+     [
+      "Habit Tracker: Sleep Streak",
+      0
+     ],
+     [
+      "StepsApp Pedometer",
+      2462
+     ],
+     [
+      "DailyBean - simplest journal",
+      1607
+     ]
+    ]
+   },
+   "sleep schedule": {
+    "pos": null,
+    "top3": [
+     [
+      "Sleep Cycle - Tracker & Soun",
+      282
+     ],
+     [
+      "Sleep Tracker – Rise",
+      315
+     ],
+     [
+      "Sleep Cycle Wake Up Calculat",
+      1
+     ]
+    ]
+   },
+   "wind down": {
+    "pos": 74,
+    "top3": [
+     [
+      "Wind Down: Mental Reset",
+      0
+     ],
+     [
+      "Wind Down: Sleep Ritual",
+      0
+     ],
+     [
+      "Wind Down — Sleep Breathing",
+      0
+     ]
+    ]
+   }
+  },
+  "ph": {
+   "sleep tracker": {
+    "pos": null,
+    "top3": [
+     [
+      "ShutEye: Sleep Tracker, Soun",
+      3673
+     ],
+     [
+      "Apple Health",
+      143
+     ],
+     [
+      "SleepWatch - Top Sleep Track",
+      1888
+     ]
+    ]
+   },
+   "bedtime": {
+    "pos": null,
+    "top3": [
+     [
+      "Bedtime Stories for Kids",
+      3392
+     ],
+     [
+      "Sleep Cycle Wake Up Calculat",
+      2
+     ],
+     [
+      "Bedtime Sleep Cycles",
+      1
+     ]
+    ]
+   },
+   "sleep habit tracker": {
+    "pos": null,
+    "top3": [
+     [
+      "Baby Tracker - Newborn Log",
+      779
+     ],
+     [
+      "StressWatch: AI Stress Monit",
+      801
+     ],
+     [
+      "Habits Through Play - HabbyA",
+      0
+     ]
+    ]
+   },
+   "sleep routine": {
+    "pos": null,
+    "top3": [
+     [
+      "Sleep Cycle - Tracker & Soun",
+      114
+     ],
+     [
+      "Sleep Routine: Tracker&Alarm",
+      1
+     ],
+     [
+      "Lune: Bedtime Sleep Routine",
+      0
+     ]
+    ]
+   },
+   "bedtime reminder": {
+    "pos": null,
+    "top3": [
+     [
+      "Bedtime Reminder: Sleep Now",
+      0
+     ],
+     [
+      "Bedtime reminders Sleep Bett",
+      0
+     ],
+     [
+      "MRALA - Bedtime Reminder",
+      0
+     ]
+    ]
+   },
+   "sleep streak": {
+    "pos": 118,
+    "top3": [
+     [
+      "Habit Tracker: Sleep Streak",
+      0
+     ],
+     [
+      "Sleep Log AI: Coach & Tracke",
+      1
+     ],
+     [
+      "StepsApp Pedometer",
+      4017
+     ]
+    ]
+   },
+   "sleep schedule": {
+    "pos": null,
+    "top3": [
+     [
+      "Sleep Cycle - Tracker & Soun",
+      114
+     ],
+     [
+      "Sleep Tracker – Rise",
+      936
+     ],
+     [
+      "Sleep Cycle Wake Up Calculat",
+      2
+     ]
+    ]
+   },
+   "wind down": {
+    "pos": 156,
+    "top3": [
+     [
+      "Wind Down: Sleep Ritual",
+      0
+     ],
+     [
+      "Wind Down: Block Apps & Slee",
+      0
+     ],
+     [
+      "Wind Down: Mental Reset",
+      0
+     ]
+    ]
+   }
+  },
+  "vn": {
+   "sleep tracker": {
+    "pos": null,
+    "top3": [
+     [
+      "Sleep Tracker – Sounds & Ala",
+      87
+     ],
+     [
+      "ShutEye: Sleep Tracker, Soun",
+      1177
+     ],
+     [
+      "BetterSleep: Relax and Sleep",
+      3324
+     ]
+    ]
+   },
+   "bedtime": {
+    "pos": 74,
+    "top3": [
+     [
+      "Sleep Cycle Wake Up Calculat",
+      0
+     ],
+     [
+      "Little Stories: Bedtime Book",
+      744
+     ],
+     [
+      "Bedtime Stories Collection",
+      355
+     ]
+    ]
+   },
+   "sleep habit tracker": {
+    "pos": 84,
+    "top3": [
+     [
+      "Sleep Habits Tracker & CBT-I",
+      0
+     ],
+     [
+      "DailyBean - simplest journal",
+      12371
+     ],
+     [
+      "Baby Tracker - Newborn Log",
+      1233
+     ]
+    ]
+   },
+   "sleep routine": {
+    "pos": 52,
+    "top3": [
+     [
+      "Sleep Routine: Tracker&Alarm",
+      0
+     ],
+     [
+      "Stoon – Sleep Routine",
+      1
+     ],
+     [
+      "Sleep Cycle - Tracker & Soun",
+      141
+     ]
+    ]
+   },
+   "bedtime reminder": {
+    "pos": 6,
+    "top3": [
+     [
+      "Bedtime Reminder: Sleep Now",
+      0
+     ],
+     [
+      "MRALA - Bedtime Reminder",
+      0
+     ],
+     [
+      "Bedtime reminders Sleep Bett",
+      0
+     ]
+    ]
+   },
+   "sleep streak": {
+    "pos": 9,
+    "top3": [
+     [
+      "Habit Tracker: Sleep Streak",
+      0
+     ],
+     [
+      "StepsApp Pedometer",
+      14138
+     ],
+     [
+      "DailyBean - simplest journal",
+      12371
+     ]
+    ]
+   },
+   "sleep schedule": {
+    "pos": 170,
+    "top3": [
+     [
+      "Sleep Cycle - Tracker & Soun",
+      141
+     ],
+     [
+      "Sleep Tracker – Rise",
+      274
+     ],
+     [
+      "Sleep Cycle Wake Up Calculat",
+      0
+     ]
+    ]
+   },
+   "wind down": {
+    "pos": 28,
+    "top3": [
+     [
+      "Wind Down: Sleep Ritual",
+      0
+     ],
+     [
+      "Wind Down: Mental Reset",
+      0
+     ],
+     [
+      "Wind Down: Bedtime Routine",
+      0
+     ]
+    ]
+   }
+  },
+  "nl": {
+   "slaap tracker": {
+    "pos": null,
+    "top3": [
+     [
+      "Sleep Tracker - Slaap Opneme",
+      1237
+     ],
+     [
+      "Sleep Cycle - Sleep Tracker",
+      2504
+     ],
+     [
+      "Noxogy Sleep Tracker",
+      2008
+     ]
+    ]
+   },
+   "bedtijd": {
+    "pos": 139,
+    "top3": [
+     [
+      "Sleepzy - Slaapcyclus wekker",
+      901
+     ],
+     [
+      "Bedtijd: Smart Alarm",
+      259
+     ],
+     [
+      "bedtijd slapen regen",
+      1
+     ]
+    ]
+   },
+   "slaapgewoonte": {
+    "pos": null,
+    "top3": []
+   },
+   "slaapritme": {
+    "pos": null,
+    "top3": [
+     [
+      "Sleep Cycle - Sleep Tracker",
+      2504
+     ],
+     [
+      "Sleep Tracker - Slaap Opneme",
+      1237
+     ],
+     [
+      "Meditopia: Meditatie, Slaap",
+      908
+     ]
+    ]
+   },
+   "slaap app": {
+    "pos": null,
+    "top3": [
+     [
+      "Sleep Cycle - Sleep Tracker",
+      2504
+     ],
+     [
+      "Sleep Tracker - Slaap Opneme",
+      1237
+     ],
+     [
+      "AutoSleep - Sleep Tracker",
+      3265
+     ]
+    ]
+   }
+  },
+  "jp": {
+   "睡眠記録": {
+    "pos": null,
+    "top3": [
+     [
+      "Sleep Meister - 睡眠サイクルアラームLi",
+      222373
+     ],
+     [
+      "睡眠｜眠りの記録と改善",
+      2393
+     ],
+     [
+      "睡眠メモ 睡眠記録・睡眠時間トラッカー",
+      1
+     ]
+    ]
+   },
+   "就寝時間": {
+    "pos": null,
+    "top3": [
+     [
+      "睡眠時間 記録",
+      10
+     ],
+     [
+      "おやすみ通知　就寝時間を通知でお知らせ",
+      14
+     ],
+     [
+      "1日の残り時間が見えるタスク管理 : 1440task",
+      86
+     ]
+    ]
+   },
+   "睡眠習慣": {
+    "pos": 61,
+    "top3": [
+     [
+      "睡眠ゲーム - グッドスリーパーズ：睡眠習慣を楽しく改善",
+      239
+     ],
+     [
+      "よひつじの森 | 睡眠習慣サポートアプリ",
+      2350
+     ],
+     [
+      "StressWatch：AIストレス測定＆睡眠・習慣追跡",
+      6091
+     ]
+    ]
+   },
+   "睡眠管理": {
+    "pos": null,
+    "top3": [
+     [
+      "Sleep Meister - 睡眠サイクルアラームLi",
+      222373
+     ],
+     [
+      "Pokémon Sleep",
+      200538
+     ],
+     [
+      "睡眠｜眠りの記録と改善",
+      2393
+     ]
+    ]
+   },
+   "睡眠アプリ": {
+    "pos": null,
+    "top3": [
+     [
+      "Sleep Meister - 睡眠サイクルアラームLi",
+      222373
+     ],
+     [
+      "熟睡アラーム‐睡眠といびきを計測する目覚まし時計",
+      24836
+     ],
+     [
+      "リナイト: 起床、睡眠、アラーム、瞑想",
+      7979
+     ]
+    ]
+   }
+  },
+  "kr": {
+   "수면 기록": {
+    "pos": null,
+    "top3": [
+     [
+      "수면 일기 - 잠 기록 다이어리, 수면관리 트래커",
+      0
+     ],
+     [
+      "Renight(나이틀리): 기상, 수면, 알람, 명",
+      4364
+     ],
+     [
+      "Sleep Tracker - 수면 분석, 코골이녹음",
+      2219
+     ]
+    ]
+   },
+   "취침 시간": {
+    "pos": null,
+    "top3": [
+     [
+      "취침 시간과 기상 시간 계산, 수면소리",
+      13
+     ],
+     [
+      "수면주기 및 코골이 분석기, 알라미, 코골이 알람",
+      15
+     ],
+     [
+      "클래식 음악 | 취침 시간",
+      4
+     ]
+    ]
+   },
+   "수면 습관": {
+    "pos": 29,
+    "top3": [
+     [
+      "StressWatch: AI 스트레스 & 습관 추적",
+      4314
+     ],
+     [
+      "Condi: 워치로 스트레스 수면 습관 측정",
+      10
+     ],
+     [
+      "하루명상 - 명상, 수면, 건강 관리 습관",
+      513
+     ]
+    ]
+   },
+   "수면 관리": {
+    "pos": null,
+    "top3": [
+     [
+      "Renight(나이틀리): 기상, 수면, 알람, 명",
+      4364
+     ],
+     [
+      "산리오캐릭터즈 드림 트래블: 힐링, 수면, 알람, ",
+      61
+     ],
+     [
+      "Sleep Tracker - 수면 분석, 코골이녹음",
+      2219
+     ]
+    ]
+   },
+   "수면 앱": {
+    "pos": null,
+    "top3": [
+     [
+      "Renight(나이틀리): 기상, 수면, 알람, 명",
+      4364
+     ],
+     [
+      "Sleep Cycle - 수면 분석",
+      3137
+     ],
+     [
+      "Sleep Tracker - 수면 분석, 코골이녹음",
+      2219
+     ]
+    ]
+   }
+  },
+  "de": {
+   "schlaf tracker": {
+    "pos": null,
+    "top3": [
+     [
+      "Sleep Tracker - Schlaf Analy",
+      2991
+     ],
+     [
+      "ShutEye - Schlaftracker",
+      15775
+     ],
+     [
+      "Sleep Cycle - Schlaftracker",
+      5342
+     ]
+    ]
+   },
+   "schlafenszeit": {
+    "pos": 115,
+    "top3": [
+     [
+      "Anne kann nicht schlafen",
+      30
+     ],
+     [
+      "Schlaf: Entspannung Geräusch",
+      256
+     ],
+     [
+      "Sleep Timer – Smart Alarm",
+      59
+     ]
+    ]
+   },
+   "schlafgewohnheit": {
+    "pos": null,
+    "top3": []
+   },
+   "schlaf routine": {
+    "pos": 152,
+    "top3": [
+     [
+      "SleepTimer – Schlafroutine",
+      2
+     ],
+     [
+      "Schlaftracker & Schnarchen",
+      4
+     ],
+     [
+      "Opal: Wenig Bildschirmzeit",
+      5415
+     ]
+    ]
+   },
+   "schlaf app": {
+    "pos": null,
+    "top3": [
+     [
+      "ShutEye - Schlaftracker",
+      15775
+     ],
+     [
+      "Schlafphasenwecker Schlaf",
+      148
+     ],
+     [
+      "Sleep Cycle - Schlaftracker",
+      5342
+     ]
+    ]
+   }
+  },
+  "at": {
+   "schlaf tracker": {
+    "pos": null,
+    "top3": [
+     [
+      "Sleep Tracker - Schlaf Analy",
+      276
+     ],
+     [
+      "Sleep Cycle - Schlaftracker",
+      657
+     ],
+     [
+      "ShutEye - Schlaftracker",
+      1237
+     ]
+    ]
+   },
+   "schlafenszeit": {
+    "pos": 67,
+    "top3": [
+     [
+      "Sleep Timer – Smart Alarm",
+      2
+     ],
+     [
+      "Schlafenszeit",
+      0
+     ],
+     [
+      "Anne kann nicht schlafen",
+      1
+     ]
+    ]
+   },
+   "schlafgewohnheit": {
+    "pos": null,
+    "top3": []
+   },
+   "schlaf routine": {
+    "pos": 106,
+    "top3": [
+     [
+      "Baby Schlaf Tracker: Routine",
+      0
+     ],
+     [
+      "Baby Schlaftracker: BabyBell",
+      0
+     ],
+     [
+      "Baby Schlaf Tracker Wake Wis",
+      0
+     ]
+    ]
+   },
+   "schlaf app": {
+    "pos": null,
+    "top3": [
+     [
+      "Schlafphasenwecker Schlaf",
+      12
+     ],
+     [
+      "ShutEye - Schlaftracker",
+      1237
+     ],
+     [
+      "Sleep Cycle - Schlaftracker",
+      657
+     ]
+    ]
+   }
+  },
+  "se": {
+   "sömn tracker": {
+    "pos": null,
+    "top3": [
+     [
+      "Sleep Cycle - Sömn Recorder",
+      2341
+     ],
+     [
+      "Napper: Sömnschema & dagbok",
+      6087
+     ],
+     [
+      "Livity: Hälsa & Sömn Tracker",
+      75
+     ]
+    ]
+   },
+   "läggdags": {
+    "pos": 67,
+    "top3": [
+     [
+      "Fläkt för Djup Sömn & Läggda",
+      57
+     ],
+     [
+      "Kid-e-Cats: Katter Läggdags",
+      0
+     ],
+     [
+      "läggdags sömn regn",
+      4
+     ]
+    ]
+   },
+   "sömnvanor": {
+    "pos": null,
+    "top3": [
+     [
+      "Sleeplog - Sömndagbok och A.",
+      0
+     ],
+     [
+      "No Insomnia: CBT & Sleep Coa",
+      4
+     ],
+     [
+      "BlissLand: Meditation & Sömn",
+      0
+     ]
+    ]
+   },
+   "sömnrutin": {
+    "pos": null,
+    "top3": [
+     [
+      "Sleep Cycle - Sömn Recorder",
+      2341
+     ],
+     [
+      "Happiest Baby, skapare av SN",
+      6
+     ],
+     [
+      "Malko: Blockera appar & sömn",
+      1
+     ]
+    ]
+   },
+   "sömn app": {
+    "pos": null,
+    "top3": [
+     [
+      "Sleep Cycle - Sömn Recorder",
+      2341
+     ],
+     [
+      "Sömnregistrering - Snarkning",
+      0
+     ],
+     [
+      "Sleep Talk Recorder",
+      1514
+     ]
+    ]
+   }
+  },
+  "es": {
+   "rastreador de sueño": {
+    "pos": null,
+    "top3": [
+     [
+      "Remly: Rastreador de Sueño",
+      1410
+     ],
+     [
+      "Rastreador de sueño: ronquid",
+      15
+     ],
+     [
+      "Bedtime: Rastreador de sueño",
+      0
+     ]
+    ]
+   },
+   "hora de dormir": {
+    "pos": 54,
+    "top3": [
+     [
+      "Calm: Meditación y Sueño",
+      24026
+     ],
+     [
+      "Suena la hora de dormir",
+      32
+     ],
+     [
+      "Calculadora de sueño",
+      3
+     ]
+    ]
+   },
+   "hábitos de sueño": {
+    "pos": 54,
+    "top3": [
+     [
+      "StressWatch: Rastreo de Estr",
+      1124
+     ],
+     [
+      "Freedom: Tiempo de Pantalla",
+      145
+     ],
+     [
+      "AteMate: Diario de Comidas",
+      50
+     ]
+    ]
+   },
+   "rutina de sueño": {
+    "pos": 100,
+    "top3": [
+     [
+      "Petit BamBou : Meditación",
+      28250
+     ],
+     [
+      "Blumy: Sueño y Rutina Bebé",
+      2
+     ],
+     [
+      "Opal: Tiempo de Pantalla Foc",
+      3051
+     ]
+    ]
+   },
+   "dormir temprano": {
+    "pos": 9,
+    "top3": [
+     [
+      "Despertador - SnoozeOff",
+      20
+     ],
+     [
+      "PushClock - Despertador Fuer",
+      80
+     ],
+     [
+      "Alarma y Misiones - Wakey",
+      0
+     ]
+    ]
+   },
+   "app para dormir": {
+    "pos": null,
+    "top3": [
+     [
+      "ShutEye: Seguimiento del Sue",
+      8191
+     ],
+     [
+      "Sonidos para dormir - dormir",
+      326
+     ],
+     [
+      "TeasEar - Juegos de Slime",
+      3049
+     ]
+    ]
+   }
+  },
+  "mx": {
+   "rastreador de sueño": {
+    "pos": null,
+    "top3": [
+     [
+      "Remly: Rastreador de Sueño",
+      4397
+     ],
+     [
+      "Bedtime: Rastreador de sueño",
+      2
+     ],
+     [
+      "ShutEye: Seguimiento del Sue",
+      11904
+     ]
+    ]
+   },
+   "hora de dormir": {
+    "pos": null,
+    "top3": [
+     [
+      "Calculadora de sueño",
+      54
+     ],
+     [
+      "Sleepzy - Análisis de Sueño",
+      2340
+     ],
+     [
+      "Sleep Tracker Monitor de Sue",
+      1244
+     ]
+    ]
+   },
+   "hábitos de sueño": {
+    "pos": 5,
+    "top3": [
+     [
+      "StressWatch: Rastreo de Estr",
+      7542
+     ],
+     [
+      "Monitor de Estrés para Watch",
+      75
+     ],
+     [
+      "Buenas Noches Cocobi - hábit",
+      3
+     ]
+    ]
+   },
+   "rutina de sueño": {
+    "pos": 144,
+    "top3": [
+     [
+      "Blumy: Sueño y Rutina Bebé",
+      61
+     ],
+     [
+      "Opal: Tiempo de Pantalla Foc",
+      6976
+     ],
+     [
+      "Naplet: Sueño del Bebé & IA",
+      3
+     ]
+    ]
+   },
+   "dormir temprano": {
+    "pos": 13,
+    "top3": [
+     [
+      "PushClock - Despertador Fuer",
+      500
+     ],
+     [
+      "Alarma y Misiones - Wakey",
+      2
+     ],
+     [
+      "So Alarmed: Alarma Anti-Snoo",
+      0
+     ]
+    ]
+   },
+   "app para dormir": {
+    "pos": null,
+    "top3": [
+     [
+      "Meditopia: Meditación & Dorm",
+      52548
+     ],
+     [
+      "BetterSleep Sleep Nap Tracke",
+      7731
+     ],
+     [
+      "Sueño: app para dormir",
+      77
+     ]
+    ]
+   }
+  },
+  "ar": {
+   "rastreador de sueño": {
+    "pos": null,
+    "top3": [
+     [
+      "Remly: Rastreador de Sueño",
+      1104
+     ],
+     [
+      "Rastreador de sueño y alarma",
+      0
+     ],
+     [
+      "Happy Baby Rastreador de Sue",
+      4
+     ]
+    ]
+   },
+   "hora de dormir": {
+    "pos": null,
+    "top3": [
+     [
+      "Calculadora de sueño",
+      18
+     ],
+     [
+      "Hippo: Cuentos para dormir",
+      4
+     ],
+     [
+      "Suena la hora de dormir",
+      41
+     ]
+    ]
+   },
+   "hábitos de sueño": {
+    "pos": 4,
+    "top3": [
+     [
+      "StressWatch: Rastreo de Estr",
+      363
+     ],
+     [
+      "Monitor de Estrés para Watch",
+      8
+     ],
+     [
+      "Habit: Hábitos, Metas y Rach",
+      1
+     ]
+    ]
+   },
+   "rutina de sueño": {
+    "pos": 88,
+    "top3": [
+     [
+      "Blumy: Sueño y Rutina Bebé",
+      17
+     ],
+     [
+      "Opal: Tiempo de Pantalla Foc",
+      1869
+     ],
+     [
+      "Nana: Baby Sleep Coach",
+      20
+     ]
+    ]
+   },
+   "dormir temprano": {
+    "pos": 8,
+    "top3": [
+     [
+      "PushClock - Despertador Fuer",
+      52
+     ],
+     [
+      "Alarma y Misiones - Wakey",
+      0
+     ],
+     [
+      "IronWake: Despertador Fitnes",
+      2
+     ]
+    ]
+   },
+   "app para dormir": {
+    "pos": null,
+    "top3": [
+     [
+      "Meditopia: Meditación & Dorm",
+      17722
+     ],
+     [
+      "Sonidos para dormir - dormir",
+      32
+     ],
+     [
+      "ShutEye: Seguimiento del Sue",
+      2974
+     ]
+    ]
+   }
+  },
+  "br": {
+   "monitor de sono": {
+    "pos": null,
+    "top3": [
+     [
+      "Sleep Tracker - Dormir Melho",
+      1849
+     ],
+     [
+      "Sleep Cycle - Ciclo do sono",
+      5995
+     ],
+     [
+      "ShutEye: Rastreador de sono",
+      28909
+     ]
+    ]
+   },
+   "hora de dormir": {
+    "pos": 67,
+    "top3": [
+     [
+      "Calculadora de sono",
+      137
+     ],
+     [
+      "Histórias de horas dormir jo",
+      10
+     ],
+     [
+      "Despertador: acordar de manh",
+      21
+     ]
+    ]
+   },
+   "hábitos de sono": {
+    "pos": 10,
+    "top3": [
+     [
+      "Calm - Meditação e Sono",
+      91011
+     ],
+     [
+      "Alarmy: Alarme Forte e Relog",
+      20824
+     ],
+     [
+      "BetterMe: Mental Health",
+      2037
+     ]
+    ]
+   },
+   "rotina de sono": {
+    "pos": null,
+    "top3": [
+     [
+      "Napper: Horário do sono",
+      15500
+     ],
+     [
+      "Meu Bebê゜Diário da Amamentaç",
+      28598
+     ],
+     [
+      "Luli: Sono do Bebê & Rotina",
+      67
+     ]
+    ]
+   },
+   "dormir cedo": {
+    "pos": 20,
+    "top3": [
+     [
+      "Wayk: Despertador com Missão",
+      676
+     ],
+     [
+      "Arun Alarme Alto: Acorde Ced",
+      0
+     ],
+     [
+      "PushClock: Despertador Missõ",
+      106
+     ]
+    ]
+   },
+   "app para dormir": {
+    "pos": null,
+    "top3": [
+     [
+      "Meditopia: Meditação, Dormir",
+      187958
+     ],
+     [
+      "Sons para dormir - relaxe",
+      251
+     ],
+     [
+      "White Noise - Sons Para Dorm",
+      3090
+     ]
+    ]
+   }
+  },
+  "fr": {
+   "suivi du sommeil": {
+    "pos": null,
+    "top3": [
+     [
+      "Tracker de Sommeil & Réveil",
+      4096
+     ],
+     [
+      "Sleep Cycle - Suivi de Somme",
+      5904
+     ],
+     [
+      "ShutEye: Tracker de sommeil",
+      38062
+     ]
+    ]
+   },
+   "heure du coucher": {
+    "pos": 79,
+    "top3": [
+     [
+      "Heure du coucher classique S",
+      0
+     ],
+     [
+      "Dedo - Du jeu jusqu'à l'heur",
+      0
+     ],
+     [
+      "Horloge Mondiale: Heure Loca",
+      932
+     ]
+    ]
+   },
+   "habitudes de sommeil": {
+    "pos": 101,
+    "top3": [
+     [
+      "Alarmy – Réveil et sommeil",
+      8316
+     ],
+     [
+      "StressWatch : Moniteur VFC I",
+      521
+     ],
+     [
+      "Grow - Habitudes de Croissan",
+      1
+     ]
+    ]
+   },
+   "routine du soir": {
+    "pos": null,
+    "top3": [
+     [
+      "Histoires du soir: livre béb",
+      0
+     ],
+     [
+      "Mon histoire du soir IA",
+      0
+     ],
+     [
+      "Habitudes, Suivi de résoluti",
+      147
+     ]
+    ]
+   },
+   "app sommeil": {
+    "pos": null,
+    "top3": [
+     [
+      "Sleep Cycle - Suivi de Somme",
+      5904
+     ],
+     [
+      "ShutEye: Tracker de sommeil",
+      38062
+     ],
+     [
+      "Tracker de Sommeil & Réveil",
+      4096
+     ]
+    ]
+   }
+  },
+  "it": {
+   "monitoraggio sonno": {
+    "pos": null,
+    "top3": [
+     [
+      "Sleep Cycle - Sleep Tracker",
+      1918
+     ],
+     [
+      "Sleep Tracker: Sonno & Svegl",
+      682
+     ],
+     [
+      "SnoreLab : Monitora il russa",
+      2417
+     ]
+    ]
+   },
+   "abitudini del sonno": {
+    "pos": 24,
+    "top3": [
+     [
+      "Gentler Streak Attività Fisi",
+      773
+     ],
+     [
+      "Super Alarm: Allarme e Svegl",
+      11
+     ],
+     [
+      "1% Alarm: Scansiona e alzati",
+      20
+     ]
+    ]
+   },
+   "routine del sonno": {
+    "pos": 62,
+    "top3": [
+     [
+      "Napverse: Sonno neonato",
+      1
+     ],
+     [
+      "Alarmy - Sveglia e sonno",
+      4374
+     ],
+     [
+      "Petit BamBou: Meditazione",
+      5153
+     ]
+    ]
+   },
+   "dormire presto": {
+    "pos": 7,
+    "top3": [
+     [
+      "Momental: Suoni per Dormire",
+      1
+     ],
+     [
+      "Sveglia con Missione－SnoozeО",
+      14
+     ],
+     [
+      "Nyte: Sveglia e monitor sonn",
+      0
+     ]
+    ]
+   },
+   "app sonno": {
+    "pos": null,
+    "top3": [
+     [
+      "Sleep Cycle - Sleep Tracker",
+      1918
+     ],
+     [
+      "Sleep Tracker: Sonno & Svegl",
+      682
+     ],
+     [
+      "Pillow: Tracker del sonno",
+      1855
+     ]
+    ]
+   }
+  },
+  "dz": {
+   "suivi du sommeil": {
+    "pos": 59,
+    "top3": [
+     [
+      "Sleep Tracker & Sound by Rem",
+      52
+     ],
+     [
+      "Noxogy Sleep Tracker",
+      10
+     ],
+     [
+      "Sleep Tracker – Sounds & Ala",
+      17
+     ]
+    ]
+   },
+   "heure du coucher": {
+    "pos": 8,
+    "top3": [
+     [
+      "Classic Bedtime Stories 3",
+      0
+     ],
+     [
+      "Sunrise Sunset Time SolarWat",
+      6
+     ],
+     [
+      "World Clock - Local Time",
+      1
+     ]
+    ]
+   },
+   "habitudes de sommeil": {
+    "pos": 2,
+    "top3": [
+     [
+      "Alarmy - Loud alarm clock",
+      914
+     ],
+     [
+      "SleepLock: Bedtime Enforcer",
+      0
+     ],
+     [
+      "Relaxing Sounds - Sleep Bett",
+      1
+     ]
+    ]
+   },
+   "routine du soir": {
+    "pos": null,
+    "top3": [
+     [
+      "Ember: Streak & Habit Tracke",
+      0
+     ],
+     [
+      "Sleep Routine & Rituals: Doz",
+      0
+     ],
+     [
+      "Habitudes, daily habit track",
+      0
+     ]
+    ]
+   },
+   "app sommeil": {
+    "pos": 91,
+    "top3": [
+     [
+      "Sleep Cycle - Tracker & Soun",
+      37
+     ],
+     [
+      "ShutEye: Sleep Tracker, Soun",
+      745
+     ],
+     [
+      "Calm: Sleep & Meditation",
+      1395
+     ]
+    ]
+   }
+  }
+ },
+ "store_presence": {
+  "live_version": "1.2",
+  "live_build": 13,
+  "released": "2026-08-23",
+  "days_since_release": 8,
+  "pending": "nothing in review; product localizations approved",
+  "agreements": "PLA accepted Aug 20 (valid)"
+ },
+ "notes": [
+  "scratchpad tooling from Aug 22 was wiped with the session dir — pulls recreated as durable repo scripts in store/analytics/ (pull_week.py, aso_pull.py, asc.py); left uncommitted per task instruction",
+  "template path <REPO>/AppStore/analytics does not exist; store/analytics/ established as the analytics home"
+ ]
+}
