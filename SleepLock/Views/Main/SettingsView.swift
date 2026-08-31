@@ -345,7 +345,8 @@ struct SettingsView: View {
             userName: profile.displayName
         )
         NotificationService.shared.scheduleStreakSaverReminder(
-            userName: profile.displayName
+            userName: profile.displayName,
+            bedtime: profile.targetBedtime
         )
     }
 

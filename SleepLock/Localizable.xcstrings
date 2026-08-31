@@ -261,6 +261,64 @@
         }
       }
     },
+    "%lld nights to your next badge": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noch %lld Nächte bis zum nächsten Abzeichen"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld noches para tu próxima insignia"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plus que %lld nuits avant ton prochain badge"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld notti al prossimo badge"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "次のバッジまであと%lld泊"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "다음 배지까지 %lld일"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nog %lld nachten tot je volgende badge"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld noites para sua próxima conquista"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld nätter till nästa märke"
+          }
+        }
+      }
+    },
     "%lld/%lld XP": {
       "localizations": {
         "de": {
@@ -611,6 +669,64 @@
           "stringUnit": {
             "state": "translated",
             "value": "1 frys"
+          }
+        }
+      }
+    },
+    "1 night to your next badge": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noch 1 Nacht bis zum nächsten Abzeichen"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 noche para tu próxima insignia"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plus qu'1 nuit avant ton prochain badge"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 notte al prossimo badge"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "次のバッジまであと1泊"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "다음 배지까지 1일"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nog 1 nacht tot je volgende badge"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 noite para sua próxima conquista"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 natt till nästa märke"
           }
         }
       }
@@ -2293,6 +2409,64 @@
           "stringUnit": {
             "state": "translated",
             "value": "Läggdags om %lld min"
+          }
+        }
+      }
+    },
+    "Bedtime is coming up, %@. Log your sleep and start winding down to protect your streak.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@, gleich ist Schlafenszeit. Protokolliere deinen Schlaf und beginne mit dem Runterfahren, um deine Serie zu schützen."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@, ya casi es hora de dormir. Registra tu sueño y empieza a relajarte para proteger tu racha."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@, l'heure du coucher approche. Note ton sommeil et commence à te détendre pour protéger ta série."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@, l'ora di dormire si avvicina. Registra il sonno e inizia a rilassarti per proteggere la tua serie."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@さん、もうすぐ就寝時間です。睡眠を記録して、ウィンドダウンを始めて連続記録を守りましょう。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@님, 곧 취침 시간이에요. 수면을 기록하고 와인드다운을 시작해 연속 기록을 지키세요."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@, het is bijna bedtijd. Log je slaap en begin met afbouwen om je reeks te beschermen."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@, a hora de dormir está chegando. Registre seu sono e comece a desacelerar para proteger sua sequência."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@, snart läggdags. Logga din sömn och börja varva ner för att skydda din svit."
           }
         }
       }

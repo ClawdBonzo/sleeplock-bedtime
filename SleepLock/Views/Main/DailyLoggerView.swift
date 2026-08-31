@@ -283,6 +283,17 @@ struct DailyLoggerView: View {
         } else if let profile {
             actualBedtime = profile.targetBedtime
             actualWakeTime = profile.targetWakeTime
+            // One-tap logging: if Health is already connected, prefill last
+            // night silently — most nights become a confirmation, not entry.
+            if HealthKitService.shared.hasRequestedAuthorization {
+                Task { @MainActor in
+                    if let sample = await HealthKitService.shared.fetchLastNightSleep(), existingEntry == nil {
+                        actualBedtime = sample.bedtime
+                        actualWakeTime = sample.wakeTime
+                        healthImportMessage = String(localized: "Imported from Apple Health ✓")
+                    }
+                }
+            }
         }
     }
 
@@ -356,6 +367,12 @@ struct DailyLoggerView: View {
             NotificationService.shared.scheduleReengagementReminder(
                 userName: profile?.displayName ?? "",
                 currentStreak: streak
+            )
+            // Tonight is logged — push the streak saver to tomorrow.
+            NotificationService.shared.scheduleStreakSaverReminder(
+                userName: profile?.displayName ?? "",
+                bedtime: profile?.targetBedtime,
+                todayLogged: true
             )
         }
 

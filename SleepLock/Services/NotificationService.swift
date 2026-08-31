@@ -77,26 +77,36 @@ final class NotificationService: Sendable {
         center.add(pastRequest)
     }
 
-    /// A nightly "streak saver" nudge that fires shortly before midnight to
-    /// catch users who haven't logged yet — the single highest-impact retention
-    /// reminder. Repeats daily; copy is streak-framed to create loss aversion.
-    func scheduleStreakSaverReminder(userName: String, hour: Int = 22, minute: Int = 45) {
+    /// A nightly "streak saver" nudge, scheduled ~60 minutes before the user's
+    /// own bedtime — the highest-impact retention reminder. One-shot and
+    /// re-armed on every launch/log so it can skip days that are already
+    /// logged (a repeating trigger can't).
+    func scheduleStreakSaverReminder(userName: String, bedtime: Date? = nil, todayLogged: Bool = false) {
         let center = UNUserNotificationCenter.current()
         center.removePendingNotificationRequests(withIdentifiers: ["streak-saver"])
 
-        var components = DateComponents()
-        components.hour = hour
-        components.minute = minute
+        let calendar = Calendar.current
+        let comps = calendar.dateComponents([.hour, .minute], from: bedtime ?? Date.bedtimeFrom(hour: 22, minute: 30))
+        // Fire 60 min before bedtime so there's still time to wind down and log.
+        var fireMinutes = (comps.hour ?? 22) * 60 + (comps.minute ?? 30) - 60
+        if fireMinutes < 0 { fireMinutes += 24 * 60 }
+
+        var next = calendar.date(bySettingHour: fireMinutes / 60, minute: fireMinutes % 60, second: 0, of: Date()) ?? Date()
+        if next <= Date() || todayLogged {
+            next = calendar.date(byAdding: .day, value: 1, to: next) ?? next
+        }
 
         let content = UNMutableNotificationContent()
         content.title = String(localized: "Keep your streak alive 🔥")
-        content.body = String(localized: "Almost midnight, \(userName)! Log tonight's sleep before the day ends to protect your streak.")
+        content.body = String(localized: "Bedtime is coming up, \(userName). Log your sleep and start winding down to protect your streak.")
         content.sound = .default
         content.categoryIdentifier = "STREAK_SAVER"
 
-        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: true)
-        let request = UNNotificationRequest(identifier: "streak-saver", content: content, trigger: trigger)
-        center.add(request)
+        let trigger = UNCalendarNotificationTrigger(
+            dateMatching: calendar.dateComponents([.year, .month, .day, .hour, .minute], from: next),
+            repeats: false
+        )
+        center.add(UNNotificationRequest(identifier: "streak-saver", content: content, trigger: trigger))
     }
 
     /// One-shot re-engagement reminder for lapsed users. Re-armed every time the

@@ -59,5 +59,12 @@ struct RootView: View {
             userName: profile.displayName,
             currentStreak: streakService.currentStreak
         )
+        // Streak saver is one-shot: re-arm relative to the user's bedtime and
+        // skip today when it's already logged.
+        NotificationService.shared.scheduleStreakSaverReminder(
+            userName: profile.displayName,
+            bedtime: profile.targetBedtime,
+            todayLogged: streakService.todayLogged
+        )
     }
 }

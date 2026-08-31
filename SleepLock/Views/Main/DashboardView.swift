@@ -215,6 +215,17 @@ struct DashboardView: View {
                             .foregroundStyle(SLTheme.Colors.textSecondary)
                     }
 
+                    if let anticipationLabel {
+                        HStack(spacing: 3) {
+                            Image(systemName: "rosette")
+                                .font(.system(size: 11, weight: .semibold))
+                            Text(anticipationLabel)
+                                .font(SLTheme.Typography.caption)
+                        }
+                        .foregroundStyle(SLTheme.Colors.streakGold.opacity(0.85))
+                        .accessibilityLabel(anticipationLabel)
+                    }
+
                     if streakService.streakFreezeTokens > 0 {
                         HStack(spacing: 3) {
                             Image(systemName: "snowflake")
@@ -248,6 +259,17 @@ struct DashboardView: View {
             }
             .frame(maxWidth: .infinity)
         }
+    }
+
+    /// "N nights to your next badge" — turns the streak number into a goal.
+    private var nightsToNextBadge: Int? {
+        let milestones = [7, 14, 30, 90, 180, 365]
+        guard let next = milestones.first(where: { $0 > streakService.currentStreak }) else { return nil }
+        return next - streakService.currentStreak
+    }
+    private var anticipationLabel: LocalizedStringKey? {
+        guard let n = nightsToNextBadge, streakService.currentStreak > 0 else { return nil }
+        return n == 1 ? "1 night to your next badge" : "\(n) nights to your next badge"
     }
 
     // MARK: - Bedtime Card

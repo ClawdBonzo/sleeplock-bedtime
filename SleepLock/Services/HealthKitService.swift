@@ -49,9 +49,10 @@ final class HealthKitService {
         #endif
     }
 
-    /// Fetches the most recent night's sleep — the earliest "asleep" sample start
-    /// and the latest "asleep" sample end within the last 24 hours. Returns nil if
-    /// no usable sleep data exists.
+    /// Fetches the most recent night's sleep by clustering "asleep" samples:
+    /// samples separated by gaps over 3 hours are separate sessions, so an
+    /// afternoon nap no longer merges with last night into a 17-hour "night".
+    /// The chosen session is the longest one in the trailing 24 hours.
     func fetchLastNightSleep() async -> SleepSample? {
         #if canImport(HealthKit)
         guard isAvailable, let sleepType else { return nil }
@@ -74,12 +75,41 @@ final class HealthKitService {
         }
 
         let asleep = samples.filter { Self.isAsleep($0.value) }
-        guard let first = asleep.first, let last = asleep.max(by: { $0.endDate < $1.endDate }) else {
-            return nil
+        guard !asleep.isEmpty else { return nil }
+
+        // Cluster into sessions on >3h gaps, keep the longest session.
+        let maxGap: TimeInterval = 3 * 60 * 60
+        var sessions: [(start: Date, end: Date)] = []
+        var current = (start: asleep[0].startDate, end: asleep[0].endDate)
+        for sample in asleep.dropFirst() {
+            if sample.startDate.timeIntervalSince(current.end) > maxGap {
+                sessions.append(current)
+                current = (sample.startDate, sample.endDate)
+            } else {
+                current.end = max(current.end, sample.endDate)
+            }
         }
-        return SleepSample(bedtime: first.startDate, wakeTime: last.endDate)
+        sessions.append(current)
+
+        guard let night = sessions.max(by: {
+            $0.end.timeIntervalSince($0.start) < $1.end.timeIntervalSince($1.start)
+        }) else { return nil }
+        // A "night" under 2h is probably just a nap — don't prefill from it.
+        guard night.end.timeIntervalSince(night.start) >= 2 * 60 * 60 else { return nil }
+        return SleepSample(bedtime: night.start, wakeTime: night.end)
         #else
         return nil
+        #endif
+    }
+
+    /// True when the user has already responded to the HealthKit prompt for
+    /// sleep data — used to prefill silently without triggering a dialog.
+    var hasRequestedAuthorization: Bool {
+        #if canImport(HealthKit)
+        guard isAvailable, let sleepType else { return false }
+        return store.authorizationStatus(for: sleepType) != .notDetermined
+        #else
+        return false
         #endif
     }
 
