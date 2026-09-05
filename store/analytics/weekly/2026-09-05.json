@@ -1,0 +1,104 @@
+{
+ "snapshot_date": "2026-09-05",
+ "coverage_through": "2026-09-04",
+ "prev_snapshot": "2026-08-31 (coverage_through 2026-08-30); deltas below are the 5 new days Aug 31 - Sep 4",
+ "acquisition": {
+  "new_days": {
+   "first_time_downloads": 2,
+   "by_country": {
+    "US": 1,
+    "IL": 1
+   },
+   "updates": 4,
+   "redownloads": 0
+  },
+  "lifetime": {
+   "first_time_downloads": 32,
+   "countries": 17,
+   "top": {
+    "US": 11,
+    "NL": 3,
+    "VN": 3,
+    "JP": 2
+   }
+  },
+  "asc_lifetime_counters_asof_0904": {
+   "impressions": 1120,
+   "page_views": 115,
+   "first_time_downloads": 31,
+   "updates": 7,
+   "delta_vs_0830": {
+    "impressions": 153,
+    "page_views": 9,
+    "downloads": 3
+   }
+  },
+  "source_split_week_0824": {
+   "impressions": {
+    "search": 303,
+    "browse": 21
+   },
+   "page_views": {
+    "search": 16,
+    "browse": 11,
+    "app_referrer": 3
+   },
+   "tap_through": {
+    "search": "16/303",
+    "browse": "11/21"
+   },
+   "note": "first Discovery&Engagement instance (weekly, 1-week lag); search terms privacy-thresholded (8 hidden US buckets)"
+  }
+ },
+ "monetization": {
+  "trials": "0 lifetime",
+  "revenue": 0,
+  "rc_28d": {
+   "new_customers": 24,
+   "active_customers": 26
+  },
+  "reconciliation": "RC/Appfigures/ASC all $0 — agree"
+ },
+ "retention": "App Sessions / Installation&Deletion / Crashes reports: no instances yet (real absence; Discovery arrived this week, others expected as volume permits)",
+ "quality": {
+  "ratings": {
+   "us": {
+    "count": 3,
+    "avg": 5
+   }
+  },
+  "ratings_delta": "unchanged since 0831",
+  "new_written_reviews": 0,
+  "crash_data": "none (opt-in, low volume)"
+ },
+ "ranks_file": "aso-2026-09-05.json",
+ "rank_headlines": {
+  "up": {
+   "it abitudini del sonno": "24->2",
+   "it routine del sonno": "62->15",
+   "fr habitudes de sommeil": "101->49",
+   "ar habitos": "4->3",
+   "br habitos de sono": "10->8"
+  },
+  "down": {
+   "us bedtime reminder": "15->25",
+   "us sleep streak": "63->108",
+   "vn bedtime reminder": "6->15",
+   "kr": "29->50",
+   "jp": "61->77"
+  }
+ },
+ "store_presence": {
+  "live_version": "1.3",
+  "live_build": 14,
+  "released": "~2026-09-01",
+  "days_since_release": 4,
+  "pending": "nothing in review",
+  "product_localizations": "all APPROVED (verified 0831)"
+ },
+ "notes": [
+  "window overlap: pull_week.py reports 7d ending yesterday; snapshot deltas computed on new days only",
+  "search-term detail still hidden by Apple privacy thresholds — will surface as impressions/term grow",
+  "Apple Search Ads still blocked on account creation (user action)"
+ ]
+}
